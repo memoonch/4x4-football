@@ -1,0 +1,487 @@
+<DOMDocument xmlns="http://ns.adobe.com/xfl/2008/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" currentTimeline="1" xflVersion="2.2" creatorInfo="JPEXS Free Flash Decompiler" platform="Windows" versionInfo="Saved by JPEXS Free Flash Decompiler v.26.3.0" majorVersion="26.3.0" buildNumber="" nextSceneIdentifier="2" playOptionsPlayLoop="false" playOptionsPlayPages="false" playOptionsPlayFrameActions="false" autoSaveHasPrompted="true" backgroundColor="#000000" frameRate="25" width="670" height="450">
+     <fonts>
+          <DOMFontItem name="Font 4" itemID="6ada0400-00000001" font="Ferro Rosso" size="0" id="1" embedRanges="1|2|3|4|5" embeddedCharacters="ˆ˜‘’‚“”„…‰™"/>
+          <DOMFontItem name="Font 57" itemID="6ada0400-00000002" font="Impact" size="0" id="2" embedRanges="1|2|3|4|5" embeddedCharacters="ˆ˜–—‘’‚“”„†‡•…‰‹›€™"/>
+          <DOMFontItem name="Font 254" itemID="6ada0400-00000003" font="Gunplay" size="0" id="3" embedRanges="1|2|3" embeddedCharacters="!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}ˆ˜–—‘’‚“”„•…‹›€™"/>
+          <DOMFontItem name="Font 344" itemID="6ada0400-00000004" font="Standard0753" size="0" id="4" embedRanges="1|2|3|4|5" embeddedCharacters="ˆ˜–—‘’‚“”„†‡•…‰‹›™"/>
+          <DOMFontItem name="Font 429" itemID="6ada0400-00000005" font="Crillee" size="0" id="5" embedRanges="" embeddedCharacters=" ABDEGHILMNOPRSTUVWY"/>
+     </fonts>
+     <media>
+          <DOMBitmapItem name="Bitmap 1.jpg" itemID="6ada0400-00000006" sourceLastImported="1792664630" externalFileSize="31725" isJPEG="true" quality="50" href="Bitmap 1.jpg" bitmapDataHRef="M 1 1792664630.dat" frameRight="13400" frameBottom="9000"/>
+          <DOMSoundItem name="sound14.mp3" itemID="6ada0400-00000007" sourceLastImported="1792664630" externalFileSize="8934" href="sound14.mp3" soundDataHRef="M 2 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="9" sampleCount="32832" linkageClassName="fog.as3.FogDevPreloader_VoiceOver" linkageExportForAS="true"/>
+          <DOMBitmapItem name="Bitmap 162.png" itemID="6ada0400-00000008" sourceLastImported="1792664630" externalFileSize="23073" originalCompressionType="lossless" quality="50" href="Bitmap 162.png" bitmapDataHRef="M 3 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 168.png" itemID="6ada0400-00000009" sourceLastImported="1792664630" externalFileSize="22927" originalCompressionType="lossless" quality="50" href="Bitmap 168.png" bitmapDataHRef="M 4 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 170.png" itemID="6ada0400-0000000a" sourceLastImported="1792664630" externalFileSize="21207" originalCompressionType="lossless" quality="50" href="Bitmap 170.png" bitmapDataHRef="M 5 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 172.png" itemID="6ada0400-0000000b" sourceLastImported="1792664630" externalFileSize="19666" originalCompressionType="lossless" quality="50" href="Bitmap 172.png" bitmapDataHRef="M 6 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 174.png" itemID="6ada0400-0000000c" sourceLastImported="1792664630" externalFileSize="14753" originalCompressionType="lossless" quality="50" href="Bitmap 174.png" bitmapDataHRef="M 7 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 176.png" itemID="6ada0400-0000000d" sourceLastImported="1792664630" externalFileSize="8645" originalCompressionType="lossless" quality="50" href="Bitmap 176.png" bitmapDataHRef="M 8 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 178.png" itemID="6ada0400-0000000e" sourceLastImported="1792664630" externalFileSize="19866" originalCompressionType="lossless" quality="50" href="Bitmap 178.png" bitmapDataHRef="M 9 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 180.png" itemID="6ada0400-0000000f" sourceLastImported="1792664630" externalFileSize="25063" originalCompressionType="lossless" quality="50" href="Bitmap 180.png" bitmapDataHRef="M 10 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 182.png" itemID="6ada0400-00000010" sourceLastImported="1792664630" externalFileSize="29342" originalCompressionType="lossless" quality="50" href="Bitmap 182.png" bitmapDataHRef="M 11 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 184.png" itemID="6ada0400-00000011" sourceLastImported="1792664630" externalFileSize="29278" originalCompressionType="lossless" quality="50" href="Bitmap 184.png" bitmapDataHRef="M 12 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 186.png" itemID="6ada0400-00000012" sourceLastImported="1792664630" externalFileSize="29163" originalCompressionType="lossless" quality="50" href="Bitmap 186.png" bitmapDataHRef="M 13 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 188.png" itemID="6ada0400-00000013" sourceLastImported="1792664630" externalFileSize="28890" originalCompressionType="lossless" quality="50" href="Bitmap 188.png" bitmapDataHRef="M 14 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 190.png" itemID="6ada0400-00000014" sourceLastImported="1792664630" externalFileSize="26877" originalCompressionType="lossless" quality="50" href="Bitmap 190.png" bitmapDataHRef="M 15 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 192.png" itemID="6ada0400-00000015" sourceLastImported="1792664630" externalFileSize="24850" originalCompressionType="lossless" quality="50" href="Bitmap 192.png" bitmapDataHRef="M 16 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 194.png" itemID="6ada0400-00000016" sourceLastImported="1792664630" externalFileSize="17467" originalCompressionType="lossless" quality="50" href="Bitmap 194.png" bitmapDataHRef="M 17 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 196.png" itemID="6ada0400-00000017" sourceLastImported="1792664630" externalFileSize="7860" originalCompressionType="lossless" quality="50" href="Bitmap 196.png" bitmapDataHRef="M 18 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 198.png" itemID="6ada0400-00000018" sourceLastImported="1792664630" externalFileSize="15588" originalCompressionType="lossless" quality="50" href="Bitmap 198.png" bitmapDataHRef="M 19 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 200.png" itemID="6ada0400-00000019" sourceLastImported="1792664630" externalFileSize="20075" originalCompressionType="lossless" quality="50" href="Bitmap 200.png" bitmapDataHRef="M 20 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 202.png" itemID="6ada0400-0000001a" sourceLastImported="1792664630" externalFileSize="23627" originalCompressionType="lossless" quality="50" href="Bitmap 202.png" bitmapDataHRef="M 21 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 204.png" itemID="6ada0400-0000001b" sourceLastImported="1792664630" externalFileSize="23667" originalCompressionType="lossless" quality="50" href="Bitmap 204.png" bitmapDataHRef="M 22 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMBitmapItem name="Bitmap 206.png" itemID="6ada0400-0000001c" sourceLastImported="1792664630" externalFileSize="22114" originalCompressionType="lossless" quality="50" href="Bitmap 206.png" bitmapDataHRef="M 23 1792664630.dat" frameRight="5000" frameBottom="3140"/>
+          <DOMSoundItem name="sound209.wav" itemID="6ada0400-0000001d" sourceLastImported="1792664630" externalFileSize="132614" href="sound209.wav" soundDataHRef="M 24 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="14" sampleCount="64602" linkageClassName="car_down" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound210.wav" itemID="6ada0400-0000001e" sourceLastImported="1792664630" externalFileSize="111878" href="sound210.wav" soundDataHRef="M 25 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="14" sampleCount="53546" linkageClassName="sd_startgame" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound211.wav" itemID="6ada0400-0000001f" sourceLastImported="1792664630" externalFileSize="72710" href="sound211.wav" soundDataHRef="M 26 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="14" sampleCount="34073" linkageClassName="sd_close" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound212.wav" itemID="6ada0400-00000020" sourceLastImported="1792664630" externalFileSize="56582" href="sound212.wav" soundDataHRef="M 27 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="14" sampleCount="26460" linkageClassName="sd_open" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound213.mp3" itemID="6ada0400-00000021" sourceLastImported="1792664630" externalFileSize="12510" href="sound213.mp3" soundDataHRef="M 28 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="16" sampleCount="34560" linkageClassName="sd_skate" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound214.wav" itemID="6ada0400-00000022" sourceLastImported="1792664630" externalFileSize="233990" href="sound214.wav" soundDataHRef="M 29 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="14" sampleCount="115331" linkageClassName="gamestart" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound215.wav" itemID="6ada0400-00000023" sourceLastImported="1792664630" externalFileSize="305414" href="sound215.wav" soundDataHRef="M 30 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="14" sampleCount="151190" linkageClassName="sd_release" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound216.mp3" itemID="6ada0400-00000024" sourceLastImported="1792664630" externalFileSize="8757" href="sound216.mp3" soundDataHRef="M 31 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="16" sampleCount="24192" linkageClassName="crash" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound217.wav" itemID="6ada0400-00000025" sourceLastImported="1792664630" externalFileSize="222570" href="sound217.wav" soundDataHRef="M 32 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="110235" linkageClassName="revver" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound218.wav" itemID="6ada0400-00000026" sourceLastImported="1792664630" externalFileSize="75114" href="sound218.wav" soundDataHRef="M 33 1792664630.dat" format="44kHz 16bit Mono" exportFormat="5" exportBits="13" sampleCount="35905" linkageClassName="ref_whistle" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound219.wav" itemID="6ada0400-00000027" sourceLastImported="1792664630" externalFileSize="4786" href="sound219.wav" soundDataHRef="M 34 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="2183" linkageClassName="sd_hit" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound220.wav" itemID="6ada0400-00000028" sourceLastImported="1792664630" externalFileSize="108466" href="sound220.wav" soundDataHRef="M 35 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="53358" linkageClassName="carengine" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound221.wav" itemID="6ada0400-00000029" sourceLastImported="1792664630" externalFileSize="3634" href="sound221.wav" soundDataHRef="M 36 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="816" linkageClassName="kick" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound222.wav" itemID="6ada0400-0000002a" sourceLastImported="1792664630" externalFileSize="254770" href="sound222.wav" soundDataHRef="M 37 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="126221" linkageClassName="jeering" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound223.mp3" itemID="6ada0400-0000002b" sourceLastImported="1792664630" externalFileSize="79647" href="sound223.mp3" soundDataHRef="M 38 1792664630.dat" format="44kHz 16bit Stereo" exportFormat="4" exportBits="16" sampleCount="220032" linkageClassName="goal3a_short" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound224.mp3" itemID="6ada0400-0000002c" sourceLastImported="1792664630" externalFileSize="163881" href="sound224.mp3" soundDataHRef="M 39 1792664630.dat" format="44kHz 16bit Stereo" exportFormat="4" exportBits="16" sampleCount="452736" linkageClassName="goal3a" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound225.wav" itemID="6ada0400-0000002d" sourceLastImported="1792664630" externalFileSize="34738" href="sound225.wav" soundDataHRef="M 40 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="16416" linkageClassName="EngineLoop" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound226.mp3" itemID="6ada0400-0000002e" sourceLastImported="1792664630" externalFileSize="88821" href="sound226.mp3" soundDataHRef="M 41 1792664630.dat" format="44kHz 16bit Stereo" exportFormat="4" exportBits="16" sampleCount="245376" linkageClassName="crowd_sad_miss" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound227.wav" itemID="6ada0400-0000002f" sourceLastImported="1792664630" externalFileSize="146482" href="sound227.wav" soundDataHRef="M 42 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="72032" linkageClassName="cheering" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound228.wav" itemID="6ada0400-00000030" sourceLastImported="1792664630" externalFileSize="91186" href="sound228.wav" soundDataHRef="M 43 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="44771" linkageClassName="booboo" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound229.wav" itemID="6ada0400-00000031" sourceLastImported="1792664630" externalFileSize="20914" href="sound229.wav" soundDataHRef="M 44 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="9374" linkageClassName="ballBounce" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMSoundItem name="sound230.wav" itemID="6ada0400-00000032" sourceLastImported="1792664630" externalFileSize="9394" href="sound230.wav" soundDataHRef="M 45 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="3507" linkageClassName="ball_hits_post" linkageExportInFirstFrame="false" linkageExportForAS="true"/>
+          <DOMBitmapItem name="Bitmap 231.jpg" itemID="6ada0400-00000033" sourceLastImported="1792664630" externalFileSize="2709" isJPEG="true" linkageClassName="skyboxTOP" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 231.jpg" bitmapDataHRef="M 46 1792664630.dat" frameRight="5120" frameBottom="5120"/>
+          <DOMBitmapItem name="Bitmap 232.jpg" itemID="6ada0400-00000034" sourceLastImported="1792664630" externalFileSize="13433" isJPEG="true" linkageClassName="skyboxRIGHT" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 232.jpg" bitmapDataHRef="M 47 1792664630.dat" frameRight="5120" frameBottom="5120"/>
+          <DOMBitmapItem name="Bitmap 233.jpg" itemID="6ada0400-00000035" sourceLastImported="1792664630" externalFileSize="12414" isJPEG="true" linkageClassName="skyboxLEFT" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 233.jpg" bitmapDataHRef="M 48 1792664630.dat" frameRight="5120" frameBottom="5120"/>
+          <DOMBitmapItem name="Bitmap 234.jpg" itemID="6ada0400-00000036" sourceLastImported="1792664630" externalFileSize="13276" isJPEG="true" linkageClassName="skyboxFRONT" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 234.jpg" bitmapDataHRef="M 49 1792664630.dat" frameRight="5120" frameBottom="5120"/>
+          <DOMBitmapItem name="Bitmap 235.jpg" itemID="6ada0400-00000037" sourceLastImported="1792664630" externalFileSize="20032" isJPEG="true" linkageClassName="skyboxBOTTOM" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 235.jpg" bitmapDataHRef="M 50 1792664630.dat" frameRight="5120" frameBottom="5120"/>
+          <DOMBitmapItem name="Bitmap 236.jpg" itemID="6ada0400-00000038" sourceLastImported="1792664630" externalFileSize="13624" isJPEG="true" linkageClassName="skyboxBACK" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 236.jpg" bitmapDataHRef="M 51 1792664630.dat" frameRight="5120" frameBottom="5120"/>
+          <DOMBitmapItem name="Bitmap 237.png" itemID="6ada0400-00000039" sourceLastImported="1792664630" externalFileSize="95758" originalCompressionType="lossless" linkageClassName="senka4Ball" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 237.png" bitmapDataHRef="M 52 1792664630.dat" frameRight="10240" frameBottom="10240"/>
+          <DOMBitmapItem name="Bitmap 238.png" itemID="6ada0400-0000003a" sourceLastImported="1792664630" externalFileSize="99168" originalCompressionType="lossless" linkageClassName="senka" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 238.png" bitmapDataHRef="M 53 1792664630.dat" frameRight="24640" frameBottom="10840"/>
+          <DOMBitmapItem name="Bitmap 239.png" itemID="6ada0400-0000003b" sourceLastImported="1792664630" externalFileSize="505072" originalCompressionType="lossless" linkageClassName="netTexture" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 239.png" bitmapDataHRef="M 54 1792664630.dat" frameRight="20480" frameBottom="10240"/>
+          <DOMBitmapItem name="Bitmap 240.png" itemID="6ada0400-0000003c" sourceLastImported="1792664630" externalFileSize="658601" originalCompressionType="lossless" linkageClassName="Car1TextureGrey" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 240.png" bitmapDataHRef="M 55 1792664630.dat" frameRight="20480" frameBottom="20480"/>
+          <DOMBitmapItem name="Bitmap 241.jpg" itemID="6ada0400-0000003d" sourceLastImported="1792664630" externalFileSize="334133" isJPEG="true" linkageClassName="Car1Texture" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 241.jpg" bitmapDataHRef="M 56 1792664630.dat" frameRight="20480" frameBottom="20480"/>
+          <DOMBitmapItem name="Bitmap 242.jpg" itemID="6ada0400-0000003e" sourceLastImported="1792664630" externalFileSize="44060" isJPEG="true" linkageClassName="fence1" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 242.jpg" bitmapDataHRef="M 57 1792664630.dat" frameRight="19520" frameBottom="9800"/>
+          <DOMBitmapItem name="Bitmap 243.jpg" itemID="6ada0400-0000003f" sourceLastImported="1792664630" externalFileSize="25194" isJPEG="true" linkageClassName="concrete" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 243.jpg" bitmapDataHRef="M 58 1792664630.dat" frameRight="5120" frameBottom="5120"/>
+          <DOMBitmapItem name="Bitmap 244.jpg" itemID="6ada0400-00000040" sourceLastImported="1792664630" externalFileSize="589692" isJPEG="true" linkageClassName="Blok1Texture" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 244.jpg" bitmapDataHRef="M 59 1792664630.dat" frameRight="41120" frameBottom="41120"/>
+          <DOMBitmapItem name="Bitmap 245.jpg" itemID="6ada0400-00000041" sourceLastImported="1792664630" externalFileSize="74159" isJPEG="true" linkageClassName="ballTexture" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 245.jpg" bitmapDataHRef="M 60 1792664630.dat" frameRight="20480" frameBottom="20480"/>
+          <DOMBitmapItem name="Bitmap 250.png" itemID="6ada0400-00000042" sourceLastImported="1792664630" externalFileSize="1310" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 250.png" bitmapDataHRef="M 61 1792664630.dat" frameRight="1620" frameBottom="1240"/>
+          <DOMBitmapItem name="Bitmap 256.png" itemID="6ada0400-00000043" sourceLastImported="1792664630" externalFileSize="6936" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 256.png" bitmapDataHRef="M 62 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 258.png" itemID="6ada0400-00000044" sourceLastImported="1792664630" externalFileSize="8742" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 258.png" bitmapDataHRef="M 63 1792664630.dat" frameRight="1320" frameBottom="940"/>
+          <DOMBitmapItem name="Bitmap 260.png" itemID="6ada0400-00000045" sourceLastImported="1792664630" externalFileSize="7749" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 260.png" bitmapDataHRef="M 64 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 262.png" itemID="6ada0400-00000046" sourceLastImported="1792664630" externalFileSize="8117" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 262.png" bitmapDataHRef="M 65 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 264.png" itemID="6ada0400-00000047" sourceLastImported="1792664630" externalFileSize="6585" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 264.png" bitmapDataHRef="M 66 1792664630.dat" frameRight="1320" frameBottom="940"/>
+          <DOMBitmapItem name="Bitmap 266.png" itemID="6ada0400-00000048" sourceLastImported="1792664630" externalFileSize="7486" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 266.png" bitmapDataHRef="M 67 1792664630.dat" frameRight="1320" frameBottom="940"/>
+          <DOMBitmapItem name="Bitmap 268.png" itemID="6ada0400-00000049" sourceLastImported="1792664630" externalFileSize="7994" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 268.png" bitmapDataHRef="M 68 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 270.png" itemID="6ada0400-0000004a" sourceLastImported="1792664630" externalFileSize="6571" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 270.png" bitmapDataHRef="M 69 1792664630.dat" frameRight="1320" frameBottom="940"/>
+          <DOMBitmapItem name="Bitmap 272.png" itemID="6ada0400-0000004b" sourceLastImported="1792664630" externalFileSize="6710" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 272.png" bitmapDataHRef="M 70 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 274.png" itemID="6ada0400-0000004c" sourceLastImported="1792664630" externalFileSize="7667" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 274.png" bitmapDataHRef="M 71 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 276.png" itemID="6ada0400-0000004d" sourceLastImported="1792664630" externalFileSize="7743" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 276.png" bitmapDataHRef="M 72 1792664630.dat" frameRight="1320" frameBottom="940"/>
+          <DOMBitmapItem name="Bitmap 278.png" itemID="6ada0400-0000004e" sourceLastImported="1792664630" externalFileSize="6880" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 278.png" bitmapDataHRef="M 73 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 280.png" itemID="6ada0400-0000004f" sourceLastImported="1792664630" externalFileSize="8355" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 280.png" bitmapDataHRef="M 74 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 282.png" itemID="6ada0400-00000050" sourceLastImported="1792664630" externalFileSize="8374" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 282.png" bitmapDataHRef="M 75 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMBitmapItem name="Bitmap 284.png" itemID="6ada0400-00000051" sourceLastImported="1792664630" externalFileSize="6610" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 284.png" bitmapDataHRef="M 76 1792664630.dat" frameRight="1320" frameBottom="940"/>
+          <DOMBitmapItem name="Bitmap 286.png" itemID="6ada0400-00000052" sourceLastImported="1792664630" externalFileSize="8747" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 286.png" bitmapDataHRef="M 77 1792664630.dat" frameRight="1340" frameBottom="960"/>
+          <DOMSoundItem name="sound289.wav" itemID="6ada0400-00000053" sourceLastImported="1792664630" externalFileSize="15154" href="sound289.wav" soundDataHRef="M 78 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="6745"/>
+          <DOMBitmapItem name="Bitmap 304.png" itemID="6ada0400-00000054" sourceLastImported="1792664630" externalFileSize="131535" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" linkageClassName="flag_template" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 304.png" bitmapDataHRef="M 79 1792664630.dat" frameRight="5120" frameBottom="10240"/>
+          <DOMBitmapItem name="Bitmap 306.png" itemID="6ada0400-00000055" sourceLastImported="1792664630" externalFileSize="55334" allowSmoothing="true" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 306.png" bitmapDataHRef="M 80 1792664630.dat" frameRight="20480" frameBottom="20480"/>
+          <DOMBitmapItem name="Bitmap 320.png" itemID="6ada0400-00000056" sourceLastImported="1792664630" externalFileSize="272375" originalCompressionType="lossless" linkageClassName="flag_red" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 320.png" bitmapDataHRef="M 81 1792664630.dat" frameRight="5120" frameBottom="10240"/>
+          <DOMBitmapItem name="Bitmap 321.png" itemID="6ada0400-00000057" sourceLastImported="1792664630" externalFileSize="258504" originalCompressionType="lossless" linkageClassName="flag_green" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 321.png" bitmapDataHRef="M 82 1792664630.dat" frameRight="5120" frameBottom="10240"/>
+          <DOMBitmapItem name="Bitmap 322.png" itemID="6ada0400-00000058" sourceLastImported="1792664630" externalFileSize="4156322" originalCompressionType="lossless" linkageClassName="crowd" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 322.png" bitmapDataHRef="M 83 1792664630.dat" frameRight="37620" frameBottom="17080"/>
+          <DOMBitmapItem name="Bitmap 323.png" itemID="6ada0400-00000059" sourceLastImported="1792664630" externalFileSize="451741" originalCompressionType="lossless" linkageClassName="tree" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 323.png" bitmapDataHRef="M 84 1792664630.dat" frameRight="10000" frameBottom="9320"/>
+          <DOMBitmapItem name="Bitmap 326.jpg" itemID="6ada0400-0000005a" sourceLastImported="1792664630" externalFileSize="517191" isJPEG="true" linkageClassName="soccer_fieldTexture" linkageExportInFirstFrame="false" linkageExportForAS="true" quality="50" href="Bitmap 326.jpg" bitmapDataHRef="M 85 1792664630.dat" frameRight="34320" frameBottom="24000"/>
+          <DOMBitmapItem name="Bitmap 338.png" itemID="6ada0400-0000005b" sourceLastImported="1792664630" externalFileSize="3181" originalCompressionType="lossless" quality="50" href="Bitmap 338.png" bitmapDataHRef="M 86 1792664630.dat" frameRight="640" frameBottom="640"/>
+          <DOMBitmapItem name="Bitmap 356.jpg" itemID="6ada0400-0000005c" sourceLastImported="1792664630" externalFileSize="11061" isJPEG="true" quality="50" href="Bitmap 356.jpg" bitmapDataHRef="M 87 1792664630.dat" frameRight="7400" frameBottom="3180"/>
+          <DOMBitmapItem name="Bitmap 359.jpg" itemID="6ada0400-0000005d" sourceLastImported="1792664630" externalFileSize="9876" isJPEG="true" quality="50" href="Bitmap 359.jpg" bitmapDataHRef="M 88 1792664630.dat" frameRight="7040" frameBottom="2840"/>
+          <DOMBitmapItem name="Bitmap 364.jpg" itemID="6ada0400-0000005e" sourceLastImported="1792664630" externalFileSize="11289" isJPEG="true" quality="50" href="Bitmap 364.jpg" bitmapDataHRef="M 89 1792664630.dat" frameRight="7040" frameBottom="2840"/>
+          <DOMBitmapItem name="Bitmap 369.png" itemID="6ada0400-0000005f" sourceLastImported="1792664630" externalFileSize="8073" allowSmoothing="true" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 369.png" bitmapDataHRef="M 90 1792664630.dat" frameRight="2820" frameBottom="3040"/>
+          <DOMBitmapItem name="Bitmap 445.jpg" itemID="6ada0400-00000060" sourceLastImported="1792664630" externalFileSize="10462" isJPEG="true" quality="50" href="Bitmap 445.jpg" bitmapDataHRef="M 91 1792664630.dat" frameRight="13400" frameBottom="9000"/>
+          <DOMBitmapItem name="Bitmap 452.png" itemID="6ada0400-00000061" sourceLastImported="1792664630" externalFileSize="22088" originalCompressionType="lossless" quality="50" href="Bitmap 452.png" bitmapDataHRef="M 92 1792664630.dat" frameRight="3820" frameBottom="3580"/>
+          <DOMBitmapItem name="Bitmap 455.png" itemID="6ada0400-00000062" sourceLastImported="1792664630" externalFileSize="8986" originalCompressionType="lossless" quality="50" href="Bitmap 455.png" bitmapDataHRef="M 93 1792664630.dat" frameRight="3820" frameBottom="3580"/>
+          <DOMBitmapItem name="Bitmap 461.png" itemID="6ada0400-00000063" sourceLastImported="1792664630" externalFileSize="24455" originalCompressionType="lossless" quality="50" href="Bitmap 461.png" bitmapDataHRef="M 94 1792664630.dat" frameRight="4440" frameBottom="4440"/>
+          <DOMBitmapItem name="Bitmap 465.png" itemID="6ada0400-00000064" sourceLastImported="1792664630" externalFileSize="94046" originalCompressionType="lossless" quality="50" href="Bitmap 465.png" bitmapDataHRef="M 95 1792664630.dat" frameRight="2440" frameBottom="6400"/>
+          <DOMBitmapItem name="Bitmap 495.jpg" itemID="6ada0400-00000065" sourceLastImported="1792664630" externalFileSize="31725" isJPEG="true" quality="50" href="Bitmap 495.jpg" bitmapDataHRef="M 96 1792664630.dat" frameRight="13400" frameBottom="9000"/>
+          <DOMSoundItem name="sound368_2-85.wav" itemID="6ada0400-00000066" sourceLastImported="1792664630" externalFileSize="77228" href="sound368_2-85.wav" soundDataHRef="M 97 1792664630.dat" format="11kHz 16bit Mono" exportFormat="5" exportBits="7" sampleCount="36288"/>
+     </media>
+     <symbols>
+          <Include href="Symbol 3.xml" itemID="6ada0400-00000067" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 6.xml" itemID="6ada0400-00000068" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 15.xml" itemID="6ada0400-00000069" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 16.xml" itemID="6ada0400-0000006a" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 56.xml" itemID="6ada0400-0000006b" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 159.xml" itemID="6ada0400-0000006c" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 161.xml" itemID="6ada0400-0000006d" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 163.xml" itemID="6ada0400-0000006e" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 165.xml" itemID="6ada0400-0000006f" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 166.xml" itemID="6ada0400-00000070" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 167.xml" itemID="6ada0400-00000071" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 208.xml" itemID="6ada0400-00000072" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 247.xml" itemID="6ada0400-00000073" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 249.xml" itemID="6ada0400-00000074" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 251.xml" itemID="6ada0400-00000075" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 253.xml" itemID="6ada0400-00000076" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 288.xml" itemID="6ada0400-00000077" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 290.xml" itemID="6ada0400-00000078" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 292.xml" itemID="6ada0400-00000079" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 293.xml" itemID="6ada0400-0000007a" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 294.xml" itemID="6ada0400-0000007b" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 296.xml" itemID="6ada0400-0000007c" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 297.xml" itemID="6ada0400-0000007d" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 299.xml" itemID="6ada0400-0000007e" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 301.xml" itemID="6ada0400-0000007f" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 303.xml" itemID="6ada0400-00000080" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 305.xml" itemID="6ada0400-00000081" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 308.xml" itemID="6ada0400-00000082" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 310.xml" itemID="6ada0400-00000083" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 311.xml" itemID="6ada0400-00000084" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 313.xml" itemID="6ada0400-00000085" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 315.xml" itemID="6ada0400-00000086" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 316.xml" itemID="6ada0400-00000087" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 317.xml" itemID="6ada0400-00000088" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 318.xml" itemID="6ada0400-00000089" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 319.xml" itemID="6ada0400-0000008a" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 325.xml" itemID="6ada0400-0000008b" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 328.xml" itemID="6ada0400-0000008c" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 329.xml" itemID="6ada0400-0000008d" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 330.xml" itemID="6ada0400-0000008e" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 331.xml" itemID="6ada0400-0000008f" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 332.xml" itemID="6ada0400-00000090" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 333.xml" itemID="6ada0400-00000091" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 334.xml" itemID="6ada0400-00000092" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 335.xml" itemID="6ada0400-00000093" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 337.xml" itemID="6ada0400-00000094" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 340.xml" itemID="6ada0400-00000095" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 342.xml" itemID="6ada0400-00000096" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 343.xml" itemID="6ada0400-00000097" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 352.xml" itemID="6ada0400-00000098" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 354.xml" itemID="6ada0400-00000099" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 355.xml" itemID="6ada0400-0000009a" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 358.xml" itemID="6ada0400-0000009b" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 361.xml" itemID="6ada0400-0000009c" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 363.xml" itemID="6ada0400-0000009d" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 365.xml" itemID="6ada0400-0000009e" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 366.xml" itemID="6ada0400-0000009f" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 367.xml" itemID="6ada0400-000000a0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 368.xml" itemID="6ada0400-000000a1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 371.xml" itemID="6ada0400-000000a2" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 372.xml" itemID="6ada0400-000000a3" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 373.xml" itemID="6ada0400-000000a4" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 374.xml" itemID="6ada0400-000000a5" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 414.xml" itemID="6ada0400-000000a6" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 415.xml" itemID="6ada0400-000000a7" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 420.xml" itemID="6ada0400-000000a8" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 422.xml" itemID="6ada0400-000000a9" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 423.xml" itemID="6ada0400-000000aa" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 425.xml" itemID="6ada0400-000000ab" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 426.xml" itemID="6ada0400-000000ac" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 432.xml" itemID="6ada0400-000000ad" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 435.xml" itemID="6ada0400-000000ae" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 436.xml" itemID="6ada0400-000000af" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 439.xml" itemID="6ada0400-000000b0" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 440.xml" itemID="6ada0400-000000b1" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 443.xml" itemID="6ada0400-000000b2" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 444.xml" itemID="6ada0400-000000b3" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 447.xml" itemID="6ada0400-000000b4" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 448.xml" itemID="6ada0400-000000b5" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 450.xml" itemID="6ada0400-000000b6" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 454.xml" itemID="6ada0400-000000b7" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 457.xml" itemID="6ada0400-000000b8" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 458.xml" itemID="6ada0400-000000b9" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 463.xml" itemID="6ada0400-000000ba" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 467.xml" itemID="6ada0400-000000bb" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 469.xml" itemID="6ada0400-000000bc" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 471.xml" itemID="6ada0400-000000bd" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 473.xml" itemID="6ada0400-000000be" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 480.xml" itemID="6ada0400-000000bf" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 483.xml" itemID="6ada0400-000000c0" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 487.xml" itemID="6ada0400-000000c1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 490.xml" itemID="6ada0400-000000c2" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 491.xml" itemID="6ada0400-000000c3" itemIcon="1" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 494.xml" itemID="6ada0400-000000c4" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 499.xml" itemID="6ada0400-000000c5" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 502.xml" itemID="6ada0400-000000c6" itemIcon="0" loadImmediate="false" lastModified="1792664630"/>
+          <Include href="Symbol 503.xml" itemID="6ada0400-000000c7" loadImmediate="false" lastModified="1792664630"/>
+     </symbols>
+     <timelines>
+          <DOMTimeline name="Scene 1">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#d4ed80">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>stop();
+race.FogAPI = new FogDevAPI({
+   "id":"4fdb1ec2bc186",
+   "root":root
+});
+race.FogAPI.Preloader.SetBackground(this.preBG);
+race.FogAPI.Preloader.Start();
+</script>
+                                   </Actionscript>
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="2" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <Actionscript>
+                                        <script>stop();
+this.Start();
+</script>
+                                   </Actionscript>
+                                   <elements/>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#b47272">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 503" name="start_screen" centerPoint3DX="358.25" centerPoint3DY="225.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#a7e841">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 494" name="teams_mc" centerPoint3DX="335.0" centerPoint3DY="225.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#e175a2">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 490" name="cupchart_mc" centerPoint3DX="336.55" centerPoint3DY="225.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#a88eb4">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 487" name="versus_mc" centerPoint3DX="335.0" centerPoint3DY="225.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#96acb7">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 480" name="halftime_mc" centerPoint3DX="335.0" centerPoint3DY="232.95">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#f16a6f">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 469" name="final_mc" centerPoint3DX="335.0" centerPoint3DY="232.95">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#41e564">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 444" name="pause_mc" centerPoint3DX="670.0" centerPoint3DY="269.15">
+                                             <matrix>
+                                                  <Matrix tx="335.0" ty="175.6"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 9" color="#e590a2">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 426" name="lostAnim_mc" centerPoint3DX="589.15" centerPoint3DY="331.05">
+                                             <matrix>
+                                                  <Matrix tx="335.0" ty="225.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 10" color="#b4f086">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 423" name="wonAnim_mc" centerPoint3DX="602.8" centerPoint3DY="332.05">
+                                             <matrix>
+                                                  <Matrix tx="335.0" ty="226.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 11" color="#a2c840">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 420" name="goalAnim_mc" centerPoint3DX="673.25" centerPoint3DY="398.4">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 12" color="#9ccd54">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 6" name="preloader" centerPoint3DX="335.95" centerPoint3DY="230.8">
+                                             <matrix>
+                                                  <Matrix tx="285.0" ty="218.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 415" name="UI" centerPoint3DX="333.95" centerPoint3DY="225.05">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 13" color="#aa44e0" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 3" name="preBG" centerPoint3DX="335.0" centerPoint3DY="225.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 335" name="cars" centerPoint3DX="458.1" centerPoint3DY="673.45">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="310.0" a="0.25" d="0.25"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timelines>
+</DOMDocument>

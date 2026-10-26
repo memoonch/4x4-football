@@ -1,0 +1,71 @@
+      // Ruffle does not implement Graphics.drawTriangles UVT texture mapping.
+      // Render the same projected mesh with affine bitmap-filled triangles,
+      // subdividing where perspective would otherwise visibly distort it.
+      private function drawTexturedTriangles(g:flash.display.Graphics, texture:BitmapData,
+         vertices:Vector.<Number>, indices:Vector.<int>, uvt:Vector.<Number>) : void
+      {
+         g.endFill();
+         for(var i:int = 0; i < indices.length; i += 3)
+         {
+            var a:int = indices[i];
+            var b:int = indices[i + 1];
+            var c:int = indices[i + 2];
+            textureTriangle(g, texture,
+               vertices[a*2], vertices[a*2+1], uvt[a*3], uvt[a*3+1], uvt[a*3+2],
+               vertices[b*2], vertices[b*2+1], uvt[b*3], uvt[b*3+1], uvt[b*3+2],
+               vertices[c*2], vertices[c*2+1], uvt[c*3], uvt[c*3+1], uvt[c*3+2], 0);
+         }
+      }
+
+      private function textureTriangle(g:flash.display.Graphics, texture:BitmapData,
+         x0:Number,y0:Number,u0:Number,v0:Number,q0:Number,
+         x1:Number,y1:Number,u1:Number,v1:Number,q1:Number,
+         x2:Number,y2:Number,u2:Number,v2:Number,q2:Number,depth:int) : void
+      {
+         var area:Number = (x1-x0)*(y2-y0)-(x2-x0)*(y1-y0);
+         if(Math.abs(area) < 0.01) return;
+         var q01:Number = (q0+q1)*0.5;
+         var q12:Number = (q1+q2)*0.5;
+         var q20:Number = (q2+q0)*0.5;
+         var u01:Number = (u0*q0+u1*q1)/(q0+q1);
+         var v01:Number = (v0*q0+v1*q1)/(q0+q1);
+         var u12:Number = (u1*q1+u2*q2)/(q1+q2);
+         var v12:Number = (v1*q1+v2*q2)/(q1+q2);
+         var u20:Number = (u2*q2+u0*q0)/(q2+q0);
+         var v20:Number = (v2*q2+v0*q0)/(q2+q0);
+         var error:Number = Math.max(
+            Math.abs(u01-(u0+u1)*0.5)*texture.width,
+            Math.abs(v01-(v0+v1)*0.5)*texture.height,
+            Math.abs(u12-(u1+u2)*0.5)*texture.width,
+            Math.abs(v12-(v1+v2)*0.5)*texture.height,
+            Math.abs(u20-(u2+u0)*0.5)*texture.width,
+            Math.abs(v20-(v2+v0)*0.5)*texture.height);
+         if(depth < 4 && Math.abs(area) > 64 && error > 1.5)
+         {
+            var x01:Number=(x0+x1)*0.5; var y01:Number=(y0+y1)*0.5;
+            var x12:Number=(x1+x2)*0.5; var y12:Number=(y1+y2)*0.5;
+            var x20:Number=(x2+x0)*0.5; var y20:Number=(y2+y0)*0.5;
+            textureTriangle(g,texture,x0,y0,u0,v0,q0,x01,y01,u01,v01,q01,x20,y20,u20,v20,q20,depth+1);
+            textureTriangle(g,texture,x01,y01,u01,v01,q01,x1,y1,u1,v1,q1,x12,y12,u12,v12,q12,depth+1);
+            textureTriangle(g,texture,x20,y20,u20,v20,q20,x12,y12,u12,v12,q12,x2,y2,u2,v2,q2,depth+1);
+            textureTriangle(g,texture,x01,y01,u01,v01,q01,x12,y12,u12,v12,q12,x20,y20,u20,v20,q20,depth+1);
+            return;
+         }
+         u0*=texture.width; u1*=texture.width; u2*=texture.width;
+         v0*=texture.height; v1*=texture.height; v2*=texture.height;
+         var du1:Number=u1-u0; var dv1:Number=v1-v0;
+         var du2:Number=u2-u0; var dv2:Number=v2-v0;
+         var determinant:Number=du1*dv2-du2*dv1;
+         if(Math.abs(determinant)<0.0000001) return;
+         var m:Matrix=new Matrix();
+         m.a=((x1-x0)*dv2-(x2-x0)*dv1)/determinant;
+         m.c=((x2-x0)*du1-(x1-x0)*du2)/determinant;
+         m.b=((y1-y0)*dv2-(y2-y0)*dv1)/determinant;
+         m.d=((y2-y0)*du1-(y1-y0)*du2)/determinant;
+         m.tx=x0-m.a*u0-m.c*v0;
+         m.ty=y0-m.b*u0-m.d*v0;
+         g.beginBitmapFill(texture,m,this.repeat,this.smooth);
+         g.moveTo(x0,y0); g.lineTo(x1,y1); g.lineTo(x2,y2); g.lineTo(x0,y0);
+         g.endFill();
+      }
+

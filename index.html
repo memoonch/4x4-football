@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4x4 Soccer — Local Player</title>
+<style>
+  html,body{margin:0;min-height:100%;background:#111820;color:#e5edf4;font:16px system-ui}
+  main{max-width:1000px;margin:32px auto;padding:0 20px}
+  h1{font-size:24px;margin-bottom:6px} p{color:#aebcca}
+  #game{position:relative;width:670px;height:450px;max-width:100%;background:#000;margin:24px auto}
+  ruffle-player{display:block;width:670px;height:450px;transform-origin:top left} #status{text-align:center}
+  #world-webgl{position:absolute;top:0;left:0;width:670px;height:450px;transform-origin:top left;pointer-events:none}
+  #webgl-fps{position:absolute;left:0;top:35px;z-index:3;white-space:pre;background:#14202b;color:white;font:11px sans-serif;padding:3px;pointer-events:none;transform-origin:top left}
+  #game-loading{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:#111820;color:#e5edf4;text-align:center}
+  #game-loading[hidden]{display:none}
+  #game-loading strong,#game-loading span{display:block}
+  #game-loading strong{font-size:22px;margin:16px 0 8px}
+  #game-loading span{font-size:14px;color:#aebcca}
+  #game-loading .loading-spinner{width:32px;height:32px;margin:auto;border:3px solid #34414e;border-top-color:#4bd7df;border-radius:50%;animation:loading-spin .8s linear infinite}
+  @keyframes loading-spin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){#game-loading .loading-spinner{animation:none}}
+</style>
+<main>
+  <h1>4x4 Soccer</h1>
+  <p>Original FOG game · local Flash emulation</p>
+  <div id="game"></div>
+  <p id="status">Loading player…</p>
+  <p id="memory" style="text-align:center;font-size:13px">Memory: measuring browser JS heap…</p>
+  <details><summary>Graphics diagnostics</summary><pre id="graphics" style="white-space:pre-wrap">Waiting for renderer…</pre></details>
+</main>
+<script src="/vendor/ruffle-gpu/ruffle.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    const status = document.querySelector('#status');
+    const memoryLabel = document.querySelector('#memory');
+    const heapSamples = [];
+    const started = performance.now();
+    setInterval(() => {
+      const memory = performance.memory;
+      if (!memory) {
+        memoryLabel.textContent = 'Browser JS heap measurement is unavailable in this browser.';
+        return;
+      }
+      const mb = memory.usedJSHeapSize / 1048576;
+      heapSamples.push(mb);
+      if (heapSamples.length > 120) heapSamples.shift();
+      memoryLabel.textContent = `JS heap: ${mb.toFixed(1)} MB · sample range ${Math.min(...heapSamples).toFixed(1)}–${Math.max(...heapSamples).toFixed(1)} MB · elapsed ${Math.floor((performance.now()-started)/1000)} s (excludes WASM/GPU memory)`;
+    }, 5000);
+    try {
+      const native = new URLSearchParams(location.search).get('engine') === 'webgl';
+      if(native) await import('/webgl/renderer.js');
+      const player = window.RufflePlayer.newest().createPlayer();
+      if(native){player.style.position='relative';player.style.zIndex='2';}
+      document.querySelector('#game').append(player);
+      new MutationObserver(() => {
+        document.querySelector('#graphics').textContent = player.getAttribute('data-renderer-info') || 'Waiting for renderer…';
+      }).observe(player,{attributes:true,attributeFilter:['data-renderer-info']});
+      new ResizeObserver(([entry]) => {
+        const scale = entry.contentRect.width / 670;
+        player.style.transform = `scale(${scale})`;
+        for(const overlay of document.querySelectorAll('#world-webgl,#webgl-fps')) overlay.style.transform=`scale(${scale})`;
+        entry.target.style.height = `${450 * scale}px`;
+      }).observe(document.querySelector('#game'));
+      await player.ruffle().load({url:native ? '/build/4x4-soccer-bridge.swf' : (new URLSearchParams(location.search).has('original') ? '/4x4%20soccer.swf' : '/build/4x4-soccer.swf'),autoplay:'on',
+        unmuteOverlay:'visible',allowScriptAccess:native,openUrlMode:'deny',wmode:native?'transparent':'window',
+        preferredRenderer:new URLSearchParams(location.search).get('renderer') || 'wgpu-webgl',
+        quality:'medium',parameters:{type:'1',webglbridge:native?'1':'0'},
+        backgroundColor:native?null:'#000000'});
+      if(native) player.traceObserver = message => {
+        if(message.includes('WebGL bridge error:')) status.textContent=message;
+      };
+      status.textContent = 'Click the game to focus. Use the in-game instructions for controls.';
+    } catch(error) {
+      status.textContent = 'Player failed to load: ' + error.message;
+      console.error(error);
+    }
+  });
+</script>
+</html>

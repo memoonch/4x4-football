@@ -1,0 +1,49 @@
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Symbol 16" itemID="6ada0400-0000006a" lastModified="1792664630" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Symbol 16" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#99ff00" alpha="0.0"/>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes/>
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 7407 5155| 1067 5155| 1067 847| 7407 847| 7407 5155"/>
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#999999" alpha="1.0"/>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes/>
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 4593 2778[ 4647 2909 4647 3057[ 4647 3205 4592 3337[ 4537 3469 4433 3570[ 4326 3672 4191 3727[ 4056 3782 3911 3782[ 3784 3782 3663 3738[ 3542 3696 3442 3616[ 3312 3512 3242 3368[ 3173 3223 3173 3057[ 3173 2907 3227 2776[ 3283 2646 3420 2539[ 3492 2442 3629 2387[ 3766 2332 3911 2332[ 4055 2332 4192 2387[ 4329 2443 4401 2539[ 4538 2647 4593 2778"/>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 3622 2747[ 3507 2872 3507 3057[ 3507 3245 3620 3366[ 3733 3487 3911 3487[ 4086 3487 4199 3364[ 4313 3242 4313 3057[ 4313 2874 4197 2748[ 4082 2623 3911 2623[ 3737 2623 3622 2747"/>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 6314 2629| 6097 2787[ 6015 2694 5939 2656[ 5863 2618 5763 2618[ 5572 2618 5459 2736[ 5344 2854 5344 3055[ 5344 3252 5459 3371[ 5573 3491 5758 3491[ 5893 3491 5974 3429[ 6056 3368 6057 3273| 5733 3273| 5733 2998| 6382 2998| 6387 3046| 6387 3086[ 6387 3395 6209 3588[ 6031 3782 5748 3782[ 5427 3782 5219 3576[ 5010 3371 5010 3055[ 5010 2741 5220 2537[ 5430 2332 5748 2332[ 5918 2332 6058 2403[ 6200 2474 6314 2629"/>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 2846 2643| 2342 2643| 2342 2882| 2846 2882| 2846 3164| 2342 3164| 2342 3746| 2016 3746| 2016 2363| 2846 2363| 2846 2643"/>
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

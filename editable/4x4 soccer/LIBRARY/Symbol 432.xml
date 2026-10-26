@@ -1,0 +1,132 @@
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Symbol 432" itemID="6ada0400-000000ad" lastModified="1792664630" symbolType="button">
+     <timeline>
+          <DOMTimeline name="Symbol 432" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728" soundName="sound289.wav">
+                                   <SoundEnvelope>
+                                        <SoundEnvelopePoint level0="32768" level1="32768"/>
+                                   </SoundEnvelope>
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#e890c5">
+                         <frames>
+                              <DOMFrame index="1" duration="3" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMStaticText left="0" fontRenderingMode="standard" width="1184" height="673" autoExpand="true" isSelectable="false">
+                                             <matrix>
+                                                  <Matrix tx="-72.05" ty="-22.9"/>
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>PLAY MORE </characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs aliasText="false" rotation="true" size="17.7" bitmapSize="354" letterSpacing="0" indent="0" leftMargin="30" lineSpacing="2" rightMargin="0" fillColor="#ffffff" face="Crillee"/>
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                                  <DOMTextRun>
+                                                       <characters>&#13;DRIVING GAMES</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs aliasText="false" rotation="true" size="17.7" bitmapSize="354" letterSpacing="0" indent="0" leftMargin="13" lineSpacing="2" rightMargin="0" fillColor="#ffffff" face="Crillee"/>
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                             <filters>
+                                                  <GlowFilter blurX="2" blurY="2" color="#ff0000" quality="2" strength="30"/>
+                                             </filters>
+                                        </DOMStaticText>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" current="true" isSelected="true" color="#d9c59a">
+                         <frames>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMStaticText left="0" fontRenderingMode="standard" width="1184" height="673" autoExpand="true" isSelectable="false">
+                                             <matrix>
+                                                  <Matrix tx="-72.05" ty="-22.9"/>
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>PLAY MORE </characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs aliasText="false" rotation="true" size="17.7" bitmapSize="354" letterSpacing="0" indent="0" leftMargin="30" lineSpacing="2" rightMargin="0" fillColor="#e30000" face="Crillee"/>
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                                  <DOMTextRun>
+                                                       <characters>&#13;DRIVING GAMES</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs aliasText="false" rotation="true" size="17.7" bitmapSize="354" letterSpacing="0" indent="0" leftMargin="13" lineSpacing="2" rightMargin="0" fillColor="#e30000" face="Crillee"/>
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                             <filters>
+                                                  <GlowFilter blurX="2" blurY="2" color="#ffffff" quality="3" strength="30"/>
+                                             </filters>
+                                        </DOMStaticText>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMStaticText left="0" fontRenderingMode="standard" width="1184" height="673" autoExpand="true" isSelectable="false">
+                                             <matrix>
+                                                  <Matrix tx="-72.05" ty="-22.9"/>
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>PLAY MORE </characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs aliasText="false" rotation="true" size="17.7" bitmapSize="354" letterSpacing="0" indent="0" leftMargin="30" lineSpacing="2" rightMargin="0" fillColor="#ffffff" face="Crillee"/>
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                                  <DOMTextRun>
+                                                       <characters>&#13;DRIVING GAMES</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs aliasText="false" rotation="true" size="17.7" bitmapSize="354" letterSpacing="0" indent="0" leftMargin="13" lineSpacing="2" rightMargin="0" fillColor="#ffffff" face="Crillee"/>
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                             <filters>
+                                                  <GlowFilter blurX="2" blurY="2" color="#ff0000" quality="2" strength="30"/>
+                                             </filters>
+                                        </DOMStaticText>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 354" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.3" ty="-5.25" a="0.9963531494140625" d="0.658538818359375"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color/>
+                                             </color>
+                                             <filters/>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

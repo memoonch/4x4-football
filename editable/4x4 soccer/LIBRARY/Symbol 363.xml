@@ -1,0 +1,39 @@
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Symbol 363" itemID="6ada0400-0000009d" lastModified="1792664630">
+     <timeline>
+          <DOMTimeline name="Symbol 363">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#96b649" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <LinearGradient>
+                                                            <matrix>
+                                                                 <Matrix tx="0.0" ty="-0.9" a="0.02569580078125" d="0.016937255859375"/>
+                                                            </matrix>
+                                                            <GradientEntry color="#101116" ratio="0.0"/>
+                                                            <GradientEntry color="#817474" ratio="0.4745098"/>
+                                                            <GradientEntry color="#0f0f15" ratio="1.0"/>
+                                                       </LinearGradient>
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <SolidColor color="#000000"/>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes/>
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 498 260| 500 261| 498 295| 486 226| 482 227[ 448 106 353 11[ 207 -135 0 -135[ -207 -135 -354 11[ -474 132 -495 295| -497 295| -498 276| -499 261| -498 261| -497 260"/>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! -497 260| -499 238| -499 223| -500 205[ -500 -2 -354 -149[ -207 -295 0 -295[ 207 -295 353 -149[ 500 -2 500 205| 500 223| 500 225| 499 240| 498 260"/>
+                                                  <Edge fillStyle0="2" fillStyle1="1" strokeStyle="0" edges="! 498 260[ 480 88 353 -39[ 207 -185 0 -185[ -207 -185 -354 -39[ -480 88 -497 260"/>
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

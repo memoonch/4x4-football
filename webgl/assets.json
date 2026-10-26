@@ -1,0 +1,23 @@
+{
+  "ballTexture": "/decompiled/images/245_ballTexture.jpg",
+  "skyboxFRONT": "/decompiled/images/234_skyboxFRONT.jpg",
+  "netTexture": "/decompiled/images/239_netTexture.png",
+  "flag_template": "/decompiled/images/304_flag_template.png",
+  "Car1Texture": "/decompiled/images/241_Car1Texture.jpg",
+  "Car1TextureGrey": "/decompiled/images/240_Car1TextureGrey.png",
+  "skyboxBOTTOM": "/decompiled/images/235_skyboxBOTTOM.jpg",
+  "senka4Ball": "/decompiled/images/237_senka4Ball.png",
+  "concrete": "/decompiled/images/243_concrete.jpg",
+  "senka": "/decompiled/images/238_senka.png",
+  "flag_green": "/decompiled/images/321_flag_green.png",
+  "fence1": "/decompiled/images/242_fence1.jpg",
+  "skyboxLEFT": "/decompiled/images/233_skyboxLEFT.jpg",
+  "Blok1Texture": "/decompiled/images/244_Blok1Texture.jpg",
+  "tree": "/decompiled/images/323_tree.png",
+  "skyboxBACK": "/decompiled/images/236_skyboxBACK.jpg",
+  "skyboxTOP": "/decompiled/images/231_skyboxTOP.jpg",
+  "crowd": "/decompiled/images/322_crowd.png",
+  "skyboxRIGHT": "/decompiled/images/232_skyboxRIGHT.jpg",
+  "flag_red": "/decompiled/images/320_flag_red.png",
+  "soccer_fieldTexture": "/decompiled/images/326_soccer_fieldTexture.jpg"
+}

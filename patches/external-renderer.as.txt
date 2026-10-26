@@ -1,0 +1,348 @@
+      private static var externalCamera:Camera3D;
+      private static var externalIds:flash.utils.Dictionary;
+      private static var externalMaterials:flash.utils.Dictionary;
+      private static var externalStates:flash.utils.Dictionary;
+      private static var externalNextId:int;
+      private static var externalNextMaterial:int;
+      private static var externalBudget:int;
+      private static var externalMoving:flash.utils.Dictionary;
+      private static var externalDynamic:Array;
+      private static var externalInitializing:Boolean;
+      private static var externalPending:Boolean;
+
+      private static var externalSceneKey:String;
+      private static var externalUploadedKey:String;
+      private static var externalManifest:Object;
+      private static var externalReady:Boolean;
+      private static var loadingWorld:Object;
+      private static var loadingWasPaused:Boolean;
+      private static var loadingStarted:int;
+      private static var loadingDelay:int;
+      private static var loadingListener:Function;
+      private static var loadingStage:flash.display.Stage;
+
+      public static function beginScene(track:int,cup:Object,world:Object):void
+      {
+         externalSceneKey = track + ':' + cup[0].team + ':' + cup[1].team;
+         if(!flash.external.ExternalInterface.available) return;
+         if(loadingListener != null)
+         {
+            loadingStage.removeEventListener(flash.events.Event.ENTER_FRAME,loadingListener);
+            loadingListener = null;
+         }
+         if(loadingWorld != null) loadingWorld.paused = loadingWasPaused;
+         loadingWorld = world;
+         loadingWasPaused = world.paused;
+         loadingStarted = getTimer();
+         loadingDelay = 0;
+         world.paused = true;
+         if(!externalReady || externalUploadedKey != externalSceneKey)
+            flash.external.ExternalInterface.call('soccerBridge.loading',true);
+      }
+
+      public static function deferStart(camera:Camera3D,world:Object,start:Function):Boolean
+      {
+         if(!flash.external.ExternalInterface.available || camera == null) return true;
+         if(externalReady && externalCamera == camera)
+         {
+            if(loadingListener != null)
+            {
+               loadingStage.removeEventListener(flash.events.Event.ENTER_FRAME,loadingListener);
+               loadingListener = null;
+            }
+            if(loadingWorld == world)
+            {
+               world.paused = loadingWasPaused;
+               loadingDelay = getTimer() - loadingStarted;
+               loadingWorld = null;
+               flash.external.ExternalInterface.call('soccerBridge.loading',false);
+            }
+            return true;
+         }
+         if(loadingListener == null)
+         {
+            flash.external.ExternalInterface.call('soccerBridge.loading',true);
+            loadingStage = camera.view.stage;
+            loadingListener = function(event:flash.events.Event):void
+            {
+               if(loadingWorld != world) return;
+               if(camera.view.stage != loadingStage)
+               {
+                  loadingStage.removeEventListener(flash.events.Event.ENTER_FRAME,loadingListener);
+                  loadingListener = null;
+                  if(loadingWorld == world)
+                  {
+                     world.paused = loadingWasPaused;
+                     loadingWorld = null;
+                     flash.external.ExternalInterface.call('soccerBridge.loading',false);
+                  }
+                  return;
+               }
+               camera.render();
+               if(externalReady && externalCamera == camera)
+               {
+                  loadingStage.removeEventListener(flash.events.Event.ENTER_FRAME,loadingListener);
+                  loadingListener = null;
+                  start();
+               }
+            };
+            camera.view.stage.addEventListener(flash.events.Event.ENTER_FRAME,loadingListener);
+         }
+         return false;
+      }
+
+      public static function takeLoadingDelay():int
+      {
+         var elapsed:int = loadingDelay;
+         loadingDelay = 0;
+         return elapsed;
+      }
+
+      private static function externalBindings():void
+      {
+         externalIds = new flash.utils.Dictionary();
+         externalStates = new flash.utils.Dictionary();
+         externalMoving = new flash.utils.Dictionary();
+         externalDynamic = [];
+      }
+
+      private static function externalSignature(node:alternativa.engine3d.core.Object3D):String
+      {
+         return getQualifiedClassName(node) + '|' + node.name + '|' +
+            (node is alternativa.engine3d.core.Object3DContainer ? alternativa.engine3d.core.Object3DContainer(node).numChildren : 0);
+      }
+
+      private static function externalRebind(node:alternativa.engine3d.core.Object3D,path:String,packet:Object):Boolean
+      {
+         if(node is Camera3D) return true;
+         var entry:Object = externalManifest[path];
+         if(entry == null || entry.signature != externalSignature(node)) return false;
+         externalIds[node] = entry.id;
+         externalMoving[node] = entry.moving;
+         if(entry.moving) externalDynamic.push({node:node,id:entry.id});
+         externalUpdate(node,entry.id,packet);
+         if(node is alternativa.engine3d.core.Object3DContainer)
+         {
+            var container:alternativa.engine3d.core.Object3DContainer = node as alternativa.engine3d.core.Object3DContainer;
+            for(var c:int=0;c<container.numChildren;c++)
+               if(!externalRebind(container.getChildAt(c),path + '/' + c,packet)) return false;
+         }
+         return true;
+      }
+
+      public static function physicsReady(world:Object):Boolean
+      {
+         return world != null && world.ball != null && world.ball.b2body != null && world.players.length >= 4;
+      }
+
+      public static function renderExternal(camera:Camera3D):Boolean
+      {
+         if(camera.view == null || camera.view.stage == null ||
+            camera.view.root.loaderInfo.parameters.webglbridge != '1' ||
+            !flash.external.ExternalInterface.available) return false;
+         try
+         {
+            var reset:Boolean = externalCamera != camera;
+            var packet:Object = {reset:false,nodes:[],materials:[],updates:[],time:getTimer(),sceneKey:externalSceneKey};
+            var top:alternativa.engine3d.core.Object3D = camera;
+            while(top.parent != null) top = top.parent;
+            if(reset)
+            {
+               externalCamera = camera;
+               externalBindings();
+               if(externalReady && externalSceneKey == externalUploadedKey && externalManifest != null &&
+                  externalRebind(top,'0',packet))
+               {
+                  packet.reuse = true;
+                  packet.snap = true;
+                  externalInitializing = false;
+               }
+               else
+               {
+                  externalBindings();
+                  externalMaterials = new flash.utils.Dictionary();
+                  externalNextId = 1;
+                  externalNextMaterial = 1;
+                  externalManifest = {};
+                  externalInitializing = true;
+                  externalReady = false;
+                  packet.updates = [];
+                  packet.reset = true;
+               }
+            }
+            externalBudget = 4;
+            if(externalInitializing)
+            {
+               externalPending = false;
+               externalNode(top,0,packet,false,'0');
+               externalInitializing = externalPending;
+            }
+            else if(packet.reuse !== true)
+            {
+               for each(var moving:Object in externalDynamic) externalUpdate(moving.node,moving.id,packet);
+            }
+            var raw:Vector.<Number> = camera.concatenatedMatrix.rawData;
+            var matrixData:Array = [];
+            for(var i:int=0;i<16;i++) matrixData.push(raw[i]);
+            packet.camera = {matrix:matrixData,fov:camera.fov,near:Math.max(0.1,camera.nearClipping),far:Math.max(20000,camera.farClipping)};
+            packet.dynamic = externalDynamic.length;
+            packet.complete = !externalInitializing;
+            var response:int = int(flash.external.ExternalInterface.call('soccerBridge.receive',packet));
+            if(response == 2) { externalReady = true; externalUploadedKey = externalSceneKey; }
+            camera.view.visible = response != 2;
+            if(response == 0) { externalCamera = null; externalReady = false; }
+            return response == 2;
+         }
+         catch(error:Error)
+         {
+            externalCamera = null;
+            externalReady = false;
+            camera.view.visible = true;
+            trace('WebGL bridge error: ' + error.message);
+            flash.external.ExternalInterface.call('soccerBridge.reportError',error.message);
+            return false;
+         }
+      }
+
+      private static function externalNode(node:alternativa.engine3d.core.Object3D,parent:int,packet:Object,dynamicBranch:Boolean,path:String):void
+      {
+         if(node is Camera3D) return;
+         var id:int = externalIds[node];
+         var fresh:Boolean = id == 0;
+         if(fresh && externalBudget <= 0) { externalPending = true; return; }
+         if(fresh) externalBudget--;
+         if(fresh) { id = externalNextId++; externalIds[node] = id; }
+         if(fresh)
+         {
+            if(node is alternativa.engine3d.core.Object3DContainer &&
+               alternativa.engine3d.core.Object3DContainer(node).getChildByName('carBody1') != null) dynamicBranch = true;
+            if(node.name == 'shadowBall') dynamicBranch = true;
+            if(node is alternativa.engine3d.objects.Mesh)
+            {
+               var checkFaces:Vector.<alternativa.engine3d.core.Face> = alternativa.engine3d.objects.Mesh(node).faces;
+               if(checkFaces.length > 0 && checkFaces[0].material is TextureMaterial &&
+                  getQualifiedClassName(TextureMaterial(checkFaces[0].material).texture) == 'ballTexture') dynamicBranch = true;
+            }
+            externalManifest[path] = {id:id,signature:externalSignature(node),moving:dynamicBranch};
+            externalMoving[node] = dynamicBranch;
+            if(dynamicBranch) externalDynamic.push({node:node,id:id});
+         }
+         dynamicBranch = externalMoving[node] === true;
+         externalUpdate(node,id,packet);
+         if(fresh)
+         {
+            externalDefinition(node,id,parent,packet);
+         }
+         if(node is alternativa.engine3d.core.Object3DContainer)
+         {
+            var container:alternativa.engine3d.core.Object3DContainer = node as alternativa.engine3d.core.Object3DContainer;
+            for(var c:int=0;c<container.numChildren;c++) externalNode(container.getChildAt(c),id,packet,dynamicBranch,path + '/' + c);
+         }
+      }
+
+      private static function externalUpdate(node:alternativa.engine3d.core.Object3D,id:int,packet:Object):void
+      {
+         var state:Array = [node.x,node.y,node.z,node.rotationX,node.rotationY,node.rotationZ,node.scaleX,node.scaleY,node.scaleZ,node.visible,node.alpha];
+         var previous:Array = externalStates[node];
+         var changed:Boolean = previous == null;
+         if(!changed)
+         {
+            for(var s:int=0;s<state.length;s++)
+            {
+               if(previous[s] !== state[s]) { changed = true; break; }
+            }
+         }
+         if(changed)
+         {
+            externalStates[node] = state;
+            packet.updates.push({id:id,state:state});
+         }
+      }
+
+      private static function externalDefinition(node:alternativa.engine3d.core.Object3D,id:int,parent:int,packet:Object):void
+      {
+            var definition:Object = {id:id,parent:parent,name:node.name,parts:[]};
+            if(node is alternativa.engine3d.objects.Mesh)
+            {
+               var mesh:alternativa.engine3d.objects.Mesh = node as alternativa.engine3d.objects.Mesh;
+               var groups:Object = {};
+               for each(var face:alternativa.engine3d.core.Face in mesh.faces)
+               {
+                  var materialId:int = externalMaterial(face.material,packet);
+                  var group:Object = groups[materialId];
+                  if(group == null)
+                  {
+                     group = {material:materialId,position:[],uv:[]};
+                     groups[materialId] = group;
+                     definition.parts.push(group);
+                  }
+                  var vertices:Vector.<alternativa.engine3d.core.Vertex> = face.vertices;
+                  for(var j:int=1;j+1<vertices.length;j++)
+                  {
+                     var tri:Array = [vertices[0],vertices[j],vertices[j+1]];
+                     for each(var vertex:alternativa.engine3d.core.Vertex in tri)
+                     {
+                        group.position.push(vertex.x,vertex.y,vertex.z);
+                        group.uv.push(vertex.u,vertex.v);
+                     }
+                  }
+               }
+            }
+            packet.nodes.push(definition);
+      }
+
+      private static function externalMaterial(material:Material,packet:Object):int
+      {
+         if(material == null) return 0;
+         var id:int = externalMaterials[material];
+         if(id != 0) return id;
+         id = externalNextMaterial++;
+         externalMaterials[material] = id;
+         var definition:Object = {id:id,color:16777215};
+         if(material is TextureMaterial)
+         {
+            var bitmap:BitmapData = TextureMaterial(material).texture;
+            if(bitmap != null)
+            {
+               definition.imageClass = getQualifiedClassName(bitmap);
+               definition.width = bitmap.width;
+               definition.height = bitmap.height;
+               definition.repeat = TextureMaterial(material).repeat;
+               if(definition.imageClass == 'flash.display::BitmapData' || definition.imageClass == 'BitmapData')
+               {
+                  var bytes:flash.utils.ByteArray = bitmap.getPixels(bitmap.rect);
+                  bytes.compress();
+                  definition.pixels = externalBase64(bytes);
+               }
+            }
+         }
+         else if(material is FillMaterial)
+         {
+            definition.color = FillMaterial(material).color;
+            definition.alpha = FillMaterial(material).alpha;
+         }
+         packet.materials.push(definition);
+         return id;
+      }
+
+      private static function externalBase64(bytes:flash.utils.ByteArray):String
+      {
+         var alphabet:String = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+         var chunks:Array = [];
+         var chunk:String = '';
+         bytes.position = 0;
+         while(bytes.bytesAvailable > 0)
+         {
+            var remaining:int = bytes.bytesAvailable;
+            var a:int = bytes.readUnsignedByte();
+            var b:int = remaining > 1 ? bytes.readUnsignedByte() : 0;
+            var c:int = remaining > 2 ? bytes.readUnsignedByte() : 0;
+            chunk += alphabet.charAt(a >> 2) + alphabet.charAt(((a & 3) << 4) | (b >> 4)) +
+               (remaining > 1 ? alphabet.charAt(((b & 15) << 2) | (c >> 6)) : '=') +
+               (remaining > 2 ? alphabet.charAt(c & 63) : '=');
+            if(chunk.length >= 1024) { chunks.push(chunk); chunk = ''; }
+         }
+         if(chunk.length > 0) chunks.push(chunk);
+         return chunks.join('');
+      }
+

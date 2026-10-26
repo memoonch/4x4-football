@@ -1,0 +1,179 @@
+package cmodule.Box2D
+{
+   import avm2.intrinsics.memory.li32;
+   import avm2.intrinsics.memory.si32;
+   
+   public final class FSM__ZN13b2DynamicTree12DestroyProxyEi extends Machine
+   {
+      
+      public static const intRegCount:int = 6;
+      
+      public static const NumberRegCount:int = 0;
+      
+      public var i0:int;
+      
+      public var i1:int;
+      
+      public var i2:int;
+      
+      public var i3:int;
+      
+      public var i4:int;
+      
+      public var i5:int;
+      
+      public function FSM__ZN13b2DynamicTree12DestroyProxyEi()
+      {
+         super();
+      }
+      
+      public static function start() : void
+      {
+         var _loc1_:FSM__ZN13b2DynamicTree12DestroyProxyEi = null;
+         _loc1_ = new FSM__ZN13b2DynamicTree12DestroyProxyEi();
+         cmodule.Box2D.gstate.gworker = _loc1_;
+      }
+      
+      final override public function work() : void
+      {
+         loop0:
+         switch(state)
+         {
+            case 0:
+               mstate.esp -= 4;
+               si32(mstate.ebp,mstate.esp);
+               mstate.ebp = mstate.esp;
+               mstate.esp -= 0;
+               this.i0 = li32(mstate.ebp + 8);
+               this.i1 = li32(mstate.ebp + 12);
+               while(true)
+               {
+                  if(this.i1 >= 0)
+                  {
+                     this.i2 = li32(this.i0 + 12);
+                     this.i3 = this.i0 + 12;
+                     if(this.i2 > this.i1)
+                     {
+                        this.i2 = li32(this.i0 + 4);
+                        this.i4 = this.i1 * 36;
+                        this.i2 += this.i4;
+                        this.i2 = li32(this.i2 + 24);
+                        this.i4 = this.i0 + 4;
+                        if(this.i2 != -1)
+                        {
+                           this.i0 = cmodule.Box2D.___sF;
+                           mstate.esp -= 24;
+                           this.i1 = cmodule.Box2D.__2E_str1670;
+                           this.i3 = cmodule.Box2D.__2E_str107;
+                           this.i4 = cmodule.Box2D.__ZZN13b2DynamicTree12DestroyProxyEiE8__func__;
+                           this.i2 = cmodule.Box2D.__2E_str5212;
+                           this.i5 = 120;
+                           addr01b1:
+                           this.i0 += 176;
+                           si32(this.i0,mstate.esp);
+                           si32(this.i1,mstate.esp + 4);
+                           si32(this.i3,mstate.esp + 8);
+                           si32(this.i4,mstate.esp + 12);
+                           si32(this.i2,mstate.esp + 16);
+                           break;
+                        }
+                        break loop0;
+                     }
+                  }
+                  this.i0 = cmodule.Box2D.___sF;
+                  mstate.esp -= 24;
+                  this.i1 = cmodule.Box2D.__2E_str1670;
+                  this.i3 = cmodule.Box2D.__2E_str3210;
+                  this.i2 = cmodule.Box2D.__ZZN13b2DynamicTree12DestroyProxyEiE8__func__;
+                  this.i4 = cmodule.Box2D.__2E_str5212;
+                  this.i5 = 119;
+                  this.i0 += 176;
+                  si32(this.i0,mstate.esp);
+                  si32(this.i1,mstate.esp + 4);
+                  si32(this.i3,mstate.esp + 8);
+                  si32(this.i2,mstate.esp + 12);
+                  si32(this.i4,mstate.esp + 16);
+                  break;
+               }
+               §§goto(addr0205);
+            case 2:
+               break;
+            case 1:
+               mstate.esp += 24;
+               state = 2;
+               mstate.esp -= 4;
+               FSM_abort1.start();
+               return;
+            case 3:
+               mstate.esp += 8;
+               while(true)
+               {
+                  if(this.i1 >= 0)
+                  {
+                     this.i2 = li32(this.i3);
+                     if(this.i2 > this.i1)
+                     {
+                        this.i2 = li32(this.i0 + 8);
+                        this.i3 = this.i0 + 8;
+                        if(this.i2 > 0)
+                        {
+                           this.i2 = li32(this.i4);
+                           this.i4 = li32(this.i0 + 16);
+                           this.i5 = this.i1 * 36;
+                           this.i2 += this.i5;
+                           si32(this.i4,this.i2 + 20);
+                           si32(this.i1,this.i0 + 16);
+                           this.i0 = li32(this.i3);
+                           this.i0 += -1;
+                           si32(this.i0,this.i3);
+                           mstate.esp = mstate.ebp;
+                           mstate.ebp = li32(mstate.esp);
+                           mstate.esp += 4;
+                           mstate.esp += 4;
+                           mstate.gworker = caller;
+                           return;
+                        }
+                        this.i0 = cmodule.Box2D.___sF;
+                        mstate.esp -= 24;
+                        this.i1 = cmodule.Box2D.__2E_str1670;
+                        this.i3 = cmodule.Box2D.__2E_str7214;
+                        this.i4 = cmodule.Box2D.__ZZN13b2DynamicTree8FreeNodeEiE8__func__;
+                        this.i2 = cmodule.Box2D.__2E_str5212;
+                        this.i5 = 92;
+                        §§goto(addr01b1);
+                     }
+                  }
+                  this.i0 = cmodule.Box2D.___sF;
+                  mstate.esp -= 24;
+                  this.i1 = cmodule.Box2D.__2E_str1670;
+                  this.i4 = cmodule.Box2D.__2E_str6213;
+                  this.i2 = cmodule.Box2D.__ZZN13b2DynamicTree8FreeNodeEiE8__func__;
+                  this.i3 = cmodule.Box2D.__2E_str5212;
+                  this.i5 = 91;
+                  this.i0 += 176;
+                  si32(this.i0,mstate.esp);
+                  si32(this.i1,mstate.esp + 4);
+                  si32(this.i4,mstate.esp + 8);
+                  si32(this.i2,mstate.esp + 12);
+                  si32(this.i3,mstate.esp + 16);
+                  break;
+               }
+               addr0205:
+               si32(this.i5,mstate.esp + 20);
+               state = 1;
+               mstate.esp -= 4;
+               FSM_fprintf.start();
+               return;
+            default:
+               throw "Invalid state in __ZN13b2DynamicTree12DestroyProxyEi";
+         }
+         mstate.esp -= 8;
+         si32(this.i0,mstate.esp);
+         si32(this.i1,mstate.esp + 4);
+         state = 3;
+         mstate.esp -= 4;
+         FSM__ZN13b2DynamicTree10RemoveLeafEi.start();
+      }
+   }
+}
+

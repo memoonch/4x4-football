@@ -1,0 +1,36 @@
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Symbol 299" itemID="6ada0400-0000007e" lastModified="1792664630" linkageClassName="tire" linkageExportInFirstFrame="false" linkageExportForAS="true">
+     <timeline>
+          <DOMTimeline name="Symbol 299">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#c894fc" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <RadialGradient focalPointRatio="0">
+                                                            <matrix>
+                                                                 <Matrix tx="0.0" ty="0.0" a="0.0096435546875" d="0.0096435546875"/>
+                                                            </matrix>
+                                                            <GradientEntry color="#000000" ratio="0.4117647"/>
+                                                            <GradientEntry color="#383838" ratio="0.5686275"/>
+                                                            <GradientEntry color="#383838" ratio="0.7019608"/>
+                                                            <GradientEntry color="#000000" ratio="0.84705883"/>
+                                                       </RadialGradient>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes/>
+                                             <edges>
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! 42 -42[ 60 -25 60 0[ 60 24 42 41| 41 42[ 24 60 0 60[ -25 60 -42 42[ -60 24 -60 0[ -60 -24 -43 -42| -42 -43[ -24 -60 0 -60[ 24 -60 42 -42"/>
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! 0 -140[ -57 -140 -99 -100| -100 -99[ -140 -57 -140 0[ -140 58 -99 99[ -57 140 0 140[ 57 140 98 99| 99 98[ 140 57 140 0[ 140 -57 99 -99[ 58 -140 0 -140"/>
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

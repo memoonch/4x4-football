@@ -1,0 +1,655 @@
+package cmodule.Box2D
+{
+   import avm2.intrinsics.memory.lf32;
+   import avm2.intrinsics.memory.li32;
+   import avm2.intrinsics.memory.li8;
+   import avm2.intrinsics.memory.sf32;
+   import avm2.intrinsics.memory.si32;
+   
+   public final class FSM__ZN13b2PulleyJoint23InitVelocityConstraintsERK10b2TimeStep extends Machine
+   {
+      
+      public static const intRegCount:int = 16;
+      
+      public static const NumberRegCount:int = 13;
+      
+      public var f10:Number;
+      
+      public var f11:Number;
+      
+      public var f12:Number;
+      
+      public var f0:Number;
+      
+      public var f1:Number;
+      
+      public var f2:Number;
+      
+      public var f3:Number;
+      
+      public var f4:Number;
+      
+      public var f5:Number;
+      
+      public var f7:Number;
+      
+      public var f9:Number;
+      
+      public var f6:Number;
+      
+      public var f8:Number;
+      
+      public var i10:int;
+      
+      public var i11:int;
+      
+      public var i12:int;
+      
+      public var i13:int;
+      
+      public var i14:int;
+      
+      public var i15:int;
+      
+      public var i0:int;
+      
+      public var i1:int;
+      
+      public var i2:int;
+      
+      public var i3:int;
+      
+      public var i4:int;
+      
+      public var i5:int;
+      
+      public var i6:int;
+      
+      public var i7:int;
+      
+      public var i8:int;
+      
+      public var i9:int;
+      
+      public function FSM__ZN13b2PulleyJoint23InitVelocityConstraintsERK10b2TimeStep()
+      {
+         super();
+      }
+      
+      public static function start() : void
+      {
+         var _loc1_:FSM__ZN13b2PulleyJoint23InitVelocityConstraintsERK10b2TimeStep = null;
+         _loc1_ = new FSM__ZN13b2PulleyJoint23InitVelocityConstraintsERK10b2TimeStep();
+         cmodule.Box2D.gstate.gworker = _loc1_;
+      }
+      
+      final override public function work() : void
+      {
+         switch(state)
+         {
+            case 0:
+               mstate.esp -= 4;
+               si32(mstate.ebp,mstate.esp);
+               mstate.ebp = mstate.esp;
+               mstate.esp -= 0;
+               this.i0 = li32(mstate.ebp + 8);
+               this.i1 = li32(this.i0 + 48);
+               this.i2 = li32(this.i0 + 52);
+               this.f0 = lf32(this.i0 + 116);
+               this.f1 = lf32(this.i1 + 40);
+               this.f2 = lf32(this.i0 + 112);
+               this.f3 = lf32(this.i1 + 36);
+               this.f4 = lf32(this.i0 + 124);
+               this.f5 = lf32(this.i2 + 40);
+               this.f6 = lf32(this.i0 + 120);
+               this.f7 = lf32(this.i2 + 36);
+               this.f2 -= this.f3;
+               this.f0 -= this.f1;
+               this.f1 = this.f6 - this.f7;
+               this.f3 = this.f4 - this.f5;
+               this.f2 = this.f2;
+               this.f0 = this.f0;
+               this.f1 = this.f1;
+               this.f3 = this.f3;
+               this.f4 = lf32(this.i1 + 24);
+               this.f2 = this.f2;
+               this.f5 = lf32(this.i1 + 20);
+               this.f6 = lf32(this.i1 + 32);
+               this.f0 = this.f0;
+               this.f7 = lf32(this.i1 + 28);
+               this.f8 = lf32(this.i2 + 24);
+               this.f1 = this.f1;
+               this.f9 = lf32(this.i2 + 20);
+               this.f10 = lf32(this.i2 + 32);
+               this.f3 = this.f3;
+               this.f11 = lf32(this.i2 + 28);
+               this.f4 *= this.f2;
+               this.f2 = this.f5 * this.f2;
+               this.f5 = this.f6 * this.f0;
+               this.f0 = this.f7 * this.f0;
+               this.f6 = this.f8 * this.f1;
+               this.f1 = this.f9 * this.f1;
+               this.f7 = this.f10 * this.f3;
+               this.f3 = this.f11 * this.f3;
+               this.f4 = this.f4;
+               this.f2 = this.f2;
+               this.f5 = this.f5;
+               this.f0 = this.f0;
+               this.f6 = this.f6;
+               this.f1 = this.f1;
+               this.f7 = this.f7;
+               this.f3 = this.f3;
+               this.f5 = this.f5;
+               this.f4 = this.f4;
+               this.f0 = this.f0;
+               this.f2 = this.f2;
+               this.f7 = this.f7;
+               this.f6 = this.f6;
+               this.f3 = this.f3;
+               this.f1 = this.f1;
+               this.f4 += this.f5;
+               this.f0 = this.f2 + this.f0;
+               this.f2 = this.f6 + this.f7;
+               this.f1 += this.f3;
+               this.f3 = this.f4;
+               this.f0 = this.f0;
+               this.f2 = this.f2;
+               this.f1 = this.f1;
+               this.f4 = lf32(this.i1 + 56);
+               this.f5 = this.f3;
+               this.f6 = lf32(this.i1 + 52);
+               this.f7 = this.f0;
+               this.f8 = lf32(this.i2 + 56);
+               this.f9 = this.f2;
+               this.f10 = lf32(this.i2 + 52);
+               this.f11 = this.f1;
+               this.f4 += this.f5;
+               this.f5 = this.f6 + this.f7;
+               this.f6 = this.f8 + this.f9;
+               this.f7 = this.f10 + this.f11;
+               this.f4 = this.f4;
+               this.f5 = this.f5;
+               this.f6 = this.f6;
+               this.f7 = this.f7;
+               this.f8 = lf32(this.i0 + 96);
+               this.f5 = this.f5;
+               this.f9 = lf32(this.i0 + 100);
+               this.f4 = this.f4;
+               this.f10 = lf32(this.i0 + 104);
+               this.f11 = lf32(this.i0 + 108);
+               this.f6 = this.f6;
+               this.f7 = this.f7;
+               this.f4 -= this.f9;
+               this.f5 -= this.f8;
+               this.f6 -= this.f11;
+               this.f7 -= this.f10;
+               this.f4 = this.f4;
+               this.f5 = this.f5;
+               this.f6 = this.f6;
+               this.f7 = this.f7;
+               this.f8 = this.f4;
+               this.f9 = this.f5;
+               this.f10 = this.f6;
+               this.f11 = this.f7;
+               this.f8 *= this.f8;
+               this.f9 *= this.f9;
+               this.f10 *= this.f10;
+               this.f11 *= this.f11;
+               this.f8 = this.f8;
+               this.f9 = this.f9;
+               this.f10 = this.f10;
+               this.f11 = this.f11;
+               this.f8 = this.f8;
+               this.f9 = this.f9;
+               this.f10 = this.f10;
+               this.f11 = this.f11;
+               sf32(this.f5,this.i0 + 128);
+               this.f8 = this.f9 + this.f8;
+               this.f9 = this.f11 + this.f10;
+               sf32(this.f4,this.i0 + 132);
+               this.f8 = this.f8;
+               this.f9 = this.f9;
+               sf32(this.f7,this.i0 + 136);
+               this.f8 = this.f8;
+               this.f9 = this.f9;
+               sf32(this.f6,this.i0 + 140);
+               this.f8 = Math.sqrt(this.f8);
+               this.f9 = Math.sqrt(this.f9);
+               this.f10 = lf32(cmodule.Box2D._b2_linearSlop);
+               this.f8 = this.f8;
+               this.f9 = this.f9;
+               this.i3 = this.i0 + 132;
+               this.i4 = this.i0 + 140;
+               this.i5 = this.i0 + 136;
+               this.i6 = this.i0 + 128;
+               this.i7 = li32(mstate.ebp + 12);
+               this.f11 = this.f10;
+               this.f12 = this.f8;
+               while(true)
+               {
+                  if(this.f12 > this.f11)
+                  {
+                     this.f11 = 1;
+                     this.f11 = this.f11;
+                     this.f12 = this.f8;
+                     this.f11 = this.f11;
+                     this.f11 /= this.f12;
+                     this.f11 = this.f11;
+                     this.f5 = this.f5;
+                     this.f11 = this.f11;
+                     this.f5 *= this.f11;
+                     this.f4 = this.f4;
+                     this.f4 *= this.f11;
+                     this.f5 = this.f5;
+                     sf32(this.f5,this.i6);
+                     this.f4 = this.f4;
+                     sf32(this.f4,this.i3);
+                     this.f4 = this.f10;
+                     this.f5 = this.f9;
+                     if(this.f5 <= this.f4)
+                     {
+                        addr066a:
+                        this.f4 = 0;
+                        this.i8 = 0;
+                        si32(this.i8,this.i5);
+                        this.f4 = this.f4;
+                        break;
+                     }
+                  }
+                  else
+                  {
+                     this.i8 = 0;
+                     si32(this.i8,this.i6);
+                     si32(this.i8,this.i3);
+                     this.f4 = this.f10;
+                     this.f5 = this.f9;
+                     if(this.f5 <= this.f4)
+                     {
+                        §§goto(addr066a);
+                     }
+                  }
+                  this.f4 = 1;
+                  this.f4 = this.f4;
+                  this.f5 = this.f9;
+                  this.f4 = this.f4;
+                  this.f4 /= this.f5;
+                  this.f4 = this.f4;
+                  this.f5 = this.f7;
+                  this.f4 = this.f4;
+                  this.f5 *= this.f4;
+                  this.f6 = this.f6;
+                  this.f4 = this.f6 * this.f4;
+                  this.f5 = this.f5;
+                  sf32(this.f5,this.i5);
+                  this.f4 = this.f4;
+                  break;
+               }
+               this.f5 = 0;
+               sf32(this.f4,this.i4);
+               this.f4 = lf32(this.i0 + 144);
+               this.f6 = lf32(this.i0 + 148);
+               this.f7 = this.f8;
+               this.f10 = this.f9;
+               this.f4 -= this.f7;
+               this.f6 *= this.f10;
+               this.f4 = this.f4;
+               this.f6 = this.f6;
+               this.f6 = this.f6;
+               this.f4 = this.f4;
+               this.f4 -= this.f6;
+               this.i8 = this.i0 + 188;
+               this.i9 = this.i0 + 152;
+               this.i10 = this.i0 + 184;
+               this.i11 = this.i0 + 148;
+               this.f4 = this.f4;
+               this.f5 = this.f5;
+               this.f5 = this.f5;
+               this.f4 = this.f4;
+               loop2:
+               while(true)
+               {
+                  while(true)
+                  {
+                     if(this.f4 > this.f5)
+                     {
+                        this.i12 = 0;
+                        si32(this.i12,this.i10);
+                        si32(this.i12,this.i0 + 172);
+                        this.f4 = lf32(this.i9);
+                        this.f5 = this.f8;
+                        if(this.f4 <= this.f5)
+                        {
+                           addr0862:
+                           this.i9 = 2;
+                           si32(this.i9,this.i8);
+                           this.f4 = lf32(this.i0 + 156);
+                           this.i8 = this.i0 + 192;
+                           this.f5 = this.f9;
+                           if(this.f4 <= this.f5)
+                           {
+                              break;
+                           }
+                           break loop2;
+                        }
+                     }
+                     else
+                     {
+                        this.i12 = 2;
+                        si32(this.i12,this.i10);
+                        this.f4 = lf32(this.i9);
+                        this.f5 = this.f8;
+                        if(this.f4 <= this.f5)
+                        {
+                           §§goto(addr0862);
+                        }
+                     }
+                     this.i9 = 0;
+                     si32(this.i9,this.i8);
+                     si32(this.i9,this.i0 + 176);
+                     this.f4 = lf32(this.i0 + 156);
+                     this.i8 = this.i0 + 192;
+                     this.f5 = this.f9;
+                     if(this.f4 <= this.f5)
+                     {
+                        break;
+                     }
+                     break loop2;
+                  }
+                  this.i9 = 2;
+                  si32(this.i9,this.i8);
+                  §§goto(addr0959);
+               }
+               this.i9 = 0;
+               si32(this.i9,this.i8);
+               si32(this.i9,this.i0 + 180);
+               addr0959:
+               this.f4 = 1.19209e-7;
+               this.f5 = lf32(this.i3);
+               this.f6 = this.f0;
+               this.f7 = lf32(this.i6);
+               this.f8 = this.f3;
+               this.f5 = this.f6 * this.f5;
+               this.f6 = this.f8 * this.f7;
+               this.f5 = this.f5;
+               this.f6 = this.f6;
+               this.f6 = this.f6;
+               this.f5 = this.f5;
+               this.f5 -= this.f6;
+               this.f5 = this.f5;
+               this.f6 = lf32(this.i1 + 136);
+               this.f5 = this.f5;
+               this.f6 *= this.f5;
+               this.f6 = this.f6;
+               this.f6 = this.f6;
+               this.f5 = this.f6 * this.f5;
+               this.f6 = lf32(this.i4);
+               this.f7 = this.f1;
+               this.f8 = lf32(this.i5);
+               this.f9 = this.f2;
+               this.f5 = this.f5;
+               this.f6 = this.f7 * this.f6;
+               this.f7 = this.f9 * this.f8;
+               this.f8 = lf32(this.i1 + 128);
+               this.f5 = this.f5;
+               this.f6 = this.f6;
+               this.f7 = this.f7;
+               this.f5 = this.f8 + this.f5;
+               this.f7 = this.f7;
+               this.f6 = this.f6;
+               this.f5 = this.f5;
+               this.f6 -= this.f7;
+               sf32(this.f5,this.i0 + 164);
+               this.f6 = this.f6;
+               this.f7 = lf32(this.i2 + 136);
+               this.f6 = this.f6;
+               this.f7 *= this.f6;
+               this.f7 = this.f7;
+               this.f7 = this.f7;
+               this.f6 = this.f7 * this.f6;
+               this.f6 = this.f6;
+               this.f7 = lf32(this.i2 + 128);
+               this.f6 = this.f6;
+               this.f6 = this.f7 + this.f6;
+               this.f6 = this.f6;
+               sf32(this.f6,this.i0 + 168);
+               this.f7 = lf32(this.i11);
+               this.f7 *= this.f7;
+               this.f7 = this.f7;
+               this.f6 = this.f6;
+               this.f7 = this.f7;
+               this.f6 = this.f7 * this.f6;
+               this.f6 = this.f6;
+               this.f6 = this.f6;
+               this.f5 = this.f5;
+               this.f6 = this.f5 + this.f6;
+               this.f6 = this.f6;
+               sf32(this.f6,this.i0 + 160);
+               this.i8 = this.i0 + 160;
+               this.i9 = this.i0 + 168;
+               this.i10 = this.i2 + 136;
+               this.i12 = this.i2 + 128;
+               this.i13 = this.i0 + 164;
+               this.i14 = this.i1 + 136;
+               this.i15 = this.i1 + 128;
+               this.f4 = this.f4;
+               this.f4 = this.f4;
+               if(this.f5 <= this.f4)
+               {
+                  this.i0 = cmodule.Box2D.___sF;
+                  mstate.esp -= 24;
+                  this.i1 = cmodule.Box2D.__2E_str1670;
+                  this.i2 = cmodule.Box2D.__2E_str87294;
+                  this.i3 = cmodule.Box2D.__ZZN15b2RevoluteJoint23InitVelocityConstraintsERK10b2TimeStepE8__func__;
+                  this.i4 = cmodule.Box2D.__2E_str86293;
+                  this.i5 = 162;
+               }
+               else
+               {
+                  this.f4 = 1.19209e-7;
+                  this.f4 = this.f4;
+                  this.f5 = lf32(this.i9);
+                  this.f4 = this.f4;
+                  if(this.f5 > this.f4)
+                  {
+                     break;
+                  }
+                  this.i0 = cmodule.Box2D.___sF;
+                  mstate.esp -= 24;
+                  this.i1 = cmodule.Box2D.__2E_str1670;
+                  this.i2 = cmodule.Box2D.__2E_str88295;
+                  this.i3 = cmodule.Box2D.__ZZN15b2RevoluteJoint23InitVelocityConstraintsERK10b2TimeStepE8__func__;
+                  this.i4 = cmodule.Box2D.__2E_str86293;
+                  this.i5 = 163;
+               }
+               §§goto(addr0cd4);
+            case 2:
+               break;
+            case 1:
+               mstate.esp += 24;
+               state = 2;
+               mstate.esp -= 4;
+               FSM_abort1.start();
+               return;
+            default:
+               throw "Invalid state in __ZN13b2PulleyJoint23InitVelocityConstraintsERK10b2TimeStep";
+         }
+         this.f4 = 1.19209e-7;
+         this.f4 = this.f4;
+         this.f5 = lf32(this.i8);
+         this.f4 = this.f4;
+         if(this.f5 <= this.f4)
+         {
+            this.i0 = cmodule.Box2D.___sF;
+            mstate.esp -= 24;
+            this.i1 = cmodule.Box2D.__2E_str1670;
+            this.i2 = cmodule.Box2D.__2E_str89296;
+            this.i3 = cmodule.Box2D.__ZZN15b2RevoluteJoint23InitVelocityConstraintsERK10b2TimeStepE8__func__;
+            this.i4 = cmodule.Box2D.__2E_str86293;
+            this.i5 = 164;
+            addr0cd4:
+            this.i0 += 176;
+            si32(this.i0,mstate.esp);
+            si32(this.i1,mstate.esp + 4);
+            si32(this.i2,mstate.esp + 8);
+            si32(this.i3,mstate.esp + 12);
+            si32(this.i4,mstate.esp + 16);
+            si32(this.i5,mstate.esp + 20);
+            state = 1;
+            mstate.esp -= 4;
+            FSM_fprintf.start();
+            return;
+         }
+         this.f4 = 1;
+         this.f4 = this.f4;
+         this.f5 = lf32(this.i13);
+         this.f4 = this.f4;
+         this.f5 = this.f4 / this.f5;
+         this.f5 = this.f5;
+         sf32(this.f5,this.i13);
+         this.f5 = lf32(this.i9);
+         this.f5 = this.f4 / this.f5;
+         this.f5 = this.f5;
+         sf32(this.f5,this.i9);
+         this.f5 = lf32(this.i8);
+         this.f4 /= this.f5;
+         this.f4 = this.f4;
+         sf32(this.f4,this.i8);
+         this.i8 = li8(this.i7 + 20);
+         this.i9 = this.i0 + 172;
+         if(this.i8 != 0)
+         {
+            this.f4 = lf32(this.i9);
+            this.f5 = lf32(this.i7 + 8);
+            this.f4 *= this.f5;
+            this.f4 = this.f4;
+            sf32(this.f4,this.i9);
+            this.f5 = lf32(this.i0 + 176);
+            this.f6 = lf32(this.i7 + 8);
+            this.f5 *= this.f6;
+            this.f5 = this.f5;
+            this.f6 = this.f5;
+            this.f4 = this.f4;
+            sf32(this.f5,this.i0 + 176);
+            this.f5 = this.f4 + this.f6;
+            this.f5 = this.f5;
+            this.f6 = lf32(this.i0 + 180);
+            this.f7 = lf32(this.i7 + 8);
+            this.f6 *= this.f7;
+            this.f5 = this.f5;
+            this.f6 = this.f6;
+            this.f5 = -this.f5;
+            this.f5 = this.f5;
+            sf32(this.f6,this.i0 + 180);
+            this.f7 = lf32(this.i6);
+            this.f5 = this.f5;
+            this.f7 *= this.f5;
+            this.f7 = this.f7;
+            this.f8 = lf32(this.i15);
+            this.f7 = this.f7;
+            this.f9 = lf32(this.i3);
+            this.f10 = this.f7 * this.f8;
+            this.f5 = this.f9 * this.f5;
+            this.f9 = this.f10;
+            this.f5 = this.f5;
+            this.f10 = lf32(this.i1 + 72);
+            this.f9 = this.f9;
+            this.f11 = lf32(this.i11);
+            this.f5 = this.f5;
+            this.f9 = this.f10 + this.f9;
+            this.f10 = lf32(this.i4);
+            this.f12 = lf32(this.i5);
+            this.f8 = this.f5 * this.f8;
+            this.f0 = this.f0;
+            this.f3 = this.f3;
+            this.f9 = this.f9;
+            sf32(this.f9,this.i1 + 72);
+            this.f8 = this.f8;
+            this.f0 *= this.f5;
+            this.f3 *= this.f7;
+            this.f0 = this.f0;
+            this.f3 = this.f3;
+            this.f5 = -this.f11;
+            this.f7 = lf32(this.i1 + 76);
+            this.f8 = this.f8;
+            this.f7 += this.f8;
+            this.f5 = this.f5;
+            this.f3 = this.f3;
+            this.f0 = this.f0;
+            this.f7 = this.f7;
+            this.f0 -= this.f3;
+            this.f3 = this.f5;
+            sf32(this.f7,this.i1 + 76);
+            this.f0 = this.f0;
+            this.f3 = this.f4 * this.f3;
+            this.f3 = this.f3;
+            this.f4 = lf32(this.i14);
+            this.f0 = this.f0;
+            this.f0 = this.f4 * this.f0;
+            this.f4 = this.f6;
+            this.f3 = this.f3;
+            this.f0 = this.f0;
+            this.f3 -= this.f4;
+            this.f4 = lf32(this.i1 + 80);
+            this.f0 = this.f0;
+            this.f3 = this.f3;
+            this.f3 = this.f3;
+            this.f0 = this.f4 + this.f0;
+            this.f4 = this.f12 * this.f3;
+            this.f0 = this.f0;
+            this.f4 = this.f4;
+            sf32(this.f0,this.i1 + 80);
+            this.f0 = lf32(this.i12);
+            this.f4 = this.f4;
+            this.f5 = this.f4 * this.f0;
+            this.f5 = this.f5;
+            this.f3 = this.f10 * this.f3;
+            this.f6 = lf32(this.i2 + 72);
+            this.f5 = this.f5;
+            this.f3 = this.f3;
+            this.f5 = this.f6 + this.f5;
+            this.f3 = this.f3;
+            this.f0 = this.f3 * this.f0;
+            this.f1 = this.f1;
+            this.f2 = this.f2;
+            this.f5 = this.f5;
+            sf32(this.f5,this.i2 + 72);
+            this.f0 = this.f0;
+            this.f1 *= this.f3;
+            this.f2 *= this.f4;
+            this.f1 = this.f1;
+            this.f2 = this.f2;
+            this.f3 = lf32(this.i2 + 76);
+            this.f0 = this.f0;
+            this.f0 = this.f3 + this.f0;
+            this.f2 = this.f2;
+            this.f1 = this.f1;
+            this.f0 = this.f0;
+            this.f1 -= this.f2;
+            sf32(this.f0,this.i2 + 76);
+            this.f0 = this.f1;
+            this.f1 = lf32(this.i10);
+            this.f0 = this.f0;
+            this.f0 = this.f1 * this.f0;
+            this.f0 = this.f0;
+            this.f1 = lf32(this.i2 + 80);
+            this.f0 = this.f0;
+            this.f0 = this.f1 + this.f0;
+            this.f0 = this.f0;
+            sf32(this.f0,this.i2 + 80);
+         }
+         else
+         {
+            this.i1 = 0;
+            si32(this.i1,this.i9);
+            si32(this.i1,this.i0 + 176);
+            si32(this.i1,this.i0 + 180);
+         }
+         mstate.esp = mstate.ebp;
+         mstate.ebp = li32(mstate.esp);
+         mstate.esp += 4;
+         mstate.esp += 4;
+         mstate.gworker = caller;
+      }
+   }
+}
+

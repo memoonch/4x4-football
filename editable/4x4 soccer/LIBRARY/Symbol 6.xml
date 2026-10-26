@@ -1,0 +1,29 @@
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Symbol 6" itemID="6ada0400-00000068" lastModified="1792664630" linkageClassName="Preloader" linkageExportForAS="true">
+     <timeline>
+          <DOMTimeline name="Symbol 6">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#9fe08c" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMDynamicText name="label" antiAliasSharpness="0" antiAliasThickness="0" width="97.95" height="21.65" renderAsHTML="true">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="58.35"/>
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>Loaded 0%</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs alignment="left" rotation="true" indent="0.0" leftMargin="0.0" autoKern="true" lineSpacing="1.95" rightMargin="0.0" size="19" bitmapSize="380" face="Ferro Rosso" fillColor="#ffffff"/>
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                        </DOMDynamicText>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

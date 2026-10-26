@@ -1,0 +1,91 @@
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Symbol 503" itemID="6ada0400-000000c7" lastModified="1792664630">
+     <timeline>
+          <DOMTimeline name="Symbol 503">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#73dbfe">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 502" name="add_this_game_btn" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="106.8" ty="438.5" a="1.31219482421875" d="1.2181854248046875"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                             <filters>
+                                                  <GlowFilter blurX="15" blurY="15" color="#000000" quality="1" strength="0.66"/>
+                                                  <DropShadowFilter angle="44.999253346524966" blurX="7" blurY="7" color="#000000" distance="5" quality="1" strength="1.18"/>
+                                             </filters>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#e0d0f3">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 432" name="play_more_games_btn" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="106.8" ty="365.0" a="1.31219482421875" d="1.31219482421875"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                             <filters>
+                                                  <GlowFilter blurX="15" blurY="15" color="#000000" quality="1" strength="0.66"/>
+                                                  <DropShadowFilter angle="44.999253346524966" blurX="7" blurY="7" color="#000000" distance="5" quality="1" strength="1.18"/>
+                                             </filters>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#edd267">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Symbol 499" name="new_game_btn" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="106.35" ty="328.15" a="2.168365478515625" d="2.168365478515625"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                             <filters>
+                                                  <GlowFilter blurX="15" blurY="15" color="#000000" quality="1" strength="0.66"/>
+                                                  <DropShadowFilter angle="44.999253346524966" blurX="7" blurY="7" color="#000000" distance="5" quality="1" strength="1.18"/>
+                                             </filters>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#945ead" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <BitmapFill bitmapPath="Bitmap 495.jpg" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="0.0" ty="0.0" a="20.0" d="20.0"/>
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes/>
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 13400 9000| 0 9000| 0 0| 13400 0| 13400 9000"/>
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

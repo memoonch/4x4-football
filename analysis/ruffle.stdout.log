@@ -1,0 +1,11 @@
+2026-10-22T12:38:13.815817Z  WARN ruffle_desktop::gui::controller: Failed to register [Name("Noto Sans CJK"), Name("Source Han Sans"), Name("WenQuanYi Zen Hei"), Name("Arial Unicode MS")] as Proportional: no unicode fonts found!
+2026-10-22T12:38:16.178534Z  WARN ruffle_core::stub: Encountered stub: AVM2 flash.system.Security.allowDomain()
+2026-10-22T12:38:16.179155Z  WARN ruffle_frontend_utils::backends::storage: Unable to read file "localhost/Users/Alpha/Documents/GitHub/4x4-football/4x4%20soccer.swf/undefined.0": Os { code: 3, kind: NotFound, message: "The system cannot find the path specified." }
+2026-10-22T12:38:16.179443Z  WARN ruffle_core::stub: Encountered stub: AVM2 flash.display.NativeMenuItem constructor
+2026-10-22T12:38:16.179977Z  WARN ruffle_core::stub: Encountered stub: AVM2 flash.system.Security.loadPolicyFile()
+2026-10-22T12:38:16.943616Z  WARN ruffle_core::stub: Encountered stub: AVM2 flash.display.Loader.load() addChild at the correct time
+2026-10-22T12:38:17.479841Z ERROR ruffle_core::avm2: Error dispatching event "complete": TypeError: Error #1009: Cannot access a property or method of a null object reference. (accessing field: package)
+	at fog.as3::FogDevSocial/response()
+	at MethodInfo-4251()
+2026-10-22T12:38:19.163696Z  WARN ruffle_desktop::backends::navigator: SWF tried to open a website, but opening a website is not allowed
+2026-10-22T12:39:45.339605Z  WARN ruffle_desktop::backends::navigator: SWF tried to open a website, but opening a website is not allowed

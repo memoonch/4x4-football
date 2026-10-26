@@ -1,0 +1,24 @@
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Symbol 329" itemID="6ada0400-0000008d" lastModified="1792664630">
+     <timeline>
+          <DOMTimeline name="Symbol 329">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#09e5a7" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMBitmapInstance libraryItemName="Bitmap 326.jpg">
+                                             <matrix>
+                                                  <Matrix tx="-575.0" ty="-402.75" a="0.670166015625" d="0.671234130859375"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point/>
+                                             </transformationPoint>
+                                        </DOMBitmapInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>
