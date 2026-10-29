@@ -1,0 +1,55 @@
+#tournament-menu{position:absolute;z-index:4;container-type:inline-size;pointer-events:none;color:#fff;font-family:Montserrat,Arial,sans-serif;overflow:hidden}
+#tournament-menu[hidden]{display:none}
+#tournament-menu *{box-sizing:border-box}
+#tournament-menu button{font-family:inherit;pointer-events:auto;cursor:pointer;color:#fff}
+#tournament-menu[data-screen=cup]{background:linear-gradient(110deg,#0b1010f5,#101915eb),url('/webgl/ui/match-tunnel.png') center/cover}
+.tournament-content{position:absolute;inset:0}
+.tournament-heading{position:absolute;top:4%;left:4%;right:4%}
+.tournament-heading p{font-size:1.05cqw;font-weight:700;letter-spacing:.16cqw;color:#acbcb1;margin:0 0 .7cqw}
+.tournament-heading h2{margin:0;font-size:3.25cqw;font-weight:850;letter-spacing:-.1cqw;line-height:1.1}
+.round-badge{position:absolute;right:0;top:1.5cqw;border:1px solid #00ff6666;background:#153321;padding:.75cqw 1cqw;color:#8dffb7;font-weight:800;font-size:1.15cqw;letter-spacing:.08cqw}
+.bracket{position:absolute;left:4%;right:4%;top:22%;height:58%}
+.bracket-lines{position:absolute;width:100%;height:100%;overflow:visible;fill:none;stroke:#59685f;stroke-width:1;vector-effect:non-scaling-stroke}
+.bracket-lines path{vector-effect:non-scaling-stroke}
+.bracket-column{position:absolute;top:0;height:100%;width:22%}
+.bracket-column h3{position:absolute;top:-3cqw;left:0;right:0;margin:0;font-size:1.14cqw;font-weight:800;letter-spacing:.06cqw;color:#88988e;text-align:center}
+.bracket-column h3.current-round{color:#ff782f}
+.bracket-match{position:absolute;width:100%;height:10.5%;transform:translateY(-50%);border:1px solid #6b7b6d66;border-radius:3px;background:#1a2421;overflow:hidden;box-shadow:0 2px 8px #0004}
+.bracket-match.upcoming{border-color:#00ff66;box-shadow:0 0 12px #00ff661c}
+.bracket-team{height:50%;display:grid;grid-template-columns:2.7cqw minmax(0,1fr) 1.5cqw;gap:.5cqw;align-items:center;padding:0 .7cqw;font-size:1.13cqw;font-weight:600;line-height:1}
+.bracket-team+.bracket-team{border-top:1px solid #ffffff12}
+.bracket-team img{display:block;width:2.7cqw;height:1.7cqw;object-fit:cover;border-radius:1px}
+.bracket-team span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bracket-team b{font-size:1.1cqw;text-align:right;color:#afbab3}
+.bracket-team.player-team{background:#00ff6615;color:#b9ffd2}
+.bracket-team.winner b{color:#00ff66}
+.bracket-team.undecided{color:#72877b;font-weight:500}
+.tbd-mark{color:#516b5c;text-align:center}
+.bracket-legend{position:absolute;left:4%;right:4%;bottom:14%;display:flex;justify-content:space-between;align-items:center;font-size:1.03cqw;color:#b5c2ba;font-weight:600;letter-spacing:.03cqw}
+.bracket-legend i{display:inline-block;width:.7cqw;height:.7cqw;background:#00ff66;border-radius:50%;margin-right:.5cqw}
+.upcoming-copy{color:#d5e5d9}
+.tournament-nav{position:absolute;left:4%;right:4%;bottom:4%;display:flex;align-items:center;justify-content:space-between}
+.broadcast-button{height:5.3cqw;padding:0 1.8cqw;border:1px solid #a3b1a7;border-radius:3px;background:#111a17f0;font-size:1.4cqw;font-weight:800;letter-spacing:.02cqw}
+.broadcast-button:hover{border-color:#00ff66;background:#263e30}
+.broadcast-button:active{background:#0a1710}
+.broadcast-button.next{border-color:#00ff66;background:#12331feb}
+#tournament-menu[data-screen=match] .broadcast-button.next{background:#ff5500;border-color:#ff9d5c;box-shadow:0 4px 18px #ff550025}
+#tournament-menu[data-screen=match] .broadcast-button.next:hover{background:#ff742b}
+.tournament-more{border:0;background:transparent;text-decoration:underline;color:#a5b4aa!important;font-size:1cqw;padding:1cqw}
+#tournament-menu button:focus-visible{outline:2px solid #ff8c47;outline-offset:3px}
+#tournament-menu button:disabled{opacity:.6;cursor:wait}
+.match-heading{text-align:center}
+.match-heading p{color:#ff965c}
+.match-team{position:absolute;top:20%;width:39%;text-align:center;padding:1.3cqw;background:linear-gradient(#141a17d9,#141a1760);border:1px solid #7b8c7c55;border-radius:4px}
+.match-team-0{left:4%;border-top-color:#00ff66}.match-team-1{right:4%;border-top-color:#ff5500}
+.match-side{font-size:1cqw;letter-spacing:.2cqw;font-weight:800;color:#8dffb7;margin:0 0 .9cqw}
+.match-team-1 .match-side{color:#ff9d69}
+.match-identity{display:flex;align-items:center;justify-content:center;gap:1.4cqw}
+.match-identity img{width:5.5cqw;height:3.7cqw;object-fit:cover;border-radius:2px}
+.match-identity h3{font-size:2.65cqw;line-height:1.1;font-weight:800;margin:0;letter-spacing:-.07cqw}
+.match-vs{position:absolute;left:44%;right:44%;top:42%;text-align:center;font-size:5.7cqw;font-weight:900;font-style:italic;color:#f6f8f6;text-shadow:0 2px 16px #000}
+.match-stage-label{position:absolute;left:30%;right:30%;bottom:16%;text-align:center;font-weight:800;font-size:1.5cqw;letter-spacing:.18cqw;color:#f0f4ef;margin:0}
+.match-stage-label span{display:block;font-size:.9cqw;letter-spacing:.23cqw;font-weight:500;color:#9baea0;margin-top:.5cqw}
+#game-shell:has(#tournament-menu:not([hidden])) #fullscreen{bottom:2px;right:2px;padding:3px 5px;font-size:10px;opacity:.8}
+
+#game:has(#tournament-menu:not([hidden])) #webgl-fps,#game:has(#team-menu:not([hidden])) #webgl-fps{display:none}

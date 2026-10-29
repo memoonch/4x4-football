@@ -2,13 +2,21 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/webgl/ui/team-menu.css">
+<link rel="stylesheet" href="/webgl/ui/tournament-menu.css">
+<link rel="stylesheet" href="/webgl/ui/match-ui.css">
 <title>4x4 Soccer — Local Player</title>
 <style>
   html,body{margin:0;min-height:100%;background:#111820;color:#e5edf4;font:16px system-ui}
   main{max-width:1000px;margin:32px auto;padding:0 20px}
   h1{font-size:24px;margin-bottom:6px} p{color:#aebcca}
-  #game{position:relative;width:670px;height:450px;max-width:100%;background:#000;margin:24px auto}
-  ruffle-player{display:block;width:670px;height:450px;transform-origin:top left} #status{text-align:center}
+  #game-shell{position:relative;width:960px;aspect-ratio:16/9;max-width:100%;background:#080c0d;margin:24px auto;overflow:hidden}
+  #game-shell:fullscreen{width:100vw;height:100vh;max-width:none;margin:0;aspect-ratio:auto}
+  #game{position:absolute;inset:0;background:#080c0d;overflow:hidden}
+  ruffle-player{position:absolute;display:block;width:670px;height:450px;transform-origin:top left} #status{text-align:center}
+  #fullscreen{position:absolute;right:12px;bottom:12px;z-index:10;padding:8px 12px;border:1px solid #77836e;border-radius:4px;background:#111a18e8;color:#fff;font:700 12px system-ui;cursor:pointer}
+  #fullscreen:hover{border-color:#ffa117;background:#24302b}
+  #fullscreen:focus-visible{outline:2px solid #ffa117;outline-offset:3px}
   #world-webgl{position:absolute;top:0;left:0;width:670px;height:450px;transform-origin:top left;pointer-events:none}
   #webgl-fps{position:absolute;left:0;top:35px;z-index:3;white-space:pre;background:#14202b;color:white;font:11px sans-serif;padding:3px;pointer-events:none;transform-origin:top left}
   #game-loading{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:#111820;color:#e5edf4;text-align:center}
@@ -23,7 +31,7 @@
 <main>
   <h1>4x4 Soccer</h1>
   <p>Original FOG game · local Flash emulation</p>
-  <div id="game"></div>
+  <div id="game-shell"><div id="game"></div><button id="fullscreen" type="button" aria-label="Enter fullscreen">Fullscreen ⛶</button></div>
   <p id="status">Loading player…</p>
   <p id="memory" style="text-align:center;font-size:13px">Memory: measuring browser JS heap…</p>
   <details><summary>Graphics diagnostics</summary><pre id="graphics" style="white-space:pre-wrap">Waiting for renderer…</pre></details>
@@ -32,6 +40,19 @@
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
     const status = document.querySelector('#status');
+    const shell = document.querySelector('#game-shell');
+    const fullscreenButton = document.querySelector('#fullscreen');
+    fullscreenButton.addEventListener('click', async () => {
+      try {
+        if(document.fullscreenElement === shell) await document.exitFullscreen();
+        else await shell.requestFullscreen();
+      } catch(error) { status.textContent = 'Fullscreen is unavailable in this browser. ' + error.message; }
+    });
+    document.addEventListener('fullscreenchange', () => {
+      const expanded = document.fullscreenElement === shell;
+      fullscreenButton.textContent = expanded ? 'Exit fullscreen ⛶' : 'Fullscreen ⛶';
+      fullscreenButton.setAttribute('aria-label', expanded ? 'Exit fullscreen' : 'Enter fullscreen');
+    });
     const memoryLabel = document.querySelector('#memory');
     const heapSamples = [];
     const started = performance.now();
@@ -49,22 +70,36 @@
     try {
       const native = new URLSearchParams(location.search).get('engine') === 'webgl';
       if(native) await import('/webgl/renderer.js');
+      if(!new URLSearchParams(location.search).has('original')) {
+        await import('/webgl/ui/team-menu.js');
+        await import('/webgl/ui/tournament-menu.js'); await import('/webgl/ui/match-ui.js'); await import('/webgl/ui/boot-ui.js');
+      }
       const player = window.RufflePlayer.newest().createPlayer();
-      if(native){player.style.position='relative';player.style.zIndex='2';}
+      if(native){player.style.zIndex='2';}
       document.querySelector('#game').append(player);
       new MutationObserver(() => {
         document.querySelector('#graphics').textContent = player.getAttribute('data-renderer-info') || 'Waiting for renderer…';
       }).observe(player,{attributes:true,attributeFilter:['data-renderer-info']});
       new ResizeObserver(([entry]) => {
-        const scale = entry.contentRect.width / 670;
-        player.style.transform = `scale(${scale})`;
-        for(const overlay of document.querySelectorAll('#world-webgl,#webgl-fps')) overlay.style.transform=`scale(${scale})`;
-        entry.target.style.height = `${450 * scale}px`;
+        const scale = Math.min(entry.contentRect.width / 670,entry.contentRect.height / 450);
+        const left = (entry.contentRect.width - 670 * scale) / 2;
+        const top = (entry.contentRect.height - 450 * scale) / 2;
+        for(const teamMenu of document.querySelectorAll('#team-menu,#tournament-menu,#match-ui')){teamMenu.style.width=`${670*scale}px`;teamMenu.style.height=`${450*scale}px`;teamMenu.style.left=`${left}px`;teamMenu.style.top=`${top}px`;}
+        // Let Ruffle rasterize vectors at the displayed resolution, rather than
+        // enlarging a low-resolution Flash canvas with a CSS transform.
+        player.style.transform = 'none';
+        player.style.width = `${670 * scale}px`;player.style.height = `${450 * scale}px`;
+        player.style.left = `${left}px`;player.style.top = `${top}px`;
+        for(const overlay of document.querySelectorAll('#world-webgl,#webgl-fps')) {
+          overlay.style.transform=`scale(${scale})`;
+          overlay.style.left=`${left}px`;
+          overlay.style.top=`${top + (overlay.id === 'webgl-fps' ? 35 * scale : 0)}px`;
+        }
       }).observe(document.querySelector('#game'));
       await player.ruffle().load({url:native ? '/build/4x4-soccer-bridge.swf' : (new URLSearchParams(location.search).has('original') ? '/4x4%20soccer.swf' : '/build/4x4-soccer.swf'),autoplay:'on',
-        unmuteOverlay:'visible',allowScriptAccess:native,openUrlMode:'deny',wmode:native?'transparent':'window',
+        unmuteOverlay:'visible',allowScriptAccess:!new URLSearchParams(location.search).has('original'),openUrlMode:'deny',wmode:native?'transparent':'window',
         preferredRenderer:new URLSearchParams(location.search).get('renderer') || 'wgpu-webgl',
-        quality:'medium',parameters:{type:'1',webglbridge:native?'1':'0'},
+        quality:'medium',scale:'showAll',forceScale:true,parameters:{type:'1',webglbridge:native?'1':'0'},
         backgroundColor:native?null:'#000000'});
       if(native) player.traceObserver = message => {
         if(message.includes('WebGL bridge error:')) status.textContent=message;
@@ -77,3 +112,5 @@
   });
 </script>
 </html>
+
+

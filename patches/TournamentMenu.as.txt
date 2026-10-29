@@ -1,0 +1,62 @@
+      private static var tournamentPopup:MovieClip;
+
+      public static function showTournamentMenu(popup:MovieClip,chart:MovieClip,versus:MovieClip,round:int,cup16:Array,cup8:Array,cup4:Array,cup2:Array):void
+      {
+         if(popup!=chart && popup!=versus)return;
+         if(!flash.external.ExternalInterface.available)return;
+         var kind:String=popup==chart?"cup":"match";
+         var rounds:Array=[cup16,cup8,cup4,cup2];
+         var packet:Object={kind:kind,round:round,rounds:[],player:-1};
+         if(cup16!=null && cup16.length>0)packet.player=int(cup16[0].team);
+         for(var r:int=0;r<4;r++){
+            var entries:Array=[];
+            if(rounds[r]!=null){
+               for(var j:int=0;j<rounds[r].length;j++)entries.push({team:int(rounds[r][j].team),score:int(rounds[r][j].res)});
+            }
+            packet.rounds.push(entries);
+         }
+         try {
+            flash.external.ExternalInterface.addCallback("soccerTournamentAction",function(action:String):Boolean{
+               if(tournamentPopup!=popup)return false;
+               if(action=="next")popup.start_btn.dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));
+               else if(action=="back")popup.back_menu_btn.dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));
+               else if(action=="more")popup.pmg.dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));
+               else return false;
+               return true;
+            });
+            if(!flash.external.ExternalInterface.call("soccerTournament.show",packet))return;
+         }catch(error:Error){return;}
+         tournamentPopup=popup;
+         if(popup.getChildByName("premiumTournament")!=null)return;
+         for(var i:int=0;i<popup.numChildren;i++)popup.getChildAt(i).visible=false;
+         popup.graphics.clear();
+         var backdrop:Sprite=new Sprite();backdrop.name="premiumTournament";backdrop.mouseEnabled=false;
+         backdrop.graphics.beginFill(0x141414);backdrop.graphics.drawRect(0,0,670,450);backdrop.graphics.endFill();
+         popup.addChildAt(backdrop,0);
+         if(kind=="match"){
+            var artwork:Loader=new Loader();backdrop.addChild(artwork);
+            artwork.contentLoaderInfo.addEventListener(Event.COMPLETE,function(event:Event):void{
+               var bitmap:Bitmap=artwork.content as Bitmap;if(bitmap!=null)bitmap.smoothing=true;
+               artwork.width=670;artwork.height=450;
+            });
+            artwork.contentLoaderInfo.addEventListener(flash.events.IOErrorEvent.IO_ERROR,function(event:flash.events.IOErrorEvent):void{});
+            artwork.load(new flash.net.URLRequest("/webgl/ui/match-tunnel.png"));
+            for(var car:int=0;car<2;car++){
+               var truck:MovieClip=popup["hummer"+car];truck.visible=true;truck.filters=[];
+               var bounds:Rectangle=truck.getBounds(popup);var scale:Number=280/bounds.width;
+               truck.scaleX*=scale;truck.scaleY*=scale;
+               bounds=truck.getBounds(popup);
+               truck.x+=(car==0?162:508)-(bounds.x+bounds.width/2);
+               truck.y+=315-(bounds.y+bounds.height);
+            }
+         }
+      }
+
+      public static function hideTournamentMenu(popup:MovieClip):void
+      {
+         if(popup!=tournamentPopup)return;
+         tournamentPopup=null;
+         if(flash.external.ExternalInterface.available){
+            try{flash.external.ExternalInterface.call("soccerTournament.hide");}catch(error:Error){}
+         }
+      }

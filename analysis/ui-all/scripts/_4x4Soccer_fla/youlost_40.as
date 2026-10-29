@@ -1,0 +1,21 @@
+package _4x4Soccer_fla
+{
+   import flash.display.MovieClip;
+   
+   [Embed(source="/_assets/assets.swf", symbol="symbol426")]
+   public dynamic class youlost_40 extends MovieClip
+   {
+      
+      public function youlost_40()
+      {
+         super();
+         addFrameScript(0,this.frame1);
+      }
+      
+      internal function frame1() : *
+      {
+         stop();
+      }
+   }
+}
+

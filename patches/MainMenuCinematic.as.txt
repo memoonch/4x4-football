@@ -1,0 +1,103 @@
+      private static function menuText(parent:Sprite,text:String,x:Number,y:Number,size:Number,color:uint,width:Number):TextField
+      {
+         var field:TextField=new TextField();
+         var format:TextFormat=new TextFormat("Impact",size,color,true);
+         format.letterSpacing=0.5;field.defaultTextFormat=format;field.embedFonts=true;
+         field.text=text;field.x=x;field.y=y;field.width=width;field.height=size*1.5+6;
+         field.antiAliasType=AntiAliasType.ADVANCED;field.gridFitType=GridFitType.PIXEL;
+         field.selectable=false;field.mouseEnabled=false;parent.addChild(field);return field;
+      }
+
+      private static function menuButtonState(label:String,width:Number,height:Number,primary:Boolean,hover:Boolean,pressed:Boolean):Sprite
+      {
+         var state:Sprite=new Sprite();var g:Graphics=state.graphics;
+         // Layered vector plates stay sharp at the displayed player resolution.
+         g.beginFill(0x070b0d,0.8);
+         g.moveTo(15,4);g.lineTo(width+5,4);g.lineTo(width-12,height+5);g.lineTo(-4,height+5);g.lineTo(15,4);g.endFill();
+         var matrix:Matrix=new Matrix();matrix.createGradientBox(width,height,Math.PI/2);
+         g.lineStyle(2,primary?(hover?0xffe0a0:0xffbc55):(hover?0xc4ed57:0x75817e));
+         g.beginGradientFill(GradientType.LINEAR,primary?[pressed?0xd65200:(hover?0xffb129:0xff9714),pressed?0xbc3900:0xef5000]:[pressed?0x17201e:(hover?0x38483f:0x293431),0x11191b],[1,1],[0,255],matrix);
+         g.moveTo(17,1);g.lineTo(width-2,1);g.lineTo(width-17,height-1);g.lineTo(1,height-1);g.lineTo(17,1);g.endFill();
+         g.lineStyle(1,0xffffff,hover?0.5:0.25);g.moveTo(21,5);g.lineTo(width-9,5);
+         g.lineStyle(1,0x000000,0.3);g.moveTo(5,height-5);g.lineTo(width-20,height-5);
+         if(!primary){g.lineStyle();g.beginFill(0xa8d934);g.moveTo(width-10,2);g.lineTo(width-3,2);g.lineTo(width-18,height-2);g.lineTo(width-25,height-2);g.endFill();}
+         var labelField:TextField=new TextField();
+         var format:TextFormat=new TextFormat("Impact",primary?31:19,0xffffff,true);
+         format.align="center";format.letterSpacing=primary?0.8:0.5;
+         labelField.defaultTextFormat=format;labelField.embedFonts=true;
+         labelField.text=primary?label:(label.length>0?"PLAY MORE\nDRIVING GAMES":"");
+         labelField.width=(width-64)/1.25;labelField.height=height;
+         labelField.transform.matrix=new Matrix(1.25,0,-0.12,1,primary?48:28,primary?7:2);
+         if(pressed)labelField.y+=1;
+         labelField.selectable=false;labelField.mouseEnabled=false;
+         labelField.antiAliasType=AntiAliasType.ADVANCED;
+         state.addChild(labelField);
+         if(primary){
+            g.lineStyle();g.beginFill(0xffffff);
+            g.moveTo(27,19);g.lineTo(27,39);g.lineTo(42,29);g.lineTo(27,19);g.endFill();
+         }
+         return state;
+      }
+
+      public static function installMainMenu(menu:MovieClip,truck:DisplayObject):void
+      {
+         if(menu.getChildByName("premiumMenu")!=null)return;
+         for(var i:int=0;i<menu.numChildren;i++)menu.getChildAt(i).visible=false;
+         menu.graphics.clear();
+         var skin:Sprite=new Sprite();skin.name="premiumMenu";
+         skin.mouseEnabled=false;skin.mouseChildren=false;menu.addChildAt(skin,0);
+         skin.graphics.beginFill(0x172220);skin.graphics.drawRect(0,0,670,450);skin.graphics.endFill();
+         var artwork:Loader=new Loader();skin.addChild(artwork);
+         artwork.contentLoaderInfo.addEventListener(Event.COMPLETE,function(event:Event):void{
+            var bitmap:Bitmap=artwork.content as Bitmap;if(bitmap!=null)bitmap.smoothing=true;
+            artwork.width=670;artwork.height=450;
+         });
+         artwork.contentLoaderInfo.addEventListener(flash.events.IOErrorEvent.IO_ERROR,function(event:flash.events.IOErrorEvent):void{});
+         artwork.load(new flash.net.URLRequest("/webgl/menu-reference.png"));
+         var crest:Sprite=new Sprite();skin.addChild(crest);var c:Graphics=crest.graphics;
+         c.lineStyle(2,0x101717);c.beginFill(0x111a18,0.97);
+         c.moveTo(209,32);c.lineTo(316,21);c.curveTo(335,-2,354,21);c.lineTo(461,32);
+         c.lineTo(482,104);c.lineTo(466,137);c.lineTo(335,156);c.lineTo(204,137);c.lineTo(188,104);c.lineTo(209,32);c.endFill();
+         c.lineStyle(3,0x9dca28);c.moveTo(216,39);c.lineTo(318,28);c.lineTo(335,15);c.lineTo(352,28);c.lineTo(454,39);c.lineTo(470,100);
+         c.moveTo(218,136);c.lineTo(335,149);c.lineTo(451,136);
+         c.lineStyle(1,0x68736e);c.beginFill(0x101718);c.moveTo(197,94);c.lineTo(478,94);c.lineTo(465,132);c.lineTo(185,132);c.lineTo(197,94);c.endFill();
+         var title:TextField=menuText(crest,"4X4",218,25,67,0xf5f5ec,240);
+         var titleFormat:TextFormat=title.defaultTextFormat;titleFormat.align="center";title.setTextFormat(titleFormat);
+         var subtitle:TextField=menuText(crest,"FOOTBALL",209,94,30,0xffffff,251);
+         var subtitleFormat:TextFormat=subtitle.defaultTextFormat;subtitleFormat.align="center";subtitleFormat.letterSpacing=2;subtitle.setTextFormat(subtitleFormat);
+         c.lineStyle(1.5,0x101718);c.beginFill(0xf3f4eb);c.drawCircle(335,21,13);c.endFill();
+         c.beginFill(0x17211d);c.moveTo(335,14);c.lineTo(342,19);c.lineTo(339,27);c.lineTo(331,27);c.lineTo(328,19);c.lineTo(335,14);c.endFill();
+         c.moveTo(328,19);c.lineTo(323,16);c.moveTo(342,19);c.lineTo(347,16);c.moveTo(339,27);c.lineTo(343,31);c.moveTo(331,27);c.lineTo(327,31);
+         // The generated artwork contains the reference-quality metallic badge.
+         crest.visible=false;
+         var primary:SimpleButton=menu.new_game_btn as SimpleButton;
+         var secondary:SimpleButton=menu.play_more_games_btn as SimpleButton;
+         if(primary!=null){
+            primary.transform.matrix=new Matrix();primary.filters=[];primary.x=19;primary.y=307;
+            primary.upState=menuButtonState("NEW GAME",300,58,true,false,false);
+            primary.overState=menuButtonState("NEW GAME",300,58,true,true,false);
+            primary.downState=menuButtonState("NEW GAME",300,58,true,true,true);
+            primary.hitTestState=menuButtonState("",300,58,true,false,false);
+            primary.visible=true;primary.tabEnabled=true;
+         }
+         if(secondary!=null){
+            secondary.transform.matrix=new Matrix();secondary.filters=[];secondary.x=19;secondary.y=377;
+            secondary.upState=menuButtonState("PLAY MORE DRIVING GAMES",300,54,false,false,false);
+            secondary.overState=menuButtonState("PLAY MORE DRIVING GAMES",300,54,false,true,false);
+            secondary.downState=menuButtonState("PLAY MORE DRIVING GAMES",300,54,false,true,true);
+            secondary.hitTestState=menuButtonState("",300,54,false,false,false);
+            secondary.visible=true;secondary.tabEnabled=true;
+         }
+         menu.add_this_game_btn.visible=false;menu.add_this_game_btn.mouseEnabled=false;menu.add_this_game_btn.tabEnabled=false;
+      }
+
+      public static function mainMenuVisibility(visible:Boolean):void
+      {
+         if(flash.external.ExternalInterface.available)
+         {
+            try{flash.external.ExternalInterface.call("soccerBridge.menu",visible);}catch(error:Error){}
+         }
+      }
+
+
+

@@ -1,0 +1,95 @@
+      private static var premiumRace:MovieClip;
+      private static var premiumLast:int=0;
+      private static var premiumWorld:*;
+      private static var premiumDriver:*;
+      public static function publishMatchWorld(world:*,driver:*):void {premiumWorld=world;premiumDriver=driver;}
+      private static function skinMatchResult(p:MovieClip,champion:Boolean):void {
+         p.mouseEnabled=false;p.mouseChildren=false;
+         if(p.getChildByName("premiumResult")==null){
+            var backdrop:Sprite=new Sprite();backdrop.name="premiumResult";
+            backdrop.graphics.beginFill(0x101614);backdrop.graphics.drawRect(0,0,670,450);backdrop.graphics.endFill();
+            p.addChildAt(backdrop,0);
+            var artwork:Loader=new Loader();backdrop.addChild(artwork);
+            artwork.contentLoaderInfo.addEventListener(Event.COMPLETE,function(e:Event):void {
+               var bitmap:Bitmap=artwork.content as Bitmap;if(bitmap!=null)bitmap.smoothing=true;
+               artwork.width=670;artwork.height=450;
+            });
+            artwork.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,function(e:IOErrorEvent):void{});
+            artwork.load(new flash.net.URLRequest(champion?"/webgl/ui/team-tunnel.png":"/webgl/ui/match-tunnel.png"));
+            for(var c:int=0;c<(champion?1:2);c++){
+               var truck:MovieClip=p["hummer"+c];truck.filters=[];
+               var b:Rectangle=truck.getBounds(p);var scale:Number=(champion?280:230)/b.width;
+               truck.scaleX*=scale;truck.scaleY*=scale;b=truck.getBounds(p);
+               truck.x+=(champion?482:c==0?160:510)-(b.x+b.width/2);
+               truck.y+=(champion?340:300)-(b.y+b.height);
+            }
+         }
+         for(var i:int=0;i<p.numChildren;i++){
+            var child:DisplayObject=p.getChildAt(i);
+            child.alpha=child.name=="premiumResult" || child==p.hummer0 || (!champion && child==p.hummer1)?1:0;
+         }
+         p.hummer0.visible=true;if(!champion)p.hummer1.visible=true;
+      }
+      public static function installMatchUI(game:MovieClip):void {
+         if(premiumRace!=null || !flash.external.ExternalInterface.available)return;
+         try{if(!flash.external.ExternalInterface.call("soccerMatch.ready"))return;}catch(error:Error){return;}
+         premiumRace=game;
+         flash.external.ExternalInterface.addCallback("soccerMatchAction",function(action:String):Boolean {
+            var p:MovieClip=null;var key:String="";
+            if(game.pause_mc.visible){p=game.pause_mc;key=action=="resume"?"btn2":action=="retry"?"btn3":action=="back"?"btn1":action=="more"?"pmg":"";}
+            else if(game.halftime_mc.visible){p=game.halftime_mc;key=action=="next"?"start_btn":action=="retry"?"retry_btn":action=="back"?"back_menu_btn":action=="more"?"pmg":"";}
+            else if(game.final_mc.visible){p=game.final_mc;key=action=="back"?"back_menu_btn":action=="more"?"pmg":"";}
+            else if(game.UI.visible){p=game.UI;key=action=="pause"?"pause_btn":action=="mute"?"mute_btn":"";}
+            if(p==null || key=="" || !p[key].visible)return false;
+            p[key].dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));return true;
+         });
+         game.addEventListener(Event.ENTER_FRAME,function(event:Event):void {
+            var now:int=getTimer();if(now-premiumLast<100)return;premiumLast=now;
+            var ui:MovieClip=game.UI;var p:MovieClip=null;var kind:String="";
+            if(game.pause_mc.visible){p=game.pause_mc;kind="pause";}
+            else if(game.halftime_mc.visible){p=game.halftime_mc;kind="result";}
+            else if(game.final_mc.visible){p=game.final_mc;kind="final";}
+            var packet:Object={kind:kind,hud:ui.visible,home:int(ui.team0.currentFrame)-2,away:int(ui.team1.currentFrame)-2,score0:String(ui.laps_label.text),score1:String(ui.pos_label.text),period:String(ui.period_label.text),time:String(ui.stopwatchLastLap.min.text)+":"+String(ui.stopwatchLastLap.sec.text),muted:SoundMixer.soundTransform.volume==0,title:"",totals:"",next:false,retry:false,back:false,banner:"",map:[],countdown:"",countdownProgress:0};
+            if(p!=null){
+               if(kind=="result"){packet.title=String(p.title_label.text);packet.score0=String(p.homeScore.text);packet.score1=String(p.guestScore.text);packet.next=p.start_btn.visible;packet.retry=p.retry_btn.visible;packet.back=p.back_menu_btn.visible;}
+               else if(kind=="final"){packet.title="CUP CHAMPIONS";packet.totals=p.currentFrame==2?String(p.finalscores.text):"";packet.back=true;}
+               else {packet.title="PAUSED";packet.retry=true;packet.back=true;}
+            }
+            if(ui.visible && ui.lights_mc.visible && ui.lights_mc.currentFrame>1){
+               packet.countdown="GET READY";
+               packet.countdownProgress=ui.lights_mc.currentFrame/ui.lights_mc.totalFrames;
+            }
+            if(game.goalAnim_mc.visible && game.goalAnim_mc.currentFrame>1 && game.goalAnim_mc.currentFrame<game.goalAnim_mc.totalFrames)packet.banner="GOAL!";
+            else if(game.wonAnim_mc.visible && game.wonAnim_mc.currentFrame>1 && game.wonAnim_mc.currentFrame<game.wonAnim_mc.totalFrames)packet.banner="VICTORY";
+            else if(game.lostAnim_mc.visible && game.lostAnim_mc.currentFrame>1 && game.lostAnim_mc.currentFrame<game.lostAnim_mc.totalFrames)packet.banner="FULL TIME";
+            if(ui.visible && kind=="" && premiumWorld!=null && premiumWorld.players!=null){
+               var bounds:Rectangle=premiumWorld.bckgrnd.getBounds(premiumWorld);
+               if(bounds.width>0 && bounds.height>0){
+                  for(var j:int=0;j<premiumWorld.players.length;j++){
+                     var car:* =premiumWorld.players[j];
+                     packet.map.push({x:Math.round(1000*(car.x-bounds.x)/bounds.width)/10,y:Math.round(1000*(car.y-bounds.y)/bounds.height)/10,side:car.team==premiumWorld.players[0].team?0:1,driver:car==premiumDriver});
+                  }
+                  packet.map.push({x:Math.round(1000*(premiumWorld.ball.x-bounds.x)/bounds.width)/10,y:Math.round(1000*(premiumWorld.ball.y-bounds.y)/bounds.height)/10,side:2,driver:false});
+               }
+            }
+            var accepted:Boolean=false;
+            try{accepted=flash.external.ExternalInterface.call("soccerMatch.update",packet);}catch(error:Error){}
+            if(!accepted)return;
+            ui.graphics.clear();
+            for(var h:int=0;h<ui.numChildren;h++){
+               var hudChild:DisplayObject=ui.getChildAt(h);
+               if(hudChild!=ui.minilogo){hudChild.alpha=0;if(hudChild is InteractiveObject)InteractiveObject(hudChild).mouseEnabled=false;}
+            }
+            TextureMaterial.setDiagnosticsVisible(ui.visible && kind=="");
+            ui.pause_btn.mouseEnabled=false;ui.mute_btn.mouseEnabled=false;
+            if(packet.map.length>0)game.cars.alpha=0;
+            game.pause_mc.alpha=0;game.pause_mc.mouseChildren=false;
+            if(kind=="result")skinMatchResult(p,false);
+            if(kind=="final")skinMatchResult(p,true);
+            game.goalAnim_mc.alpha=0;game.wonAnim_mc.alpha=0;game.lostAnim_mc.alpha=0;
+         });
+      }
+
+
+
+

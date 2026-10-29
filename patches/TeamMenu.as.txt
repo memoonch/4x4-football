@@ -1,0 +1,42 @@
+      public static function installTeamMenu(menu:MovieClip):void
+      {
+         if(!flash.external.ExternalInterface.available)return;
+         try {
+            flash.external.ExternalInterface.addCallback("soccerTeamAction",function(action:String,index:int=0):Boolean{
+               if(action=="select"){
+                  if(index<0||index>15)return false;
+                  var card:MovieClip=menu.getChildByName("team"+index) as MovieClip;
+                  if(card==null)return false;
+                  card.dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));
+               }else if(action=="confirm"){
+                  menu.start_btn.dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));
+               }else if(action=="back"){
+                  menu.back_menu_btn.dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));
+               }else if(action=="more"){
+                  menu.play_more_games_btn.dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));
+               }else return false;
+               return true;
+            });
+            if(!flash.external.ExternalInterface.call("soccerTeams.show",0))return;
+         }catch(error:Error){return;}
+         if(menu.getChildByName("premiumTeams")!=null)return;
+         for(var i:int=0;i<menu.numChildren;i++)menu.getChildAt(i).visible=false;
+         menu.graphics.clear();
+         var backdrop:Sprite=new Sprite();backdrop.name="premiumTeams";backdrop.mouseEnabled=false;
+         backdrop.graphics.beginFill(0x141414);backdrop.graphics.drawRect(0,0,670,450);backdrop.graphics.endFill();
+         menu.addChildAt(backdrop,0);
+         var artwork:Loader=new Loader();backdrop.addChild(artwork);
+         artwork.contentLoaderInfo.addEventListener(Event.COMPLETE,function(event:Event):void{
+            var bitmap:Bitmap=artwork.content as Bitmap;if(bitmap!=null)bitmap.smoothing=true;
+            artwork.width=670;artwork.height=450;
+         });
+         artwork.contentLoaderInfo.addEventListener(flash.events.IOErrorEvent.IO_ERROR,function(event:flash.events.IOErrorEvent):void{});
+         artwork.load(new flash.net.URLRequest("/webgl/ui/team-tunnel.png"));
+         var truck:MovieClip=menu.hummer0;
+         truck.visible=true;truck.filters=[];
+         var bounds:Rectangle=truck.getBounds(menu);
+         var scale:Number=280/bounds.width;
+         truck.scaleX*=scale;truck.scaleY*=scale;
+         bounds=truck.getBounds(menu);truck.x+=482-(bounds.x+bounds.width/2);truck.y+=340-(bounds.y+bounds.height);
+      }
+

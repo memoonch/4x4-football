@@ -1,0 +1,107 @@
+      private static function menuText(parent:Sprite,text:String,x:Number,y:Number,size:Number,color:uint,bold:Boolean=false,width:Number=300):TextField
+      {
+         var field:TextField = new TextField();
+         field.defaultTextFormat = new TextFormat(size>=30 ? "Impact" : "_sans",size,color,bold);
+         field.embedFonts = size>=30;
+         field.text = text;
+         field.x = x; field.y = y; field.width = width; field.height = size * 1.5 + 6;
+         field.selectable = false; field.mouseEnabled = false;
+         parent.addChild(field); return field;
+      }
+
+      private static function menuButtonState(label:String,width:Number,height:Number,fill:uint,border:uint,textColor:uint):Sprite
+      {
+         var state:Sprite = new Sprite();
+         state.graphics.lineStyle(1,border);
+         state.graphics.beginFill(fill);
+         state.graphics.drawRoundRect(0,0,width,height,12,12);
+         state.graphics.endFill();
+         var field:TextField = menuText(state,label,18,(height-24)/2-1,14,textColor,true,width-34);
+         return state;
+      }
+
+      public static function installMainMenu(menu:MovieClip,truck:DisplayObject):void
+      {
+         if(menu.getChildByName("premiumMenu") != null) return;
+         // Keep the original SimpleButtons and their existing game event handlers.
+         for(var i:int=0;i<menu.numChildren;i++) menu.getChildAt(i).visible = false;
+         menu.graphics.clear();
+         var skin:Sprite = new Sprite(); skin.name = "premiumMenu";
+         skin.mouseEnabled = false; skin.mouseChildren = false;
+         menu.addChildAt(skin,0);
+         var g:Graphics = skin.graphics;
+         g.beginFill(0x111718);g.drawRect(0,0,670,450);g.endFill();
+         // Stadium terraces and a restrained pitch diagram, drawn once.
+         g.beginFill(0x1b2627);g.moveTo(302,0);g.lineTo(670,0);g.lineTo(670,450);g.lineTo(410,450);g.lineTo(278,245);g.endFill();
+         g.beginFill(0x243133);g.moveTo(350,74);g.lineTo(670,92);g.lineTo(670,239);g.lineTo(304,226);g.endFill();
+         for(var row:int=0;row<7;row++){
+            g.lineStyle(1,0x7a8a85,0.14);
+            g.moveTo(345-row*5,99+row*17);g.lineTo(670,113+row*17);
+         }
+         g.lineStyle(2,0x869b8a,0.28);
+         g.moveTo(377,263);g.lineTo(645,263);g.lineTo(726,423);g.lineTo(283,423);g.lineTo(377,263);
+         g.moveTo(330,343);g.lineTo(685,343);g.drawEllipse(452,319,101,43);
+         g.moveTo(468,263);g.lineTo(460,287);g.lineTo(557,287);g.lineTo(550,263);
+         g.lineStyle();g.beginFill(0xf58232);g.drawRect(640,42,3,44);g.endFill();
+         // Flat sports badge and broadcast-style typography.
+         g.beginFill(0xf58232);g.drawRoundRect(32,27,36,30,7,7);g.endFill();
+         menuText(skin,"4x4",37,30,15,0x111718,true,32);
+         menuText(skin,"FOOTBALL",78,29,16,0xf4f5ef,true,180);
+         menuText(skin,"OFF-ROAD. ON-PITCH.",33,100,10,0xf58232,true,270);
+         menuText(skin,"4x4",27,118,66,0xf4f5ef,true,285);
+         menuText(skin,"FOOTBALL",30,189,34,0xf4f5ef,true,286);
+         menuText(skin,"Big trucks. Beautiful game.",33,244,13,0xafb9b3,false,290);
+         // Original vehicle artwork, rendered without moving its team-screen instance.
+         if(truck != null){
+            var preview:MovieClip = truck as MovieClip;
+            var paint:DisplayObject = preview.getChildByName("boja");
+            var maskArt:DisplayObject = preview.getChildByName("hummer_mask");
+            var paintVisible:Boolean = paint != null && paint.visible;
+            var maskVisible:Boolean = maskArt != null && maskArt.visible;
+            if(paint != null) paint.visible=false;
+            if(maskArt != null) maskArt.visible=false;
+            var bounds:Rectangle = truck.getBounds(truck);
+            if(bounds.width>0 && bounds.height>0){
+               var pixels:BitmapData = new BitmapData(288,245,true,0);
+               var scale:Number = Math.min(275/bounds.width,230/bounds.height);
+               var matrix:Matrix = new Matrix(scale,0,0,scale,(288-bounds.width*scale)/2-bounds.x*scale,12-bounds.y*scale);
+               pixels.draw(truck,matrix,null,null,null,true);
+               var hero:Bitmap = new Bitmap(pixels,"auto",true);
+               hero.x=355;hero.y=151;skin.addChild(hero);
+            }
+            if(paint != null) paint.visible=paintVisible;
+            if(maskArt != null) maskArt.visible=maskVisible;
+         }
+         menuText(skin,"BUILT FOR THE PITCH",394,380,10,0xafb9b3,true,245);
+         g.lineStyle(1,0x3a4744);g.moveTo(33,408);g.lineTo(637,408);
+         menuText(skin,"OFF-ROAD FOOTBALL",33,420,9,0x7e8f87,true,240);
+         menuText(skin,"ORIGINAL GAME BY FOG",490,420,9,0x7e8f87,false,150);
+
+         var primary:SimpleButton = menu.new_game_btn as SimpleButton;
+         var secondary:SimpleButton = menu.play_more_games_btn as SimpleButton;
+         if(primary != null){
+            primary.transform.matrix = new Matrix();primary.filters=[];primary.x=33;primary.y=291;
+            primary.upState=menuButtonState("NEW GAME                         ›",232,47,0xf58232,0xf58232,0x111718);
+            primary.overState=menuButtonState("NEW GAME                         ›",232,47,0xffa05b,0xffa05b,0x111718);
+            primary.downState=menuButtonState("NEW GAME                         ›",232,47,0xd96a20,0xd96a20,0x111718);
+            primary.hitTestState=primary.upState;primary.visible=true;primary.tabEnabled=true;
+         }
+         if(secondary != null){
+            secondary.transform.matrix=new Matrix();secondary.filters=[];secondary.x=33;secondary.y=348;
+            secondary.upState=menuButtonState("PLAY MORE DRIVING GAMES",232,38,0x17201e,0x3b4a43,0xd7ded8);
+            secondary.overState=menuButtonState("PLAY MORE DRIVING GAMES",232,38,0x26372d,0x7a9d7e,0xffffff);
+            secondary.downState=menuButtonState("PLAY MORE DRIVING GAMES",232,38,0x111718,0x7a9d7e,0xffffff);
+            secondary.hitTestState=secondary.upState;secondary.visible=true;secondary.tabEnabled=true;
+         }
+         menu.add_this_game_btn.visible=false;menu.add_this_game_btn.mouseEnabled=false;menu.add_this_game_btn.tabEnabled=false;
+      }
+
+      public static function mainMenuVisibility(visible:Boolean):void
+      {
+         if(flash.external.ExternalInterface.available)
+         {
+            try { flash.external.ExternalInterface.call("soccerBridge.menu",visible); }
+            catch(error:Error) {}
+         }
+      }
+

@@ -8,12 +8,13 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.domElement.id='world-webgl';host.prepend(renderer.domElement);
 let scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(), nodes=new Map(), materials=new Map();
 let previousCamera=null,currentCamera=null,receivedAt=0,simulationInterval=40,sourceFrames=0;
-let active=false,lastDraw=0,draws=0,windowStart=performance.now(),intervals=[],lastPresented=0;
+let active=false,menuOpen=true,lastDraw=0,draws=0,windowStart=performance.now(),intervals=[],lastPresented=0;
 const targetFps=30, correction=new THREE.Matrix4().makeScale(1,-1,-1);
+const currentCameraMatrix=new THREE.Matrix4(),previousCameraMatrix=new THREE.Matrix4();
 const cameraPosition=new THREE.Vector3(),cameraQuaternion=new THREE.Quaternion(),cameraScale=new THREE.Vector3();
 const loader=new THREE.TextureLoader();
 const assets=await fetch('/webgl/assets.json').then(r=>r.json());
-const meter=document.createElement('div');meter.id='webgl-fps';meter.textContent='WebGL: waiting for game…';host.append(meter);
+const meter=document.createElement('div');meter.id='webgl-fps';meter.hidden=true;meter.textContent='WebGL: waiting for game…';host.append(meter);
 const diagnostics=document.createElement('pre');diagnostics.id='webgl-diagnostics';document.querySelector('details').append(diagnostics);
 let lastUpdateCount=0,dynamicCount=0,renderTime=0;
 let generation=0,presentedGeneration=-1,pendingTextures=0,sceneComplete=false,sceneKey=null,reusedScenes=0;
@@ -32,6 +33,7 @@ function trimTextureCache(){
 function updateReadiness(){
   const wasActive=active;
   active=sceneComplete&&pendingTextures===0&&currentCamera!==null;
+  meter.hidden=menuOpen||!active;
   if(active&&!wasActive){windowStart=performance.now();draws=sourceFrames=0;intervals=[];lastPresented=0;lastDraw=0;}
   if(!active)meter.textContent='Renderer: original';
 }
@@ -108,6 +110,7 @@ function stateToTransform(object,state){
   object.scale.set(state[6],state[7],state[8]);object.visible=state[9];
 }
 window.soccerBridge={
+  menu(visible){menuOpen=visible;meter.hidden=visible||!active;},
   loading(visible){loadingScreen.hidden=!visible;},
   reportError(message){document.querySelector('#status').textContent='WebGL bridge: '+message;},
   receive(packet){
@@ -131,11 +134,12 @@ window.soccerBridge={
           const mesh=new THREE.Mesh(geometry,material);object.add(mesh);
         }
         (nodes.get(def.parent)?.object||scene).add(object);
-        nodes.set(def.id,{object,previous:null,current:null});
+        nodes.set(def.id,{object,previous:null,current:null,interpolated:null});
       }
       for(const update of packet.updates){
         const node=nodes.get(update.id);if(!node)continue;
         node.previous=packet.snap?update.state:(node.current||update.state);node.current=update.state;
+        if(!node.interpolated)node.interpolated=update.state.slice();
       }
       previousCamera=packet.snap?packet.camera:(currentCamera||packet.camera);currentCamera=packet.camera;
       if(receivedAt)simulationInterval=Math.max(20,Math.min(100,now-receivedAt));
@@ -158,17 +162,18 @@ function render(now){
   for(const node of nodes.values()){
     if(!node.current)continue;
     // One simulation snapshot of latency allows smooth, speed-preserving display interpolation.
-    const state=node.current.slice();
+    const state=node.interpolated;
     for(let i=0;i<9;i++){
-      let delta=state[i]-node.previous[i];
+      let delta=node.current[i]-node.previous[i];
       if(i>=3&&i<=5)delta=Math.atan2(Math.sin(delta),Math.cos(delta));
       state[i]=node.previous[i]+delta*t;
     }
+    state[9]=node.current[9];
     stateToTransform(node.object,state);
   }
   const c=currentCamera,p=previousCamera;
-  const cm=new THREE.Matrix4().fromArray(c.matrix).multiply(correction);
-  const pm=new THREE.Matrix4().fromArray(p.matrix).multiply(correction);
+  const cm=currentCameraMatrix.fromArray(c.matrix).multiply(correction);
+  const pm=previousCameraMatrix.fromArray(p.matrix).multiply(correction);
   pm.decompose(camera.position,camera.quaternion,camera.scale);
   cm.decompose(cameraPosition,cameraQuaternion,cameraScale);
   camera.position.lerp(cameraPosition,t);camera.quaternion.slerp(cameraQuaternion,t);
@@ -182,7 +187,7 @@ function render(now){
   if(elapsed>=1000){
     intervals.sort((a,b)=>a-b);
     meter.textContent=`WebGL: ${(draws*1000/elapsed).toFixed(1)} / ${targetFps} fps\nSimulation: ${(sourceFrames*1000/elapsed).toFixed(1)} / 25 · p95 ${(intervals[Math.ceil(intervals.length*.95)-1]||0).toFixed(0)} ms`;
-    diagnostics.textContent=`Native WebGL · ${nodes.size} objects · ${materials.size} materials\n${renderer.info.render.calls} draws · ${renderer.info.render.triangles} triangles\nCPU render submission: ${(renderTime/Math.max(1,draws)).toFixed(2)} ms/frame\n${dynamicCount} dynamic objects tracked · latest snapshot: ${lastUpdateCount} changed\nRetained scene resets: ${reusedScenes}`;
+    diagnostics.textContent=`Native WebGL · ${nodes.size} objects · ${materials.size} materials\n${renderer.info.render.calls} draws · ${renderer.info.render.triangles} triangles\nCPU render submission: ${(renderTime/Math.max(1,draws)).toFixed(2)} ms/frame\n${dynamicCount} dynamic objects tracked · latest snapshot: ${lastUpdateCount} changed\nGPU resources: ${renderer.info.memory?.geometries??'?'} geometries · ${renderer.info.memory?.textures??'?'} textures\nRetained scene resets: ${reusedScenes}`;
     draws=sourceFrames=0;renderTime=0;intervals=[];windowStart=now;
   }
 }

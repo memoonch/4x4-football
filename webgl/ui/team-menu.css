@@ -1,0 +1,31 @@
+@font-face{font-family:Montserrat;src:url('/webgl/ui/fonts/Montserrat.ttf') format('truetype');font-weight:100 900;font-display:swap}
+#team-menu{position:absolute;z-index:4;container-type:inline-size;pointer-events:none;color:#fff;font-family:Montserrat,Arial,sans-serif;overflow:hidden}
+#team-menu[hidden]{display:none}
+#team-menu *{box-sizing:border-box}
+#team-menu button{font-family:inherit;cursor:pointer;pointer-events:auto;color:#fff}
+.team-heading{position:absolute;left:4%;top:4%;margin:0;font-size:3.6cqw;font-weight:850;letter-spacing:-.1cqw}
+.team-kicker{position:absolute;right:4%;top:5.7%;font-size:1.25cqw;letter-spacing:.18cqw;color:#aab6b0}
+.team-grid{position:absolute;left:4%;right:4%;top:15%;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:1cqw}
+.flag-card{position:relative;height:8cqw;padding:.7cqw .6cqw .5cqw;border:1px solid #71807855;border-radius:3px;background:#141414d9;display:flex;flex-direction:column;align-items:center;justify-content:space-between;box-shadow:0 3px 8px #0004}
+.flag-card img{height:4.2cqw;width:6.3cqw;object-fit:cover;border-radius:1px}
+.flag-card span{font-size:1.02cqw;font-weight:700;white-space:nowrap}
+.flag-card:hover{background:#2c3932;border-color:#bdcec2}
+.flag-card[aria-pressed=true]{border:1px solid #00ff66;background:#103421eb;box-shadow:0 0 12px #00ff6618}
+.flag-card[aria-pressed=true]::after{content:'✓';position:absolute;top:-.5cqw;right:-.5cqw;display:grid;place-items:center;width:1.8cqw;height:1.8cqw;border-radius:50%;background:#00ff66;color:#092111;font-size:1.3cqw;font-weight:900}
+#team-menu button:focus-visible{outline:2px solid #ff7c36;outline-offset:3px}
+.team-profile{position:absolute;left:4%;top:45%;width:39%;padding:2cqw;border:1px solid #7e8c7e55;border-radius:4px;background:linear-gradient(130deg,#222a26ed,#121816d9);backdrop-filter:blur(8px)}
+.team-eyebrow{font-size:1.2cqw;font-weight:800;letter-spacing:.15cqw;color:#ff702b;margin:0 0 .6cqw}
+.team-name{font-size:3.3cqw;font-weight:800;margin:0 0 1.5cqw;line-height:1.1}
+.stat-row{margin:.9cqw 0}
+.stat-label{font-size:1.35cqw;display:flex;justify-content:space-between;margin-bottom:.5cqw;font-weight:600}
+.stat-label small{color:#b9c7bf;font-size:1.05cqw}
+.stat-track{height:.55cqw;background:#ffffff18;border-radius:10px;overflow:hidden}
+.stat-fill{height:100%;background:#00ff66;box-shadow:0 0 8px #00ff6644}
+.team-note{margin:1.3cqw 0 0;font-size:1.02cqw;line-height:1.5;color:#b5bfb9}
+.vehicle-caption{position:absolute;top:78%;left:47%;right:4%;text-align:center;font-size:1.3cqw;letter-spacing:.2cqw;font-weight:700;color:#cad4ce}
+.team-nav{position:absolute;bottom:4%;height:5.5cqw;padding:0 2.2cqw;background:#141a17ed;border:1px solid #d0d8d0;border-radius:2px;font-size:1.45cqw;font-weight:800;letter-spacing:.03cqw}
+.team-nav:hover{background:#303c33;border-color:#00ff66}
+.team-nav:active{background:#0e2417}
+.team-back{left:4%}.team-confirm{right:4%;border-color:#00ff66;background:#112b1eeb}
+.team-more{position:absolute;bottom:6.8%;left:38%;border:0;background:transparent;font-size:1cqw;text-decoration:underline;color:#aab5ae!important}
+#game-shell:has(#team-menu:not([hidden])) #fullscreen{bottom:2px;right:2px;padding:3px 5px;font-size:10px;opacity:.8}

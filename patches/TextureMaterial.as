@@ -690,6 +690,9 @@ package alternativa.engine3d.materials
          _loc1_.dispose();
       }
       
+      public static function setDiagnosticsVisible(value:Boolean):void {
+         if(meter!=null)meter.visible=value;
+      }
       private static var meter:TextField;
       private static var previous:int = 0;
       private static var windowStart:int = 0;
@@ -702,8 +705,8 @@ package alternativa.engine3d.materials
       {
          if(meter != null || view.stage == null) return;
          meter = new TextField();
-         meter.defaultTextFormat = new TextFormat('_sans',11,0xFFFFFF,true);
-         meter.width = 190;
+         meter.defaultTextFormat = new TextFormat('_sans',9,0xFFFFFF,true);
+         meter.width = 155;
          meter.height = 36;
          meter.x = 0;
          meter.y = 35;
@@ -732,12 +735,9 @@ package alternativa.engine3d.materials
          var p95:Number = intervals[Math.min(intervals.length-1,Math.ceil(intervals.length*0.95)-1)];
          var fps:Number = frames*1000/elapsed;
          if(fps < 24) slowWindows++; else slowWindows = 0;
-         if(slowWindows >= 3 && !performanceQuality)
-         {
-            meter.stage.quality = 'low';
-            performanceQuality = true;
-         }
-         meter.text = 'FPS: ' + fps.toFixed(1) + ' / 25' + (performanceQuality ? ' [low AA]' : '') + '\nFrame p95: ' + p95 + ' ms';
+         // Keep the requested medium antialiasing during slow frames.
+         // Simulation and WebGL display timing remain independent of quality.
+         meter.text = 'FPS: ' + fps.toFixed(1) + ' / 25' + '\nFrame p95: ' + p95 + ' ms';
          frames = 0;
          intervals = [];
          windowStart = now;
@@ -808,5 +808,6 @@ package alternativa.engine3d.materials
       }
    }
 }
+
 
 

@@ -7,7 +7,8 @@ import {fileURLToPath} from 'node:url';
 const root = path.dirname(fileURLToPath(import.meta.url));
 const types = {'.html':'text/html; charset=utf-8','.js':'text/javascript',
   '.wasm':'application/wasm','.swf':'application/x-shockwave-flash','.json':'application/json',
-  '.png':'image/png','.jpg':'image/jpeg'};
+  '.png':'image/png','.jpg':'image/jpeg','.css':'text/css; charset=utf-8',
+  '.svg':'image/svg+xml','.ttf':'font/ttf'};
 http.createServer(async (req,res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url,'http://localhost').pathname);

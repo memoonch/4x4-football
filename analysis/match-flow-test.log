@@ -1,0 +1,69 @@
+log %cERROR%c core/src/avm2.rs:703%c Error dispatching event "complete": TypeError: Error #1009: Cannot access a property or method of a null object reference. (accessing field: package)
+	at fog.as3::FogDevSocial/response()
+	at MethodInfo-4219() color: red; background: #444 color: gray; font-style: italic color: inherit
+HUD Argentina
+0 — 0
+Brazil
+FIRST HALF · 00:06
+Ⅱ
+WASD / ARROWS · DRIVE
+YOUR TEAM
+OPPONENT
+PASS: boot, team, bracket, match, HUD, pause clock, resume, sound toggle, restart []
+Waiting for real halftime
+RESULT 4X4 FOOTBALL / INTERNATIONAL CUP
+
+HALF TIME
+Argentina
+0 : 1
+Brazil
+
+GET READY FOR THE SECOND HALF
+
+SECOND HALF →
+Play more driving games
+PASS: real halftime -> second half
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('#match-ui [data-action="back"]')
+    - locator resolved to <button hidden="" data-action="back">BACK TO MENU</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    46 × waiting for element to be visible, enabled and stable
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+
+    at C:\Users\Alpha\Documents\GitHub\4x4-football\analysis\check-match-flow.mjs:51:55 {
+  log: [
+    `  - waiting for locator('#match-ui [data-action="back"]')`,
+    '    - locator resolved to <button hidden="" data-action="back">BACK TO MENU</button>',
+    '  - attempting click action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying click action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying click action',
+    '      - waiting 100ms',
+    '    46 × waiting for element to be visible, enabled and stable',
+    '       - element is not visible',
+    '     - retrying click action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.22.1

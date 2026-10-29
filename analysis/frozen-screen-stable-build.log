@@ -1,0 +1,36 @@
+Oct 27, 2026 2:43:56 PM com.jpexs.decompiler.flash.gui.Main clearLogFile
+SEVERE: Cannot initialize logging
+java.nio.file.AccessDeniedException: C:\Users\Alpha\AppData\Roaming\JPEXS\FFDec\logs\log.txt.lck
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.newFileChannel(WindowsFileSystemProvider.java:118)
+	at java.base/java.nio.channels.FileChannel.open(FileChannel.java:301)
+	at java.base/java.nio.channels.FileChannel.open(FileChannel.java:353)
+	at java.logging/java.util.logging.FileHandler.openFiles(FileHandler.java:490)
+	at java.logging/java.util.logging.FileHandler.<init>(FileHandler.java:300)
+	at com.jpexs.decompiler.flash.gui.Main.clearLogFile(Main.java:3964)
+	at com.jpexs.decompiler.flash.gui.Main.initLogging(Main.java:4046)
+	at com.jpexs.decompiler.flash.gui.Main.main(Main.java:3598)
+
+Replacing: patches/TextureMaterial.as
+Warning: This feature is EXPERIMENTAL
+Replacing: patches/BoxCar.as
+Warning: This feature is EXPERIMENTAL
+Replacing: patches/FogDevPreloader.as
+Warning: This feature is EXPERIMENTAL
+setupCar changed byte positions: 2
+Patched exactly two setupCar constructor operands; all other methods preserved.
+Exception in thread "main" java.io.FileNotFoundException: build\4x4-soccer.swf (The requested operation cannot be performed on a file with a user-mapped section open)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:255)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:210)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:120)
+	at PerformancePatch.main(PerformancePatch.java:57)
+Performance patch failed.
+At C:\Users\Alpha\Documents\GitHub\4x4-football\patches\build.ps1:16 char:32
++     if ($LASTEXITCODE -ne 0) { throw 'Performance patch failed.' }
++                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Performance patch failed.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Performance patch failed.
+ 

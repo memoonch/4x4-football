@@ -1,0 +1,5 @@
+# Tournament UI artwork
+
+Built-in image generation. Final asset: `webgl/ui/match-tunnel.png`.
+
+Use case: stylized-concept. Production background for a premium off-road football game NEXT MATCH screen. Landscape 3:2 composition. A symmetrical stadium tunnel with deep charcoal #141414 gunmetal walls and rugged asphalt floor. Two EMPTY low elliptical gunmetal vehicle pedestals: one centered at 25% image width and one at 75%, both tops centered around 67% image height. Each pedestal spans about 37% width, thin illuminated rim, left turf green and right safety orange. A glimpse of football stadium floodlights and distant pitch through the center tunnel. Dark clean upper 35% reserved for live UI team titles. Quiet central vertical gap for VS. Bottom 20% dark quiet asphalt for live buttons. Premium realistic 3D key art, subtle light beams, reflections, high detail. NO vehicles, NO people in foreground, NO text, NO logos, NO numbers, NO UI. Match existing premium dark stadium tunnel theme; restrained contrast and lighting. Actual game trucks will be drawn above the platforms.

@@ -89,3 +89,69 @@ only. A simple loading screen covers initial preparation; physics and kickoff
 wait until a complete WebGL frame is ready, and loading time is excluded from
 the match clock. Run `node analysis/test-scene-readiness.mjs` for the
 startup handoff and repeated-reset resource regression checks.
+
+Player steering now eases toward the held direction and returns gradually to
+center on release. At the original 25 Hz simulation rate, the response reaches
+about 90% in 120 ms when turning and 120 ms when centering. Computer steering,
+acceleration, maximum steering strength and physics stepping retain their original
+settings. The steering source is `patches/BoxCar.as`; both build scripts include it.
+
+Long-session cleanup removes the AI's hidden per-step marker/tween allocation,
+stops car engine audio during world destruction, prunes finished UI tweens, and
+starts one crowd loop per countdown rather than one per countdown frame.
+WebGL interpolation reuses its arrays and camera matrices. GPU geometry/texture
+counts are shown in Graphics diagnostics. Rebuilt-code checks are recorded in
+`analysis/long-match-notes.md`; live multi-match FPS profiling is still pending.
+
+The main menu uses the cinematic stadium 4x4 Football skin in
+`patches/MainMenuCinematic.as.txt`. The previous minimal skin is retained in
+`patches/MainMenuSkin.as.txt`. The build inserts drawing helpers into
+`BoxCar.built.as`; `MainMenuPatch.java` installs the artwork once at startup.
+It retains the original New Game and Play More Driving Games button objects
+and handlers, and hides/disables the website-embed button. High-resolution
+stadium artwork loads from `webgl/menu-cinematic.png`; title and angled button
+labels use the embedded bold Impact font and remain separate from the image.
+A static backdrop avoids starting gameplay for the menu.
+Other screens are unchanged. Browser verified: New Game to team selection,
+Back to Menu, no runtime errors. Preview: `analysis/main-menu-cinematic.png`.
+Artwork generation details: `analysis/menu-artwork-prompt.md`.
+
+The browser player frame is 960 x 540 (responsive below that width). Its
+Fullscreen button toggles the browser Fullscreen API. The original 670 x 450
+game stage scales proportionally and is centered with side bars; SWF and WebGL
+layers share the same offset and scale to preserve pointer/camera alignment.
+Browser verified: frame dimensions, entering/exiting fullscreen, and scaled
+New Game / Back to Menu controls. Fullscreen preview: `analysis/menu-fullscreen.png`.
+
+Ruffle now rasterizes UI vectors/text at the displayed player dimensions using
+forced proportional scaling, rather than CSS-enlarging a 670 x 450 canvas.
+The cinematic menu buttons are 292 logical pixels wide (about 350 px at the
+960 x 540 frame), with centered bold labels and matched normal/hover/pressed
+geometry and hit targets. Preview: `analysis/menu-buttons-polished.png`.
+
+Main menu reference refresh: generated stadium artwork and metallic crest in webgl/menu-reference.png (prompt: analysis/menu-reference-prompt.md). Original artwork retained. Live buttons retain original handlers; bold slanted labels and primary play icon. Only main-menu presentation changed.
+
+Button clarity refresh: Wider bold embedded labels replace the tightly condensed lettering. Vector plates have inset highlights, darker backing, brighter hover and darker pressed states. Secondary action uses two lines within the same original button. Sizes: 300x58 and 300x54 logical pixels. Gameplay handlers retained.
+
+
+Rendering quality stays at medium. Removed the performance-meter fallback that switched Flash stage quality to low after three slow windows. Ruffle load quality remains medium; display and simulation rates are unchanged.
+
+## Tournament screen refresh
+
+The cup chart and next-match screen use `webgl/ui/tournament-menu.js` and CSS for
+sharp Montserrat text, local SVG flags, four connected knockout rounds, recorded
+scores, upcoming-match highlighting, and the original team-colored truck previews.
+`patches/TournamentMenu.as.txt` sends snapshots of the actual `cup16`, `cup8`,
+`cup4`, and `cup2` arrays when the original popup opens. Buttons dispatch the
+existing Flash handlers. Popup hide hooks also close the HTML overlay, including
+Escape/menu transitions. Private race fields are resolved by exact trait namespace.
+
+The match background is `webgl/ui/match-tunnel.png`; generation prompt is in
+`analysis/tournament-artwork-prompt.md`. Vehicle previews retain the original
+raster art, so their detail remains limited when enlarged. No physics/timing edits.
+
+Validation: both patched SWFs build; `node analysis/test-tournament-data.mjs`
+checks initial draw, TBD slots, completed zero scores, round advancement and final
+opponents. Browser checks cover the live bracket, matching opponent preview,
+fullscreen layout, and Start Match. Previews: `analysis/cup-chart-premium.png`
+and `analysis/next-match-premium.png`.

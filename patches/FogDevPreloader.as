@@ -65,6 +65,8 @@ package fog.as3
       public var FlyingFogDisabled:Boolean = false;
       
       private var g:Graphics;
+      private var premiumBoot:Boolean=false;
+      private var premiumFinished:Boolean=false;
       
       public function FogDevPreloader(param1:FogDevAPI)
       {
@@ -144,6 +146,18 @@ package fog.as3
             this.Duration = this.DurationFade;
          }
          this.Core.Clip.stop();
+         if(flash.external.ExternalInterface.available){
+            try{
+               premiumBoot=flash.external.ExternalInterface.call("soccerBoot.update",0);
+               if(premiumBoot){
+                  flash.external.ExternalInterface.addCallback("soccerBootContinue",function():Boolean {
+                     if(Percent<100 || premiumFinished)return false;
+                     FadeOut();return true;
+                  });
+                  mouseEnabled=false;mouseChildren=false;
+               }
+            }catch(error:Error){}
+         }
          this.FadeIn();
          stage.addEventListener(Event.ENTER_FRAME,this.showProgress);
          this.Core.dispatchEvent(new Event(this.Core.Events.PreloaderStarted));
@@ -155,6 +169,7 @@ package fog.as3
          this.PercentDura = Math.floor((getTimer() - this.TimerStart) / this.Duration * 100);
          this.Percent = Math.round(Math.min(Math.min(this.PercentGame,this.PercentDura),100));
          this.ProgText.gotoAndStop(this.Percent + 1);
+         if(premiumBoot){try{flash.external.ExternalInterface.call("soccerBoot.update",this.Percent);}catch(error:Error){}}
          this.ProgBar.width = this.Percent * 0.98;
          if(this.Percent > 99)
          {
@@ -194,7 +209,7 @@ package fog.as3
       
       private function Wait() : void
       {
-         setTimeout(this.Unload,this.DurationWait);
+         if(!premiumBoot)setTimeout(this.Unload,this.DurationWait);
       }
       
       private function Unload() : void
@@ -252,6 +267,8 @@ package fog.as3
       {
          var l:int;
          var i:int = 0;
+         if(premiumFinished)return;
+         premiumFinished=true;
          setTimeout(this.Clean,1000);
          this.Core.dispatchEvent(new Event("loaded"));
          if(this.DurationWait < 1)
@@ -292,5 +309,6 @@ package fog.as3
       }
    }
 }
+
 
 
