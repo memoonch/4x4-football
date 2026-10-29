@@ -48,6 +48,7 @@
                bounds=truck.getBounds(popup);
                truck.x+=(car==0?162:508)-(bounds.x+bounds.width/2);
                truck.y+=315-(bounds.y+bounds.height);
+               installHDTruck(truck);
             }
          }
       }

@@ -22,6 +22,7 @@
                truck.scaleX*=scale;truck.scaleY*=scale;b=truck.getBounds(p);
                truck.x+=(champion?482:c==0?160:510)-(b.x+b.width/2);
                truck.y+=(champion?340:300)-(b.y+b.height);
+               installHDTruck(truck);
             }
          }
          for(var i:int=0;i<p.numChildren;i++){

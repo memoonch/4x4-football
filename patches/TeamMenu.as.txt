@@ -1,3 +1,53 @@
+      private static var hdTruckColors:Object={};
+      // UI-only replacement: keep the original timeline and its team-color source.
+      private static function installHDTruck(truck:MovieClip):void {
+         if(truck.getChildByName("hdVehicle")!=null)return;
+         var area:Rectangle=truck.getBounds(truck);
+         var art:Loader=new Loader();art.name="hdVehicle";
+         truck.addChild(art);
+         for(var hiddenIndex:int=0;hiddenIndex<truck.numChildren;hiddenIndex++)if(truck.getChildAt(hiddenIndex)!=art)truck.getChildAt(hiddenIndex).alpha=0;
+         art.contentLoaderInfo.addEventListener(Event.COMPLETE,function(e:Event):void {
+            var bitmap:Bitmap=art.content as Bitmap;
+            if(bitmap==null)return;
+            bitmap.smoothing=true;
+            // Fit the opaque vehicle, excluding the generated image's transparent margins.
+            var opaque:Rectangle=bitmap.bitmapData.getColorBoundsRect(0xFF000000,0,false);
+            var factor:Number=Math.min(area.width/opaque.width,area.height/opaque.height)*.8;
+            art.scaleX=art.scaleY=factor;
+            art.x=area.x+(area.width-opaque.width*factor)/2-opaque.x*factor;
+            art.y=area.bottom-opaque.bottom*factor;
+            for(var i:int=0;i<truck.numChildren;i++)if(truck.getChildAt(i)!=art)truck.getChildAt(i).visible=false;
+            var lastColor:uint=0xFFFFFFFF;
+            var source:BitmapData=bitmap.bitmapData;
+            var pixels:Vector.<uint> =source.getVector(source.rect);
+            var painted:BitmapData;
+            var tint:Function=function(event:Event):void {
+               var color:uint=truck.boja.transform.colorTransform.color;
+               if(color==lastColor)return;
+               lastColor=color;
+               if(hdTruckColors[color]!=null){bitmap.bitmapData=hdTruckColors[color];return;}
+               var output:Vector.<uint> =pixels.concat();
+               var cr:Number=((color>>16)&255)/255;var cg:Number=((color>>8)&255)/255;var cb:Number=(color&255)/255;
+               for(var k:int=0;k<pixels.length;k++){
+                  var pixel:uint=pixels[k];if((pixel>>>24)==0)continue;
+                  var px:Number=(k%source.width)/source.width;var py:Number=int(k/source.width)/source.height;
+                  // Paint roof, hood and outer fenders; keep grille, lamps, glass and tires neutral.
+                  if(py>.57 || (py>.46 && px>.16 && px<.84))continue;
+                  var red:int=(pixel>>16)&255;var green:int=(pixel>>8)&255;var blue:int=pixel&255;
+                  if(Math.max(red,green,blue)-Math.min(red,green,blue)>35)continue;
+                  var weight:Number=Math.min(1,Math.max(0,(Math.min(red,green,blue)-65)/100));
+                  output[k]=(pixel&0xFF000000)|(int(red*(1-weight*.8*(1-cr)))<<16)|(int(green*(1-weight*.8*(1-cg)))<<8)|int(blue*(1-weight*.8*(1-cb)));
+               }
+               painted=new BitmapData(source.width,source.height,true,0);
+               painted.setVector(painted.rect,output);hdTruckColors[color]=painted;bitmap.bitmapData=painted;
+            };
+            truck.addEventListener(Event.ENTER_FRAME,tint);tint(null);
+         });
+         // Leave the original artwork visible if the replacement cannot load.
+         art.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,function(e:IOErrorEvent):void{for(var j:int=0;j<truck.numChildren;j++)if(truck.getChildAt(j)!=art)truck.getChildAt(j).alpha=1;});
+         art.load(new flash.net.URLRequest("/webgl/ui/vehicle-hd.png"));
+      }
+
       public static function installTeamMenu(menu:MovieClip):void
       {
          if(!flash.external.ExternalInterface.available)return;
@@ -38,5 +88,10 @@
          var scale:Number=280/bounds.width;
          truck.scaleX*=scale;truck.scaleY*=scale;
          bounds=truck.getBounds(menu);truck.x+=482-(bounds.x+bounds.width/2);truck.y+=340-(bounds.y+bounds.height);
+         installHDTruck(truck);
       }
+
+
+
+
 
