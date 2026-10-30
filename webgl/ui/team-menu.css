@@ -29,3 +29,6 @@
 .team-back{left:4%}.team-confirm{right:4%;border-color:#00ff66;background:#112b1eeb}
 .team-more{position:absolute;bottom:6.8%;left:38%;border:0;background:transparent;font-size:1cqw;text-decoration:underline;color:#aab5ae!important}
 #game-shell:has(#team-menu:not([hidden])) #fullscreen{bottom:2px;right:2px;padding:3px 5px;font-size:10px;opacity:.8}
+
+#team-menu .team-vehicle{position:absolute;left:69.8%;bottom:26%;width:22.528%;height:auto;aspect-ratio:1;transform:translateX(-50%);pointer-events:none}
+

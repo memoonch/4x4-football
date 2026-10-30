@@ -96,7 +96,7 @@
           overlay.style.top=`${top + (overlay.id === 'webgl-fps' ? 35 * scale : 0)}px`;
         }
       }).observe(document.querySelector('#game'));
-      await player.ruffle().load({url:native ? '/build/4x4-soccer-bridge.swf' : (new URLSearchParams(location.search).has('original') ? '/4x4%20soccer.swf' : '/build/4x4-soccer.swf'),autoplay:'on',
+      await player.ruffle().load({url:native ? '/build/4x4-soccer-bridge.swf?v=car-atlas-2' : (new URLSearchParams(location.search).has('original') ? '/4x4%20soccer.swf' : '/build/4x4-soccer.swf?v=car-atlas-2'),autoplay:'on',
         unmuteOverlay:'visible',allowScriptAccess:!new URLSearchParams(location.search).has('original'),openUrlMode:'deny',wmode:native?'transparent':'window',
         preferredRenderer:new URLSearchParams(location.search).get('renderer') || 'wgpu-webgl',
         quality:'medium',scale:'showAll',forceScale:true,parameters:{type:'1',webglbridge:native?'1':'0'},

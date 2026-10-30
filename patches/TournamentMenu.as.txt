@@ -33,24 +33,8 @@
          var backdrop:Sprite=new Sprite();backdrop.name="premiumTournament";backdrop.mouseEnabled=false;
          backdrop.graphics.beginFill(0x141414);backdrop.graphics.drawRect(0,0,670,450);backdrop.graphics.endFill();
          popup.addChildAt(backdrop,0);
-         if(kind=="match"){
-            var artwork:Loader=new Loader();backdrop.addChild(artwork);
-            artwork.contentLoaderInfo.addEventListener(Event.COMPLETE,function(event:Event):void{
-               var bitmap:Bitmap=artwork.content as Bitmap;if(bitmap!=null)bitmap.smoothing=true;
-               artwork.width=670;artwork.height=450;
-            });
-            artwork.contentLoaderInfo.addEventListener(flash.events.IOErrorEvent.IO_ERROR,function(event:flash.events.IOErrorEvent):void{});
-            artwork.load(new flash.net.URLRequest("/webgl/ui/match-tunnel.png"));
-            for(var car:int=0;car<2;car++){
-               var truck:MovieClip=popup["hummer"+car];truck.visible=true;truck.filters=[];
-               var bounds:Rectangle=truck.getBounds(popup);var scale:Number=280/bounds.width;
-               truck.scaleX*=scale;truck.scaleY*=scale;
-               bounds=truck.getBounds(popup);
-               truck.x+=(car==0?162:508)-(bounds.x+bounds.width/2);
-               truck.y+=315-(bounds.y+bounds.height);
-               installHDTruck(truck);
-            }
-         }
+         // Browser background and GPU sprites are preloaded while menus are open.
+         if(kind=="match"){popup.hummer0.visible=false;popup.hummer1.visible=false;}
       }
 
       public static function hideTournamentMenu(popup:MovieClip):void
@@ -61,3 +45,4 @@
             try{flash.external.ExternalInterface.call("soccerTournament.hide");}catch(error:Error){}
          }
       }
+

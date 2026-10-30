@@ -88,7 +88,8 @@
          var scale:Number=280/bounds.width;
          truck.scaleX*=scale;truck.scaleY*=scale;
          bounds=truck.getBounds(menu);truck.x+=482-(bounds.x+bounds.width/2);truck.y+=340-(bounds.y+bounds.height);
-         installHDTruck(truck);
+         // Browser GPU sprite follows the existing selection action; no AS pixel loop.
+         truck.visible=false;
       }
 
 

@@ -19,6 +19,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Performance patch failed.' }
     & java -cp "$FFDec;$ffdecLib/*" 'patches/MainMenuPatch.java' 'build/menu-stable-base.swf' 'build/4x4-soccer.swf'
     if ($LASTEXITCODE -ne 0) { throw 'Main menu patch failed.' }
+    & "$PSScriptRoot/apply-car-texture.ps1" -Target 'build/4x4-soccer.swf' -FFDec $FFDec
 } finally {
     Pop-Location
 }

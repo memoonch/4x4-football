@@ -53,3 +53,9 @@
 #game-shell:has(#tournament-menu:not([hidden])) #fullscreen{bottom:2px;right:2px;padding:3px 5px;font-size:10px;opacity:.8}
 
 #game:has(#tournament-menu:not([hidden])) #webgl-fps,#game:has(#team-menu:not([hidden])) #webgl-fps{display:none}
+
+#tournament-menu[data-screen=match]{background:#141414 url('/webgl/ui/match-tunnel.png') center/100% 100% no-repeat}
+#tournament-menu .team-vehicle{display:none;position:absolute;width:22.5%;height:auto;aspect-ratio:1;bottom:37%;transform:translateX(-50%);pointer-events:none}
+#tournament-menu[data-screen=match] .team-vehicle{display:block}
+#tournament-menu .preview-car-0{left:24%}
+#tournament-menu .preview-car-1{left:76%}

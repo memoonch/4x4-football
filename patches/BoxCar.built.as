@@ -392,7 +392,8 @@ package
          var scale:Number=280/bounds.width;
          truck.scaleX*=scale;truck.scaleY*=scale;
          bounds=truck.getBounds(menu);truck.x+=482-(bounds.x+bounds.width/2);truck.y+=340-(bounds.y+bounds.height);
-         installHDTruck(truck);
+         // Browser GPU sprite follows the existing selection action; no AS pixel loop.
+         truck.visible=false;
       }
 
 
@@ -434,24 +435,8 @@ package
          var backdrop:Sprite=new Sprite();backdrop.name="premiumTournament";backdrop.mouseEnabled=false;
          backdrop.graphics.beginFill(0x141414);backdrop.graphics.drawRect(0,0,670,450);backdrop.graphics.endFill();
          popup.addChildAt(backdrop,0);
-         if(kind=="match"){
-            var artwork:Loader=new Loader();backdrop.addChild(artwork);
-            artwork.contentLoaderInfo.addEventListener(Event.COMPLETE,function(event:Event):void{
-               var bitmap:Bitmap=artwork.content as Bitmap;if(bitmap!=null)bitmap.smoothing=true;
-               artwork.width=670;artwork.height=450;
-            });
-            artwork.contentLoaderInfo.addEventListener(flash.events.IOErrorEvent.IO_ERROR,function(event:flash.events.IOErrorEvent):void{});
-            artwork.load(new flash.net.URLRequest("/webgl/ui/match-tunnel.png"));
-            for(var car:int=0;car<2;car++){
-               var truck:MovieClip=popup["hummer"+car];truck.visible=true;truck.filters=[];
-               var bounds:Rectangle=truck.getBounds(popup);var scale:Number=280/bounds.width;
-               truck.scaleX*=scale;truck.scaleY*=scale;
-               bounds=truck.getBounds(popup);
-               truck.x+=(car==0?162:508)-(bounds.x+bounds.width/2);
-               truck.y+=315-(bounds.y+bounds.height);
-               installHDTruck(truck);
-            }
-         }
+         // Browser background and GPU sprites are preloaded while menus are open.
+         if(kind=="match"){popup.hummer0.visible=false;popup.hummer1.visible=false;}
       }
 
       public static function hideTournamentMenu(popup:MovieClip):void
@@ -462,43 +447,20 @@ package
             try{flash.external.ExternalInterface.call("soccerTournament.hide");}catch(error:Error){}
          }
       }
+
       private static var premiumRace:MovieClip;
       private static var premiumLast:int=0;
       private static var premiumWorld:*;
       private static var premiumDriver:*;
       public static function publishMatchWorld(world:*,driver:*):void {premiumWorld=world;premiumDriver=driver;}
       private static function skinMatchResult(p:MovieClip,champion:Boolean):void {
-         p.mouseEnabled=false;p.mouseChildren=false;
-         if(p.getChildByName("premiumResult")==null){
-            var backdrop:Sprite=new Sprite();backdrop.name="premiumResult";
-            backdrop.graphics.beginFill(0x101614);backdrop.graphics.drawRect(0,0,670,450);backdrop.graphics.endFill();
-            p.addChildAt(backdrop,0);
-            var artwork:Loader=new Loader();backdrop.addChild(artwork);
-            artwork.contentLoaderInfo.addEventListener(Event.COMPLETE,function(e:Event):void {
-               var bitmap:Bitmap=artwork.content as Bitmap;if(bitmap!=null)bitmap.smoothing=true;
-               artwork.width=670;artwork.height=450;
-            });
-            artwork.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,function(e:IOErrorEvent):void{});
-            artwork.load(new flash.net.URLRequest(champion?"/webgl/ui/team-tunnel.png":"/webgl/ui/match-tunnel.png"));
-            for(var c:int=0;c<(champion?1:2);c++){
-               var truck:MovieClip=p["hummer"+c];truck.filters=[];
-               var b:Rectangle=truck.getBounds(p);var scale:Number=(champion?280:230)/b.width;
-               truck.scaleX*=scale;truck.scaleY*=scale;b=truck.getBounds(p);
-               truck.x+=(champion?482:c==0?160:510)-(b.x+b.width/2);
-               truck.y+=(champion?340:300)-(b.y+b.height);
-               installHDTruck(truck);
-            }
-         }
-         for(var i:int=0;i<p.numChildren;i++){
-            var child:DisplayObject=p.getChildAt(i);
-            child.alpha=child.name=="premiumResult" || child==p.hummer0 || (!champion && child==p.hummer1)?1:0;
-         }
-         p.hummer0.visible=true;if(!champion)p.hummer1.visible=true;
+         p.alpha=0;p.mouseEnabled=false;p.mouseChildren=false;
       }
       public static function installMatchUI(game:MovieClip):void {
          if(premiumRace!=null || !flash.external.ExternalInterface.available)return;
          try{if(!flash.external.ExternalInterface.call("soccerMatch.ready"))return;}catch(error:Error){return;}
          premiumRace=game;
+         game.pause_mc.alpha=0;game.pause_mc.mouseChildren=false;
          flash.external.ExternalInterface.addCallback("soccerMatchAction",function(action:String):Boolean {
             var p:MovieClip=null;var key:String="";
             if(game.pause_mc.visible){p=game.pause_mc;key=action=="resume"?"btn2":action=="retry"?"btn3":action=="back"?"btn1":action=="more"?"pmg":"";}
@@ -506,9 +468,20 @@ package
             else if(game.final_mc.visible){p=game.final_mc;key=action=="back"?"back_menu_btn":action=="more"?"pmg":"";}
             else if(game.UI.visible){p=game.UI;key=action=="pause"?"pause_btn":action=="mute"?"mute_btn":"";}
             if(p==null || key=="" || !p[key].visible)return false;
-            p[key].dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));return true;
+            game.pause_mc.alpha=0;
+            p[key].dispatchEvent(new MouseEvent(MouseEvent.CLICK,true));
+            game.pause_mc.alpha=0;return true;
          });
          game.addEventListener(Event.ENTER_FRAME,function(event:Event):void {
+            // Suppress legacy overlays every frame, including kickoff/reset frames.
+            // Keep their timeline state available to the browser UI bridge.
+            game.UI.graphics.clear();
+            for(var legacyIndex:int=0;legacyIndex<game.UI.numChildren;legacyIndex++){
+               var legacyChild:DisplayObject=game.UI.getChildAt(legacyIndex);
+               if(legacyChild!=game.UI.minilogo)legacyChild.alpha=0;
+            }
+            game.cars.alpha=0;
+            game.pause_mc.alpha=0;game.pause_mc.mouseChildren=false;
             var now:int=getTimer();if(now-premiumLast<100)return;premiumLast=now;
             var ui:MovieClip=game.UI;var p:MovieClip=null;var kind:String="";
             if(game.pause_mc.visible){p=game.pause_mc;kind="pause";}
@@ -528,6 +501,7 @@ package
             else if(game.wonAnim_mc.visible && game.wonAnim_mc.currentFrame>1 && game.wonAnim_mc.currentFrame<game.wonAnim_mc.totalFrames)packet.banner="VICTORY";
             else if(game.lostAnim_mc.visible && game.lostAnim_mc.currentFrame>1 && game.lostAnim_mc.currentFrame<game.lostAnim_mc.totalFrames)packet.banner="FULL TIME";
             if(ui.visible && kind=="" && premiumWorld!=null && premiumWorld.players!=null){
+               packet.mapColors=[premiumWorld.sensor_goLeft.boja.transform.colorTransform.color,premiumWorld.sensor_goRight.boja.transform.colorTransform.color];
                var bounds:Rectangle=premiumWorld.bckgrnd.getBounds(premiumWorld);
                if(bounds.width>0 && bounds.height>0){
                   for(var j:int=0;j<premiumWorld.players.length;j++){
@@ -547,13 +521,14 @@ package
             }
             TextureMaterial.setDiagnosticsVisible(ui.visible && kind=="");
             ui.pause_btn.mouseEnabled=false;ui.mute_btn.mouseEnabled=false;
-            if(packet.map.length>0)game.cars.alpha=0;
+            game.cars.alpha=0;
             game.pause_mc.alpha=0;game.pause_mc.mouseChildren=false;
             if(kind=="result")skinMatchResult(p,false);
             if(kind=="final")skinMatchResult(p,true);
             game.goalAnim_mc.alpha=0;game.wonAnim_mc.alpha=0;game.lostAnim_mc.alpha=0;
          });
       }
+
 
 
 

@@ -23,6 +23,7 @@ try {
     if($LASTEXITCODE -ne 0){throw 'Camera bridge patch failed'}
     & java -cp "$FFDec;$ffdecLib/*" 'patches/MainMenuPatch.java' 'build/menu-bridge-base.swf' 'build/4x4-soccer-bridge.swf'
     if($LASTEXITCODE -ne 0){throw 'Main menu patch failed'}
+    & "$PSScriptRoot/apply-car-texture.ps1" -Target 'build/4x4-soccer-bridge.swf' -FFDec $FFDec
 } finally {Pop-Location}
 
 

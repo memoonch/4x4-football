@@ -2,7 +2,7 @@ import * as THREE from '/vendor/three/build/three.module.js';
 
 const host = document.querySelector('#game');
 const renderer = new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});
-renderer.setSize(670,450);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(670,450);renderer.setPixelRatio(Math.min(Math.max(devicePixelRatio,1.5),2));
 renderer.setClearColor(0x000000,0);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.domElement.id='world-webgl';host.prepend(renderer.domElement);
@@ -20,7 +20,7 @@ let lastUpdateCount=0,dynamicCount=0,renderTime=0;
 let generation=0,presentedGeneration=-1,pendingTextures=0,sceneComplete=false,sceneKey=null,reusedScenes=0;
 const loadingScreen=document.createElement('div');loadingScreen.id='game-loading';
 loadingScreen.hidden=true;
-loadingScreen.innerHTML='<div role="status" aria-live="polite"><span class="loading-spinner" aria-hidden="true"></span><strong>Loading game…</strong><span>Preparing models and textures</span></div>';
+loadingScreen.innerHTML='<div role="status" aria-live="polite"><span class="loading-spinner" aria-hidden="true"></span><strong>Loading Match…</strong><span>Preparing models and textures</span></div>';
 host.append(loadingScreen);
 const textureCache=new Map(),textureBudget=64*1024*1024;
 function trimTextureCache(){
@@ -131,6 +131,17 @@ window.soccerBridge={
           geometry.setAttribute('uv',new THREE.Float32BufferAttribute(part.uv,2));
           geometry.computeBoundingSphere();
           const material=materials.get(part.material)||new THREE.MeshBasicMaterial({color:0x888888,side:THREE.DoubleSide});
+          if(/carBody|Wheel/.test(object.name)&&!material.userData.carFinish){
+            material.userData.carFinish=true;
+            material.onBeforeCompile=shader=>{
+              shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',`#include <map_fragment>
+                float carLuma=dot(diffuseColor.rgb,vec3(.2126,.7152,.0722));
+                diffuseColor.rgb=mix(vec3(carLuma),diffuseColor.rgb,1.12);
+                diffuseColor.rgb=clamp((diffuseColor.rgb-vec3(.18))*1.08+vec3(.18),0.0,1.0);
+              `);
+            };
+            material.customProgramCacheKey=()=> 'car-finish-v1';material.needsUpdate=true;
+          }
           const mesh=new THREE.Mesh(geometry,material);object.add(mesh);
         }
         (nodes.get(def.parent)?.object||scene).add(object);
