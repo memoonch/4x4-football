@@ -9,10 +9,20 @@ const resultTints=[teamVehicle(root.querySelector('.match-dialog')),teamVehicle(
 root.querySelectorAll('.team-vehicle').forEach((canvas,i)=>{canvas.classList.add(`result-car-${1-i}`);canvas.style.display='none';});
 const $=s=>root.querySelector(s), nodes=Object.fromEntries(['.live-hud','.home','.away','.score','.clock','.event-banner','.match-dialog','h2','.result-teams','.result-totals','.pitch-dots'].map(s=>[s,$(s)]));
 let last={},dialogKey='',goalSide='home';const dots=[];
+let cupPreview=false,previewHidden=[],latestPacket=null;
+function closeCupPreview(){
+ cupPreview=false;
+ for(const [element,hidden] of previewHidden)element.hidden=hidden;
+ previewHidden=[];
+ dialogKey='';
+ if(latestPacket)window.soccerMatch.update(latestPacket);
+ else root.hidden=true;
+}
 function team(id){const t=teams[id];return t?{name:t[0],code:t[1]}:{name:'TEAM',code:'ar'};}
 function badge(id){const t=team(id);return `<img src="/webgl/ui/flags/${t.code}.svg" alt=""><span>${t.name}</span>`;}
 root.addEventListener('click',e=>{
  const button=e.target.closest('[data-action]');if(!button||button.disabled)return;
+ if(cupPreview&&button.dataset.action==='back'){closeCupPreview();return;}
  button.disabled=true;
  try{document.querySelector('ruffle-player').ruffle().callExternalInterface('soccerMatchAction',button.dataset.action);document.querySelector('ruffle-player').focus();}
  catch(error){console.error('Match action failed',error);}
@@ -82,6 +92,24 @@ window.soccerMatch={ready(){window.soccerBoot?.hide();return true;},update(p){
  if(p.hud&&!p.kind)renderMap(p.map||[],p.mapColors);
  last=p;return true;
 }};
+
+// Temporary visual test shortcut; tournament state and results are untouched.
+const updateMatch=window.soccerMatch.update;
+window.soccerMatch.update=packet=>{
+ latestPacket=packet;
+ return cupPreview?true:updateMatch(packet);
+};
+document.addEventListener('keydown',event=>{
+ if(event.code!=='KeyU'||event.repeat||event.ctrlKey||event.altKey||event.metaKey)return;
+ if(event.target.closest?.('input,textarea,[contenteditable="true"]'))return;
+ event.preventDefault();
+ if(cupPreview){closeCupPreview();return;}
+ cupPreview=true;
+ previewHidden=[...document.querySelectorAll('#main-menu-actions,#team-menu,#tournament-menu')].map(element=>[element,element.hidden]);
+ for(const [element] of previewHidden)element.hidden=true;
+ dialogKey='';
+ updateMatch({...latestPacket,kind:'final',hud:false,title:'CUP CHAMPIONS',home:latestPacket?.home>=0?latestPacket.home:0,away:latestPacket?.away>=0?latestPacket.away:1,score0:'0',score1:'0',totals:'',next:false,retry:false,back:true,banner:'',countdown:''});
+},true);
 
 
 

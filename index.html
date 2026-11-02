@@ -11,9 +11,9 @@
 <title>4x4 Soccer — Local Player</title>
 <style>
   html,body{margin:0;min-height:100%;background:#111820;color:#e5edf4;font:16px system-ui}
-  main{max-width:1000px;margin:32px auto;padding:0 20px}
-  h1{font-size:24px;margin-bottom:6px} p{color:#aebcca}
-  #game-shell{position:relative;width:960px;aspect-ratio:16/9;max-width:100%;background:#080c0d;margin:24px auto;overflow:hidden}
+  body{min-height:100vh;display:grid;place-items:center}
+  main{width:100%;margin:0;padding:0}
+  #game-shell{position:relative;width:960px;aspect-ratio:16/9;max-width:100%;background:#080c0d;margin:0 auto;overflow:hidden}
   #game-shell:fullscreen{width:100vw;height:100vh;max-width:none;margin:0;aspect-ratio:auto}
   #game{position:absolute;inset:0;background:#080c0d;overflow:hidden}
   ruffle-player{position:absolute;display:block;width:670px;height:450px;transform-origin:top left} #status{text-align:center}
@@ -32,12 +32,12 @@
   @media(prefers-reduced-motion:reduce){#game-loading .loading-spinner{animation:none}}
 </style>
 <main>
-  <h1>4x4 Soccer</h1>
-  <p>Original FOG game · local Flash emulation</p>
   <div id="game-shell"><div id="game"></div><button id="fullscreen" type="button" aria-label="Enter fullscreen">Fullscreen ⛶</button></div>
+  <div hidden aria-hidden="true">
   <p id="status">Loading player…</p>
   <p id="memory" style="text-align:center;font-size:13px">Memory: measuring browser JS heap…</p>
   <details><summary>Graphics diagnostics</summary><pre id="graphics" style="white-space:pre-wrap">Waiting for renderer…</pre></details>
+  </div>
 </main>
 <script src="/vendor/ruffle-gpu/ruffle.js"></script>
 <script>
@@ -74,6 +74,7 @@
       const native = new URLSearchParams(location.search).get('engine') === 'webgl';
       if(native) await import('/webgl/renderer.js');
       if(!new URLSearchParams(location.search).has('original')) {
+        await import('/webgl/ui/driving-games-link.js');
         await import('/webgl/ui/team-menu.js');
         await import('/webgl/ui/main-menu.js');
         await import('/webgl/ui/tournament-menu.js'); await import('/webgl/ui/match-ui.js'); await import('/webgl/ui/boot-ui.js');

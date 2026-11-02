@@ -1,4 +1,10 @@
 /* Independent scale preserves existing positioning transforms and layout. */
+#game-shell :is(.team-nav,.flag-card,.broadcast-button,.live-actions button,.match-dialog button:not(.more),#fullscreen) {
+  border-width: 3px;
+  box-sizing: border-box;
+}
+/* Angled main-menu borders are formed by the inset plate. */
+#main-menu-actions button::before { inset: 3px; }
 #game-shell button {
   scale: 1;
   transform-origin: center;

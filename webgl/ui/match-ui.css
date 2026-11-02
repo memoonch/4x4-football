@@ -23,4 +23,4 @@
 #match-ui[data-screen=result] .match-dialog{background:#141414 url('/webgl/ui/match-tunnel.png') center/100% 100% no-repeat}#match-ui[data-screen=final] .match-dialog{background:#141414 url('/webgl/ui/team-tunnel.png') center/100% 100% no-repeat}
 #match-ui .team-vehicle{position:absolute;width:22.5%;height:auto;aspect-ratio:1;bottom:37%;transform:translateX(-50%);pointer-events:none}#match-ui .result-car-0{left:24%}#match-ui .result-car-1{left:76%}#match-ui[data-screen=final] .result-car-0{left:69.8%;bottom:26%}
 
-#match-ui[data-screen=final] .result-teams .champion-trophy{position:absolute;left:12%;top:12cqw;width:30%;height:31cqw;object-fit:contain;border:0;border-radius:0;filter:drop-shadow(0 5px 10px #0008);pointer-events:none}
+#match-ui[data-screen=final] .result-teams .champion-trophy{position:absolute;left:50%;top:8cqw;width:90%;height:27cqw;transform:translateX(-50%);object-fit:contain;border:0;border-radius:0;filter:brightness(1.15) saturate(1.12) drop-shadow(0 0 14px #ffc44d66) drop-shadow(0 6px 10px #0009);pointer-events:none}
