@@ -290,6 +290,21 @@ package
             secondary.visible=true;secondary.tabEnabled=true;
          }
          menu.add_this_game_btn.visible=false;menu.add_this_game_btn.mouseEnabled=false;menu.add_this_game_btn.tabEnabled=false;
+         if(flash.external.ExternalInterface.available){
+            try{
+               flash.external.ExternalInterface.addCallback("soccerMainMenuAction",function(action:String):Boolean{
+                  if(!menu.visible)return false;
+                  if(action=="play")primary.dispatchEvent(new flash.events.MouseEvent(flash.events.MouseEvent.CLICK,true));
+                  else if(action=="more")secondary.dispatchEvent(new flash.events.MouseEvent(flash.events.MouseEvent.CLICK,true));
+                  else return false;
+                  return true;
+               });
+               if(flash.external.ExternalInterface.call("soccerMainMenu.visibility",menu.visible)){
+                  primary.alpha=0;primary.mouseEnabled=false;primary.tabEnabled=false;
+                  secondary.alpha=0;secondary.mouseEnabled=false;secondary.tabEnabled=false;
+               }
+            }catch(menuError:Error){}
+         }
       }
 
       public static function mainMenuVisibility(visible:Boolean):void
@@ -297,7 +312,13 @@ package
          if(flash.external.ExternalInterface.available)
          {
             try{flash.external.ExternalInterface.call("soccerBridge.menu",visible);}catch(error:Error){}
+            try{flash.external.ExternalInterface.call("soccerMainMenu.visibility",visible);}catch(menuError:Error){}
          }
+      }
+
+      public static function menuTransition(popup:Object,main:Object,teams:Object,animated:Boolean):Boolean
+      {
+         return popup==main || popup==teams ? false : animated;
       }
 
 
@@ -460,6 +481,14 @@ package
          if(premiumRace!=null || !flash.external.ExternalInterface.available)return;
          try{if(!flash.external.ExternalInterface.call("soccerMatch.ready"))return;}catch(error:Error){return;}
          premiumRace=game;
+         // The minimap contains the simulation world, which must remain on stage.
+         // Clip its drawing instead of detaching it or relying on tweened alpha.
+         var minimapMask:Sprite=new Sprite();
+         minimapMask.graphics.beginFill(0);
+         minimapMask.graphics.drawRect(-10000,-10000,1,1);
+         minimapMask.graphics.endFill();
+         minimapMask.mouseEnabled=false;
+         game.addChild(minimapMask);game.cars.mask=minimapMask;
          game.pause_mc.alpha=0;game.pause_mc.mouseChildren=false;
          flash.external.ExternalInterface.addCallback("soccerMatchAction",function(action:String):Boolean {
             var p:MovieClip=null;var key:String="";
@@ -479,6 +508,7 @@ package
             for(var legacyIndex:int=0;legacyIndex<game.UI.numChildren;legacyIndex++){
                var legacyChild:DisplayObject=game.UI.getChildAt(legacyIndex);
                if(legacyChild!=game.UI.minilogo)legacyChild.alpha=0;
+               else {legacyChild.x=10;legacyChild.y=10;}
             }
             game.cars.alpha=0;
             game.pause_mc.alpha=0;game.pause_mc.mouseChildren=false;
@@ -696,10 +726,10 @@ package
                   this.handbrake = Input.kd("CTRL");
                   break;
                case "Player2":
-                  this.left = Input.kd("LEFT");
-                  this.right = Input.kd("RIGHT");
-                  this.up = Input.kd("UP");
-                  this.down = Input.kd("DOWN");
+                  this.left = Input.kd("LEFT") || Input.kd("A");
+                  this.right = Input.kd("RIGHT") || Input.kd("D");
+                  this.up = Input.kd("UP") || Input.kd("W");
+                  this.down = Input.kd("DOWN") || Input.kd("S");
                   this.handbrake = Input.kd("CTRL");
             }
             // Preserve computer steering; smooth keyboard input at the original 25 Hz.

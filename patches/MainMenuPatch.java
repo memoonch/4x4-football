@@ -7,6 +7,17 @@ public class MainMenuPatch {
   SWF swf;try(var in=new FileInputStream(args[0])){swf=new SWF(in,false);}int count=0;
   for(var tag:swf.getAbcList()){
    var abc=tag.getABC();var start=abc.findBodyByClassAndName("race","Start");if(start==null)continue;
+   // The original race key handler uses A to toggle AI driving; reserve A for steering.
+   var keyHandler=abc.findBodyByClassAndName("race","onkeyDown");
+   int autoDriveBindings=0;
+   for(var instruction:keyHandler.getCode().code){
+    if(!"getproperty".equals(instruction.definition.instructionName))continue;
+    var keyName=abc.constants.getMultiname(instruction.operands[0]);
+    if("A".equals(abc.constants.getString(keyName.name_index))){
+     keyName.name_index=abc.constants.getStringId("I",true);autoDriveBindings++;
+    }
+   }
+   if(autoDriveBindings!=1)throw new IllegalStateException("Expected one auto-drive A binding");
    int car=-1,install=-1,menu=-1,teams=-1,hummer=-1,visibility=-1;
    for(int i=1;i<abc.constants.getMultinameCount();i++){
     var m=abc.constants.getMultiname(i);if(m.kind!=7)continue;String n=abc.constants.getString(m.name_index);
@@ -81,7 +92,13 @@ public class MainMenuPatch {
     }
     var body=abc.findBodyByClassAndName("race",method);
     if(helperId<0||body==null||body.exceptions.length!=0)throw new IllegalStateException("Missing tournament hook: "+method);
-    var prefix=new ByteArrayOutputStream();prefix.write(0x60);u30(prefix,car);prefix.write(0xd1);
+    var prefix=new ByteArrayOutputStream();
+    int menuTransition=abc.constants.getMultinameId(Multiname.createQName(false,abc.constants.getStringId("menuTransition",true),abc.constants.getMultiname(install).namespace_index),true);
+    prefix.write(0x60);u30(prefix,car);prefix.write(0xd1);
+    prefix.write(0xd0);prefix.write(0x66);u30(prefix,menu);
+    prefix.write(0xd0);prefix.write(0x66);u30(prefix,teams);
+    prefix.write(0xd2);prefix.write(0x46);u30(prefix,menuTransition);u30(prefix,4);prefix.write(0xd6);
+    prefix.write(0x60);u30(prefix,car);prefix.write(0xd1);
     if(show){
      for(String field:new String[]{"cupchart_mc","versus_mc","round","cup16","cup8","cup4","cup2"}){
       if(!fields.containsKey(field))throw new IllegalStateException("Missing tournament field: "+field);
@@ -89,7 +106,7 @@ public class MainMenuPatch {
      }
     }
     prefix.write(0x4f);u30(prefix,helperId);u30(prefix,show?8:1);prefix.write(body.getCodeBytes());
-    body.setCodeBytes(prefix.toByteArray());body.setCode(body.getCode());body.max_stack=Math.max(body.max_stack,show?9:2);body.setModified();
+    body.setCodeBytes(prefix.toByteArray());body.setCode(body.getCode());body.max_stack=Math.max(body.max_stack,show?9:5);body.setModified();
    }
    ((com.jpexs.decompiler.flash.tags.Tag)tag).setModified(true);count++;
   }
@@ -98,6 +115,7 @@ public class MainMenuPatch {
   System.out.println("Main menu skin installed; original button objects and handlers retained.");
  }
 }
+
 
 
 

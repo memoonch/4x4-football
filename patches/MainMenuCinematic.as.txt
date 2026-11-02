@@ -89,6 +89,21 @@
             secondary.visible=true;secondary.tabEnabled=true;
          }
          menu.add_this_game_btn.visible=false;menu.add_this_game_btn.mouseEnabled=false;menu.add_this_game_btn.tabEnabled=false;
+         if(flash.external.ExternalInterface.available){
+            try{
+               flash.external.ExternalInterface.addCallback("soccerMainMenuAction",function(action:String):Boolean{
+                  if(!menu.visible)return false;
+                  if(action=="play")primary.dispatchEvent(new flash.events.MouseEvent(flash.events.MouseEvent.CLICK,true));
+                  else if(action=="more")secondary.dispatchEvent(new flash.events.MouseEvent(flash.events.MouseEvent.CLICK,true));
+                  else return false;
+                  return true;
+               });
+               if(flash.external.ExternalInterface.call("soccerMainMenu.visibility",menu.visible)){
+                  primary.alpha=0;primary.mouseEnabled=false;primary.tabEnabled=false;
+                  secondary.alpha=0;secondary.mouseEnabled=false;secondary.tabEnabled=false;
+               }
+            }catch(menuError:Error){}
+         }
       }
 
       public static function mainMenuVisibility(visible:Boolean):void
@@ -96,7 +111,13 @@
          if(flash.external.ExternalInterface.available)
          {
             try{flash.external.ExternalInterface.call("soccerBridge.menu",visible);}catch(error:Error){}
+            try{flash.external.ExternalInterface.call("soccerMainMenu.visibility",visible);}catch(menuError:Error){}
          }
+      }
+
+      public static function menuTransition(popup:Object,main:Object,teams:Object,animated:Boolean):Boolean
+      {
+         return popup==main || popup==teams ? false : animated;
       }
 
 

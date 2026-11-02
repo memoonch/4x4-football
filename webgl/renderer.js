@@ -15,6 +15,13 @@ const cameraPosition=new THREE.Vector3(),cameraQuaternion=new THREE.Quaternion()
 const loader=new THREE.TextureLoader();
 const assets=await fetch('/webgl/assets.json').then(r=>r.json());
 const meter=document.createElement('div');meter.id='webgl-fps';meter.hidden=true;meter.textContent='WebGL: waiting for game…';host.append(meter);
+let showFps=false;
+document.addEventListener('keydown',event=>{
+  if(event.key!=='Tab'||menuOpen||!active)return;
+  event.preventDefault();
+  if(event.repeat)return;
+  showFps=!showFps;meter.hidden=!showFps;
+},true);
 const diagnostics=document.createElement('pre');diagnostics.id='webgl-diagnostics';document.querySelector('details').append(diagnostics);
 let lastUpdateCount=0,dynamicCount=0,renderTime=0;
 let generation=0,presentedGeneration=-1,pendingTextures=0,sceneComplete=false,sceneKey=null,reusedScenes=0;
@@ -33,7 +40,7 @@ function trimTextureCache(){
 function updateReadiness(){
   const wasActive=active;
   active=sceneComplete&&pendingTextures===0&&currentCamera!==null;
-  meter.hidden=menuOpen||!active;
+  meter.hidden=!showFps||menuOpen||!active;
   if(active&&!wasActive){windowStart=performance.now();draws=sourceFrames=0;intervals=[];lastPresented=0;lastDraw=0;}
   if(!active)meter.textContent='Renderer: original';
 }
@@ -110,8 +117,12 @@ function stateToTransform(object,state){
   object.scale.set(state[6],state[7],state[8]);object.visible=state[9];
 }
 window.soccerBridge={
-  menu(visible){menuOpen=visible;meter.hidden=visible||!active;},
-  loading(visible){loadingScreen.hidden=!visible;},
+  menu(visible){menuOpen=visible;meter.hidden=!showFps||visible||!active;},
+  loading(visible){
+    const wasLoading=!loadingScreen.hidden;
+    loadingScreen.hidden=!visible;
+    if(wasLoading&&!visible)requestAnimationFrame(()=>document.querySelector('ruffle-player')?.focus({preventScroll:true}));
+  },
   reportError(message){document.querySelector('#status').textContent='WebGL bridge: '+message;},
   receive(packet){
     try{

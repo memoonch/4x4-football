@@ -1,0 +1,13 @@
+/* Independent scale preserves existing positioning transforms and layout. */
+#game-shell button {
+  scale: 1;
+  transform-origin: center;
+  transition: scale 160ms cubic-bezier(.2,.8,.2,1);
+}
+@media (hover: hover) and (pointer: fine) {
+  #game-shell button:not(:disabled):hover { scale: 1.04; }
+  #game-shell button:not(:disabled):active { scale: 1.01; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #game-shell button { transition: none; }
+}

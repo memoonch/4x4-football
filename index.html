@@ -2,9 +2,12 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preload" as="image" href="/webgl/ui/team-tunnel.png">
 <link rel="stylesheet" href="/webgl/ui/team-menu.css">
+<link rel="stylesheet" href="/webgl/ui/main-menu.css">
 <link rel="stylesheet" href="/webgl/ui/tournament-menu.css">
 <link rel="stylesheet" href="/webgl/ui/match-ui.css">
+<link rel="stylesheet" href="/webgl/ui/button-effects.css">
 <title>4x4 Soccer — Local Player</title>
 <style>
   html,body{margin:0;min-height:100%;background:#111820;color:#e5edf4;font:16px system-ui}
@@ -72,9 +75,11 @@
       if(native) await import('/webgl/renderer.js');
       if(!new URLSearchParams(location.search).has('original')) {
         await import('/webgl/ui/team-menu.js');
+        await import('/webgl/ui/main-menu.js');
         await import('/webgl/ui/tournament-menu.js'); await import('/webgl/ui/match-ui.js'); await import('/webgl/ui/boot-ui.js');
       }
       const player = window.RufflePlayer.newest().createPlayer();
+      player.tabIndex = 0;
       if(native){player.style.zIndex='2';}
       document.querySelector('#game').append(player);
       new MutationObserver(() => {
@@ -84,7 +89,7 @@
         const scale = Math.min(entry.contentRect.width / 670,entry.contentRect.height / 450);
         const left = (entry.contentRect.width - 670 * scale) / 2;
         const top = (entry.contentRect.height - 450 * scale) / 2;
-        for(const teamMenu of document.querySelectorAll('#team-menu,#tournament-menu,#match-ui')){teamMenu.style.width=`${670*scale}px`;teamMenu.style.height=`${450*scale}px`;teamMenu.style.left=`${left}px`;teamMenu.style.top=`${top}px`;}
+        for(const teamMenu of document.querySelectorAll('#team-menu,#tournament-menu,#match-ui,#main-menu-actions')){teamMenu.style.width=`${670*scale}px`;teamMenu.style.height=`${450*scale}px`;teamMenu.style.left=`${left}px`;teamMenu.style.top=`${top}px`;}
         // Let Ruffle rasterize vectors at the displayed resolution, rather than
         // enlarging a low-resolution Flash canvas with a CSS transform.
         player.style.transform = 'none';
@@ -92,8 +97,8 @@
         player.style.left = `${left}px`;player.style.top = `${top}px`;
         for(const overlay of document.querySelectorAll('#world-webgl,#webgl-fps')) {
           overlay.style.transform=`scale(${scale})`;
-          overlay.style.left=`${left}px`;
-          overlay.style.top=`${top + (overlay.id === 'webgl-fps' ? 35 * scale : 0)}px`;
+          overlay.style.left=`${left + (overlay.id === 'webgl-fps' ? 10 * scale : 0)}px`;
+          overlay.style.top=`${top + (overlay.id === 'webgl-fps' ? 45 * scale : 0)}px`;
         }
       }).observe(document.querySelector('#game'));
       await player.ruffle().load({url:native ? '/build/4x4-soccer-bridge.swf?v=car-atlas-2' : (new URLSearchParams(location.search).has('original') ? '/4x4%20soccer.swf' : '/build/4x4-soccer.swf?v=car-atlas-2'),autoplay:'on',
@@ -112,5 +117,3 @@
   });
 </script>
 </html>
-
-

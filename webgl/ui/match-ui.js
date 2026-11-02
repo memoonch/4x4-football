@@ -34,12 +34,16 @@ function renderMap(points,colors){
  dots.forEach((dot,i)=>{const point=points[i];dot.style.display=point?'':'none';if(!point)return;
   dot.setAttribute('cx',8+Math.min(100,Math.max(0,point.x))*1.44);dot.setAttribute('cy',8+Math.min(100,Math.max(0,point.y))*.84);
   const color=point.side===2?'#fff':palette[point.side===0?0:1];
-  dot.setAttribute('r',point.side===2?'4.8':point.driver?'4.5':'4');dot.setAttribute('fill',color);dot.setAttribute('stroke',point.driver?'#fff':contrast(color));
-  dot.setAttribute('stroke-width',point.driver?'1.5':'1.2');
+  dot.setAttribute('r',point.side===2?'3.3':'4');dot.setAttribute('fill',color);dot.setAttribute('stroke',point.driver?'#fff':contrast(color));
+  dot.setAttribute('stroke-width','1.2');
   dot.classList.toggle('map-driver',!!point.driver);
  });
 }
 window.soccerMatch={ready(){window.soccerBoot?.hide();return true;},update(p){
+ // Hand keyboard control back once when entering gameplay, including after results/pause.
+ if(p.hud&&!p.kind&&(!last.hud||last.kind)){
+  requestAnimationFrame(()=>document.querySelector('ruffle-player')?.focus({preventScroll:true}));
+ }
  root.hidden=!p.hud&&!p.kind&&!p.banner;root.dataset.screen=p.kind||'hud';root.dataset.result=p.title;
  nodes['.live-hud'].hidden=!p.hud||!!p.kind;
  if(p.home!==last.home)nodes['.home'].innerHTML=badge(p.home);

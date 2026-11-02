@@ -362,10 +362,10 @@ package
                   this.handbrake = Input.kd("CTRL");
                   break;
                case "Player2":
-                  this.left = Input.kd("LEFT");
-                  this.right = Input.kd("RIGHT");
-                  this.up = Input.kd("UP");
-                  this.down = Input.kd("DOWN");
+                  this.left = Input.kd("LEFT") || Input.kd("A");
+                  this.right = Input.kd("RIGHT") || Input.kd("D");
+                  this.up = Input.kd("UP") || Input.kd("W");
+                  this.down = Input.kd("DOWN") || Input.kd("S");
                   this.handbrake = Input.kd("CTRL");
             }
             // Preserve computer steering; smooth keyboard input at the original 25 Hz.

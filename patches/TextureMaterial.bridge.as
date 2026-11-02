@@ -692,7 +692,7 @@ package alternativa.engine3d.materials
       }
       
       public static function setDiagnosticsVisible(value:Boolean):void {
-         if(meter!=null)meter.visible=value;
+         // Diagnostics are presented by the browser HUD only.
       }
       private static var meter:TextField;
       private static var previous:int = 0;
@@ -716,7 +716,7 @@ package alternativa.engine3d.materials
          meter.mouseEnabled = false;
          meter.selectable = false;
          meter.text = 'FPS: measuring… / 25';
-         view.stage.addChild(meter);
+         // Keep timing samples for diagnostics without attaching the legacy panel.
          view.stage.addEventListener(Event.ENTER_FRAME,measure,false,-1000,true);
       }
 
