@@ -1,7 +1,7 @@
 import {roundNames,tournamentView} from './tournament-data.js';
 import {teamVehicle} from './team-vehicle.js';
 const root=document.createElement('section');root.id='tournament-menu';root.hidden=true;
-root.innerHTML='<div class="tournament-content"></div><nav class="tournament-nav"><button data-action="back" class="broadcast-button back">← BACK TO MENU</button><button data-action="more" class="tournament-more">Play more driving games</button><button data-action="next" class="broadcast-button next">NEXT MATCH →</button></nav>';
+root.innerHTML='<div class="tournament-content"></div><nav class="tournament-nav"><button data-action="back" class="broadcast-button back">← BACK TO MENU</button><button data-action="next" class="broadcast-button next">NEXT MATCH →</button></nav>';
 document.querySelector('#game').append(root);
 const content=root.querySelector('.tournament-content');
 const vehicleTints=[teamVehicle(root),teamVehicle(root)];

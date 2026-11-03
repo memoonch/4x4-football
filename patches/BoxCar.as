@@ -53,6 +53,14 @@ package
       public var VELMAX:Number = 30;
       
       public var STEER:Number = 0.9599310885968813;
+      // Stage 1 only. Set false to restore the saved light-steering preset.
+      private static const ARCADE_STEERING_V1:Boolean = true;
+      private static const STEERING_MEDIUM_SPEED:Number = 12;
+      private static const STEERING_HIGH_SPEED:Number = 24;
+      private static const ARCADE_GRIP_V1:Boolean = true;
+      private static const PROGRESSIVE_HANDBRAKE_V1:Boolean = true;
+      private var rearGripBlend:Number = 1;
+      private var originalAngularDamping:Number = -1;
       
       public var STEERSPEED:Number = 0.66;
       
@@ -304,6 +312,7 @@ package
       
       public function initCar() : *
       {
+         rearGripBlend=1;
          this.speed = 0;
          this.steer = 0;
          this.skidding = false;
@@ -359,14 +368,14 @@ package
                   this.right = Input.kd("D");
                   this.up = Input.kd("W");
                   this.down = Input.kd("S");
-                  this.handbrake = Input.kd("CTRL");
+                  this.handbrake = Input.kd("SPACE");
                   break;
                case "Player2":
                   this.left = Input.kd("LEFT") || Input.kd("A");
                   this.right = Input.kd("RIGHT") || Input.kd("D");
                   this.up = Input.kd("UP") || Input.kd("W");
                   this.down = Input.kd("DOWN") || Input.kd("S");
-                  this.handbrake = Input.kd("CTRL");
+                  this.handbrake = Input.kd("SPACE");
             }
             // Preserve computer steering; smooth keyboard input at the original 25 Hz.
             if(this._player == "Computer")
@@ -410,9 +419,19 @@ package
             }
             else
             {
-               var steeringTarget:Number = this.left ? this.STEER : (this.right ? -this.STEER : 0);
-               // About 120 ms to 90% response; quicker centering and direction changes.
-               var steeringResponse:Number = steeringTarget == 0 ? 0.65 : 0.55;
+               var steeringLimit:Number = this.STEER;
+               if(ARCADE_STEERING_V1)
+               {
+                  // Actual body speed, including reverse; never throttle or engine sound scaling.
+                  var handlingSpeed:Number = this.b2body.GetLinearVelocity().length();
+                  var highSpeedRange:Boolean = handlingSpeed > STEERING_MEDIUM_SPEED;
+                  var steeringBlend:Number = highSpeedRange ? (handlingSpeed-STEERING_MEDIUM_SPEED)/(STEERING_HIGH_SPEED-STEERING_MEDIUM_SPEED) : handlingSpeed/STEERING_MEDIUM_SPEED;
+                  steeringBlend=Math.max(0,Math.min(1,steeringBlend));
+                  steeringBlend=steeringBlend*steeringBlend*(3-2*steeringBlend);
+                  steeringLimit=(highSpeedRange ? 32-10*steeringBlend : 44-12*steeringBlend)*toRAD;
+               }
+               var steeringTarget:Number = this.left ? steeringLimit : (this.right ? -steeringLimit : 0);
+               var steeringResponse:Number = ARCADE_STEERING_V1 ? (steeringTarget == 0 ? 0.70 : 0.65) : (steeringTarget == 0 ? 0.65 : 0.55);
                this.steer += (steeringTarget - this.steer) * steeringResponse;
                if(Math.abs(steeringTarget - this.steer) < this.STEER * 0.005)
                {
@@ -449,6 +468,22 @@ package
                this.speed *= Math.random() * (1 - this.difficulty) + this.difficulty;
             }
          }
+         if(PROGRESSIVE_HANDBRAKE_V1 && this._player!="Computer" && this.racing)
+         {
+            // At 25 Hz: three steps into drift, five steps (0.2 s) to recover.
+            if(this.handbrake)rearGripBlend=Math.max(0.4,rearGripBlend-0.2);
+            else rearGripBlend=Math.min(1,rearGripBlend+0.12);
+         }
+         else rearGripBlend=1;
+         if(originalAngularDamping < 0)originalAngularDamping=b2body.GetAngularDamping();
+         var stabilityDamping:Number=originalAngularDamping;
+         if(ARCADE_GRIP_V1 && this.racing && this._player!="Computer" && !this.handbrake)
+         {
+            var stabilitySpeed:Number=Math.min(1,b2body.GetLinearVelocity().length()/STEERING_HIGH_SPEED);
+            var recoveryAssistance:Number=PROGRESSIVE_HANDBRAKE_V1?(rearGripBlend-0.4)/0.6:1;
+            stabilityDamping+=stabilitySpeed*((this.left || this.right)?1:2)*recoveryAssistance;
+         }
+         b2body.SetAngularDamping(stabilityDamping);
          this.graphics.clear();
          if(this.wheels)
          {
@@ -702,6 +737,18 @@ package
          _loc5_.multiplyN(_loc6_);
          var _loc7_:V2 = param1.GetTransform().r.c2.clone();
          var _loc8_:Number = _loc4_.dot(_loc7_);
+         if(ARCADE_GRIP_V1 && this._player!="Computer")
+         {
+            // Cancel lateral wheel slip with a bounded impulse, preserving forward momentum.
+            var gripScale:Number=param2?(PROGRESSIVE_HANDBRAKE_V1?rearGripBlend:(this.handbrake?0:1)):1;
+            var tireGrip:Number=0.9*gripScale;
+            var impulseLimit:Number=2*gripScale;
+            var lateralCorrection:Number=Math.max(-impulseLimit,Math.min(impulseLimit,_loc8_*tireGrip));
+            _loc7_.multiplyN(-lateralCorrection*param1.GetMass());
+            param1.ApplyImpulse(_loc7_,param1.GetWorldCenter());
+            if(param2)this.skidding=this.handbrake || Math.abs(_loc8_)>this.SKID;
+            return;
+         }
          if(Math.abs(_loc8_) > this.SKID || this.handbrake)
          {
             if(param2)

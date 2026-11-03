@@ -1,0 +1,16 @@
+#main-menu-actions{position:absolute;z-index:4;container-type:inline-size;pointer-events:none;background:#141414 url('/webgl/menu-reference.webp') center/100% 100% no-repeat}
+#main-menu-actions[hidden]{display:none}
+#game:has(#main-menu-actions:not([hidden])) #team-menu{display:none}
+#game:has(#main-menu-actions:not([hidden])) :is(#match-ui,#tournament-menu,#game-loading,#world-webgl){display:none!important}
+#main-menu-actions button{position:absolute;left:4%;width:44%;height:11.6%;border:0;padding:0;cursor:pointer;pointer-events:auto;isolation:isolate;background:#a5d950;clip-path:polygon(5% 0,100% 0,95% 100%,0 100%);color:#fff;font-family:Montserrat,Arial,sans-serif;font-weight:900;font-style:italic;text-align:center;letter-spacing:.03em}
+#main-menu-actions button::before{content:'';position:absolute;inset:2px;z-index:-1;clip-path:polygon(5% 0,100% 0,95% 100%,0 100%);background:linear-gradient(155deg,#508324 0%,#244b17 48%,#10290f 100%);box-shadow:inset 0 2px 0 #d6ff8b66,inset 0 -3px 0 #0005}
+#main-menu-actions button::after{content:'';position:absolute;right:5%;top:3px;bottom:3px;width:2%;background:#b4ec35;transform:skewX(-16deg)}
+#main-menu-actions button span{display:block;position:relative;line-height:1.05;text-shadow:0 2px 2px #0006}
+#main-menu-actions .menu-primary{top:68.5%;font-size:3.8cqw}
+#main-menu-actions .menu-secondary{top:83%;height:11.5%;background:#89938e;font-size:2.25cqw}
+#main-menu-actions .menu-secondary::before{background:linear-gradient(155deg,#323b38,#171d1c 65%,#101514)}
+#main-menu-actions .menu-secondary::after{background:#7e8982}
+#main-menu-actions button:hover::before{filter:brightness(1.22)}
+#main-menu-actions button:active span{transform:translateY(1px)}
+#main-menu-actions button:focus-visible{background:#fff}
+#main-menu-actions button:focus-visible::before{inset:4px}

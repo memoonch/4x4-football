@@ -1,0 +1,1 @@
+export const teams=[['Argentina','ar'],['Brazil','br'],['Croatia','hr'],['England','gb-eng'],['France','fr'],['Germany','de'],['Greece','gr'],['Italy','it'],['Ireland','ie'],['Japan','jp'],['Mexico','mx'],['Netherlands','nl'],['Norway','no'],['Portugal','pt'],['Spain','es'],['USA','us']];

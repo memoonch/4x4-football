@@ -1,0 +1,20 @@
+4x4 Football — website build
+
+Upload the CONTENTS of this folder to your website document root. Open index.html
+over HTTPS. WebGL is the default; ?engine=legacy selects the Ruffle-only fallback.
+This build uses root-relative asset paths, including inside the SWF. It must be
+hosted at the domain root (or a dedicated subdomain), not an arbitrary subfolder.
+No Node server or build tools are required on the website.
+
+Serve .js as text/javascript, .wasm as application/wasm, .json as application/json,
+.css as text/css, .svg as image/svg+xml, .webp as image/webp and .ttf as font/ttf.
+Keep all folders intact. UI artwork is optimized; original gameplay textures retained.
+If embedding, point an iframe at the hosted index.html and allow fullscreen and
+autoplay. Suggested iframe size: 960 x 540. Layout shrinks for smaller viewports.
+
+Includes the current three-stage player handling preset and Space handbrake.
+U-key championship preview is disabled. FPS starts hidden; Tab toggles it.
+Third-party runtime/font licenses are included. Original game ownership is unchanged.
+
+Validation: package files and JavaScript syntax checked. Full match playtesting
+and deployment on your hosting provider are still required before publishing.

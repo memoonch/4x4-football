@@ -117,7 +117,12 @@ function stateToTransform(object,state){
   object.scale.set(state[6],state[7],state[8]);object.visible=state[9];
 }
 window.soccerBridge={
-  menu(visible){menuOpen=visible;meter.hidden=!showFps||visible||!active;},
+  menu(visible){
+    menuOpen=visible;meter.hidden=!showFps||visible||!active;
+    renderer.domElement.hidden=visible;
+    if(visible){loadingScreen.hidden=true;renderer.clear();}
+    else {lastDraw=performance.now();lastPresented=0;}
+  },
   loading(visible){
     const wasLoading=!loadingScreen.hidden;
     loadingScreen.hidden=!visible;
@@ -176,7 +181,7 @@ window.soccerBridge={
 };
 function render(now){
   requestAnimationFrame(render);
-  if(!active||now-lastDraw<1000/targetFps-0.5)return;
+  if(menuOpen||!active||now-lastDraw<1000/targetFps-0.5)return;
   const period=1000/targetFps;
   // Advance a deadline explicitly: modulo on an early (rounded) rAF timestamp can replay a slot.
   lastDraw+=period*Math.max(1,Math.floor((now-lastDraw+0.5)/period));

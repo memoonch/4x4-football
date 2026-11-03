@@ -81,6 +81,10 @@
       }
       const player = window.RufflePlayer.newest().createPlayer();
       player.tabIndex = 0;
+      // Space is the handbrake while the player has focus; prevent page scrolling.
+      document.addEventListener('keydown', event => {
+        if(event.code === 'Space' && document.activeElement === player) event.preventDefault();
+      }, true);
       if(native){player.style.zIndex='2';}
       document.querySelector('#game').append(player);
       new MutationObserver(() => {
