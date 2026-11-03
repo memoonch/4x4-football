@@ -26,7 +26,7 @@ async function files(dir){let out=[];for(const e of await fs.readdir(dir,{withFi
  for(const match of combined.matchAll(/\/(webgl\/[^"'`\s)<>?]+)/g)){if(!match[1].includes('${'))keep.add(match[1]);}
  for(const p of await files(path.join(base,'webgl'))){
   const relative=path.relative(base,p).split(path.sep).join('/');
-  if(/\.(js|css|json)$/.test(p)||relative.startsWith('webgl/ui/flags/')||relative.startsWith('webgl/ui/fonts/'))continue;
+  if(/\.(js|css|json)$/.test(p)||relative.startsWith('webgl/ui/flags/')||relative.startsWith('webgl/ui/fonts/')||relative.startsWith('webgl/ui/audio/'))continue;
   if(!keep.has(relative))await fs.unlink(p);
  }
  console.log('Optimized UI images, logo and legacy loader PNGs; removed unused release artwork.');

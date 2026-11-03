@@ -14,3 +14,4 @@
 #main-menu-actions button:active span{transform:translateY(1px)}
 #main-menu-actions button:focus-visible{background:#fff}
 #main-menu-actions button:focus-visible::before{inset:4px}
+.menu-footer{position:absolute;left:4%;right:4%;bottom:1.2%;display:flex;justify-content:space-between;gap:1cqw;color:#e3e8e2;font:600 1.05cqw Montserrat,Arial,sans-serif;text-shadow:0 1px 3px #000,0 0 6px #000;pointer-events:none}

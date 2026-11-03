@@ -50,6 +50,7 @@ function renderMap(points,colors){
  });
 }
 window.soccerMatch={ready(){window.soccerBoot?.hide();return true;},update(p){
+ window.soccerBridge?.flagTeams(p.home,p.away);
  // Hand keyboard control back once when entering gameplay, including after results/pause.
  if(p.hud&&!p.kind&&(!last.hud||last.kind)){
   requestAnimationFrame(()=>document.querySelector('ruffle-player')?.focus({preventScroll:true}));

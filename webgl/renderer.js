@@ -1,4 +1,5 @@
 import * as THREE from '/vendor/three/build/three.module.js';
+import {teams} from './ui/teams.js';
 
 const host = document.querySelector('#game');
 const renderer = new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});
@@ -30,6 +31,42 @@ loadingScreen.hidden=true;
 loadingScreen.innerHTML='<div role="status" aria-live="polite"><span class="loading-spinner" aria-hidden="true"></span><strong>Loading Match…</strong><span>Preparing models and textures</span></div>';
 host.append(loadingScreen);
 const textureCache=new Map(),textureBudget=64*1024*1024;
+let goalTeams=[0,1];
+const goalFlagTextures=new Map();
+function goalFlagTexture(team){
+  if(goalFlagTextures.has(team))return goalFlagTextures.get(team);
+  const promise=Promise.all([loader.loadAsync(`/webgl/ui/flags/${teams[team][1]}.svg`),loader.loadAsync(assets.flag_template)]).then(([flag,cloth])=>{
+    const canvas=document.createElement('canvas');canvas.width=256;canvas.height=512;
+    const ctx=canvas.getContext('2d');
+    // One complete flag fills the original tall cloth, without repeating.
+    ctx.drawImage(flag.image,0,0,256,512);
+    ctx.globalCompositeOperation='multiply';ctx.globalAlpha=.45;ctx.drawImage(cloth.image,0,0,256,512);
+    const texture=new THREE.CanvasTexture(canvas);texture.flipY=false;texture.colorSpace=THREE.SRGBColorSpace;
+    texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+    flag.dispose();cloth.dispose();return texture;
+  });goalFlagTextures.set(team,promise);return promise;
+}
+function updateGoalFlags(){
+  const ends=new Map();
+  for(const node of nodes.values()){
+    if(!node.current)continue;
+    for(const mesh of node.object.children){
+      if(mesh.material?.userData.goalCloth)ends.set(mesh.material,node.current[0]);
+    }
+  }
+  const sorted=[...ends].sort((a,b)=>a[1]-b[1]);
+  if(sorted.length!==2)return;
+  sorted.forEach(([material],side)=>{
+    const team=goalTeams[side];if(material.userData.flagTeam===team)return;
+    material.userData.flagTeam=team;
+    const owner=generation;pendingTextures++;
+    goalFlagTexture(team).then(texture=>{
+      if(owner!==generation)return;
+      if(material.userData.flagTeam===team){material.map=texture;material.color.setHex(0xffffff);material.needsUpdate=true;}
+      pendingTextures--;updateReadiness();
+    }).catch(error=>{if(owner===generation){pendingTextures--;updateReadiness();}console.error('Goal flag failed',error);});
+  });
+}
 function trimTextureCache(){
   let bytes=0;for(const entry of textureCache.values())bytes+=entry.bytes;
   for(const [key,entry] of textureCache){
@@ -99,13 +136,14 @@ function makeMaterial(def){
     transparent:shadow||(def.alpha!==undefined&&def.alpha<1),opacity:def.alpha??1,
     depthTest:true,depthWrite:!shadow,alphaTest:shadow?0.001:0.05});
   materials.set(def.id,material);
+  material.userData.goalCloth=!!def.pixels&&def.width===256&&def.height===512;
   if(def.imageClass){
     const {key,entry}=cachedTexture(def);
     entry.refs++;material.userData.textureKey=key;
     const owner=generation;pendingTextures++;
     entry.promise.then(texture=>{
       if(owner!==generation||materials.get(def.id)!==material)return;
-      material.map=texture;material.needsUpdate=true;
+      if(!material.userData.goalCloth || material.userData.flagTeam===undefined){material.map=texture;material.needsUpdate=true;}
       pendingTextures--;updateReadiness();
     }).catch(error=>{
       document.querySelector('#status').textContent=error.message;console.error(error);
@@ -117,6 +155,7 @@ function stateToTransform(object,state){
   object.scale.set(state[6],state[7],state[8]);object.visible=state[9];
 }
 window.soccerBridge={
+  flagTeams(home,away){if(teams[home]&&teams[away])goalTeams=[home,away];},
   menu(visible){
     menuOpen=visible;meter.hidden=!showFps||visible||!active;
     renderer.domElement.hidden=visible;
@@ -171,7 +210,7 @@ window.soccerBridge={
       previousCamera=packet.snap?packet.camera:(currentCamera||packet.camera);currentCamera=packet.camera;
       if(receivedAt)simulationInterval=Math.max(20,Math.min(100,now-receivedAt));
       receivedAt=now;sourceFrames++;
-      sceneComplete=packet.complete===true;updateReadiness();
+      sceneComplete=packet.complete===true;updateGoalFlags();updateReadiness();
       lastUpdateCount=packet.updates.length;
       dynamicCount=packet.dynamic??nodes.size;
       // Keep Flash visible until a fully textured native frame has actually been drawn.
