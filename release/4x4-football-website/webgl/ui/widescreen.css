@@ -1,0 +1,37 @@
+/* Step 1: full-width browser UI, with the original Flash viewport retained. */
+.webgl-widescreen #main-menu-actions{background-size:cover;background-position:center top}
+.webgl-widescreen #main-menu-actions .menu-primary{font-size:3.2cqw;width:38%}
+.webgl-widescreen #main-menu-actions .menu-secondary{font-size:1.9cqw;width:38%}
+.webgl-widescreen .team-heading{font-size:3.1cqw}
+.webgl-widescreen .flag-card{height:6.8cqw}
+.webgl-widescreen .team-profile{padding:1.5cqw;top:45%}
+.webgl-widescreen .team-name{font-size:2.8cqw;margin-bottom:1cqw}
+.webgl-widescreen .stat-row{margin:.65cqw 0}
+.webgl-widescreen #team-menu .team-vehicle{width:18.87%}
+.webgl-widescreen .team-nav{height:4.6cqw;font-size:1.25cqw}
+.webgl-widescreen .broadcast-button{height:4.6cqw;font-size:1.25cqw}
+.webgl-widescreen #match-ui .team-vehicle{width:18.87%}
+.webgl-widescreen #match-ui[data-screen=final] .achievement-trophy{height:23cqw;top:7cqw}
+.webgl-widescreen #match-ui[data-screen=final] .result-car-0{left:71.3%}
+.webgl-widescreen .live-score{min-width:0;width:21%;top:1.25cqw}
+.webgl-widescreen .pitch-map{width:18%}
+/* Keep flags clear of adjacent rows in the fixed-height tournament bracket. */
+.webgl-widescreen .bracket-match{height:11.3%}
+.webgl-widescreen .bracket-team{grid-template-columns:2.2cqw minmax(0,1fr) 1.5cqw;gap:.7cqw}
+.webgl-widescreen .bracket-team img{width:2.2cqw;height:1.3cqw;object-fit:contain}
+.webgl-widescreen #tournament-menu[data-screen=match] .team-vehicle{width:18.87%;bottom:37%}
+.webgl-widescreen #tournament-menu[data-screen=match] .match-team{top:17%;padding:.8cqw 1cqw}
+.webgl-widescreen #tournament-menu[data-screen=match] .match-identity h3{font-size:2.2cqw}
+.webgl-widescreen #tournament-menu[data-screen=match] .match-identity img{width:4.5cqw;height:3cqw;object-fit:contain}
+/* Shared halftime, extra-time and match result layout: keep cards above roofs. */
+.webgl-widescreen #match-ui[data-screen=result] .result-teams{top:19%}
+.webgl-widescreen #match-ui[data-screen=result] .result-teams>div{padding:.8cqw 1cqw;min-height:5.3cqw;font-size:1.8cqw;align-items:center}
+.webgl-widescreen #match-ui[data-screen=result] .result-teams img{width:4.5cqw;height:3cqw;object-fit:contain}
+.webgl-widescreen #match-ui[data-screen=result] .result-teams strong{top:13cqw;font-size:4.5cqw}
+/* Flag SVGs use a 4:3 viewBox: preserve it without cropped edges or frames. */
+.webgl-widescreen #match-ui[data-screen=result] .result-teams>div img,
+.webgl-widescreen #match-ui[data-screen=final] .result-teams>div img,
+.webgl-widescreen #tournament-menu[data-screen=match] .match-identity img{
+  display:block;width:4.5cqw;height:auto;aspect-ratio:4/3;max-height:none;
+  object-fit:contain;border:0;border-radius:0;box-shadow:none;flex-shrink:0;
+}

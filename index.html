@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/webgl/ui/tournament-menu.css">
 <link rel="stylesheet" href="/webgl/ui/match-ui.css">
 <link rel="stylesheet" href="/webgl/ui/button-effects.css">
+<link rel="stylesheet" href="/webgl/ui/widescreen.css">
 <title>4x4 Soccer — Local Player</title>
 <style>
   html,body{margin:0;min-height:100%;background:#111820;color:#e5edf4;font:16px system-ui}
@@ -32,7 +33,7 @@
   @media(prefers-reduced-motion:reduce){#game-loading .loading-spinner{animation:none}}
 </style>
 <main>
-  <div id="game-shell"><div id="game"></div><button id="fullscreen" type="button" aria-label="Enter fullscreen">Fullscreen ⛶</button></div>
+  <div id="game-shell"><div id="game"></div></div>
   <div hidden aria-hidden="true">
   <p id="status">Loading player…</p>
   <p id="memory" style="text-align:center;font-size:13px">Memory: measuring browser JS heap…</p>
@@ -44,18 +45,14 @@
   window.addEventListener('DOMContentLoaded', async () => {
     const status = document.querySelector('#status');
     const shell = document.querySelector('#game-shell');
-    const fullscreenButton = document.querySelector('#fullscreen');
-    fullscreenButton.addEventListener('click', async () => {
+    document.addEventListener('keydown', async event => {
+      if(event.key !== 'F11' || event.repeat)return;
+      event.preventDefault();
       try {
         if(document.fullscreenElement === shell) await document.exitFullscreen();
         else await shell.requestFullscreen();
       } catch(error) { status.textContent = 'Fullscreen is unavailable in this browser. ' + error.message; }
-    });
-    document.addEventListener('fullscreenchange', () => {
-      const expanded = document.fullscreenElement === shell;
-      fullscreenButton.textContent = expanded ? 'Exit fullscreen ⛶' : 'Fullscreen ⛶';
-      fullscreenButton.setAttribute('aria-label', expanded ? 'Exit fullscreen' : 'Enter fullscreen');
-    });
+    },true);
     const memoryLabel = document.querySelector('#memory');
     const heapSamples = [];
     const started = performance.now();
@@ -72,6 +69,7 @@
     }, 5000);
     try {
       const native = new URLSearchParams(location.search).get('engine') === 'webgl';
+      shell.classList.toggle('webgl-widescreen',native);
       if(native) await import('/webgl/renderer.js');
       if(!new URLSearchParams(location.search).has('original')) {
         await import('/webgl/ui/driving-games-link.js');
@@ -94,16 +92,25 @@
         const scale = Math.min(entry.contentRect.width / 670,entry.contentRect.height / 450);
         const left = (entry.contentRect.width - 670 * scale) / 2;
         const top = (entry.contentRect.height - 450 * scale) / 2;
-        for(const teamMenu of document.querySelectorAll('#team-menu,#tournament-menu,#match-ui,#main-menu-actions')){teamMenu.style.width=`${670*scale}px`;teamMenu.style.height=`${450*scale}px`;teamMenu.style.left=`${left}px`;teamMenu.style.top=`${top}px`;}
+        const uiScale=native?Math.min(entry.contentRect.width/960,entry.contentRect.height/540):scale;
+        const uiWidth=native?960*uiScale:670*scale,uiHeight=native?540*uiScale:450*scale;
+        for(const teamMenu of document.querySelectorAll('#team-menu,#tournament-menu,#match-ui,#main-menu-actions')){
+          teamMenu.style.width=`${uiWidth}px`;teamMenu.style.height=`${uiHeight}px`;
+          teamMenu.style.left=`${(entry.contentRect.width-uiWidth)/2}px`;teamMenu.style.top=`${(entry.contentRect.height-uiHeight)/2}px`;
+        }
         // Let Ruffle rasterize vectors at the displayed resolution, rather than
         // enlarging a low-resolution Flash canvas with a CSS transform.
         player.style.transform = 'none';
         player.style.width = `${670 * scale}px`;player.style.height = `${450 * scale}px`;
-        player.style.left = `${left}px`;player.style.top = `${top}px`;
+        // Native HUD now contains only the FOG logo; anchor it to the wide view's left.
+        player.style.left = `${native?(entry.contentRect.width-uiWidth)/2:left}px`;player.style.top = `${top}px`;
         for(const overlay of document.querySelectorAll('#world-webgl,#webgl-fps')) {
-          overlay.style.transform=`scale(${scale})`;
-          overlay.style.left=`${left + (overlay.id === 'webgl-fps' ? 10 * scale : 0)}px`;
-          overlay.style.top=`${top + (overlay.id === 'webgl-fps' ? 45 * scale : 0)}px`;
+          const worldScale=native?uiWidth/800:scale;
+          const worldLeft=native?(entry.contentRect.width-uiWidth)/2:left;
+          const worldTop=native?(entry.contentRect.height-uiHeight)/2:top;
+          overlay.style.transform=`scale(${worldScale})`;
+          overlay.style.left=`${worldLeft + (overlay.id === 'webgl-fps' ? 10 * worldScale : 0)}px`;
+          overlay.style.top=`${worldTop + (overlay.id === 'webgl-fps' ? 45 * worldScale : 0)}px`;
         }
       }).observe(document.querySelector('#game'));
       await player.ruffle().load({url:native ? '/build/4x4-soccer-bridge.swf?v=car-atlas-2' : (new URLSearchParams(location.search).has('original') ? '/4x4%20soccer.swf' : '/build/4x4-soccer.swf?v=car-atlas-2'),autoplay:'on',

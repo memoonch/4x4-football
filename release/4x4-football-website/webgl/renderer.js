@@ -3,7 +3,8 @@ import {teams} from './ui/teams.js';
 
 const host = document.querySelector('#game');
 const renderer = new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});
-renderer.setSize(670,450);renderer.setPixelRatio(Math.min(Math.max(devicePixelRatio,1.5),2));
+// Preserve the original vertical projection while widening the rendered pitch.
+renderer.setSize(800,450);renderer.setPixelRatio(Math.min(Math.max(devicePixelRatio,1.5),2));
 renderer.setClearColor(0x000000,0);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.domElement.id='world-webgl';host.prepend(renderer.domElement);
@@ -244,7 +245,7 @@ function render(now){
   cm.decompose(cameraPosition,cameraQuaternion,cameraScale);
   camera.position.lerp(cameraPosition,t);camera.quaternion.slerp(cameraQuaternion,t);
   camera.fov=THREE.MathUtils.radToDeg(2*Math.atan(Math.tan(c.fov/2)*450/Math.hypot(670,450)));
-  camera.aspect=670/450;camera.near=c.near;camera.far=c.far;camera.updateProjectionMatrix();
+  camera.aspect=16/9;camera.near=c.near;camera.far=c.far;camera.updateProjectionMatrix();
   const renderStarted=performance.now();
   renderer.render(scene,camera);renderTime+=performance.now()-renderStarted;draws++;
   presentedGeneration=generation;

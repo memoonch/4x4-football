@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><title>Local UI layout review</title>
+<link rel="stylesheet" href="/webgl/ui/team-menu.css"><link rel="stylesheet" href="/webgl/ui/match-ui.css"><link rel="stylesheet" href="/webgl/ui/button-effects.css"><link rel="stylesheet" href="/webgl/ui/widescreen.css">
+<style>body{margin:0;background:#111820}#game-shell{position:relative;width:960px;height:540px;margin:40px auto}#game{position:absolute;inset:0}#match-ui{width:960px;height:540px}body>nav{padding:12px;text-align:center}body>nav button{padding:10px;margin:4px}</style>
+<nav><button>HALF TIME</button><button>EXTRA TIME</button><button>VICTORY</button><button>YOU LOST</button><button>PAUSED</button><button>CUP CHAMPIONS</button></nav>
+<div id="game-shell" class="webgl-widescreen"><div id="game"></div></div>
+<script type="module">
+import './ui/match-ui.js';
+function show(title){window.soccerMatch.update({kind:title==='PAUSED'?'pause':title==='CUP CHAMPIONS'?'final':'result',title,hud:false,home:0,away:13,score0:'2',score1:'1',period:'1ST HALF',time:'01:00',muted:false,back:true,next:title!=='PAUSED'&&title!=='CUP CHAMPIONS',retry:title==='PAUSED'||title==='YOU LOST',totals:'',banner:'',map:[]});}
+document.querySelectorAll('body>nav button').forEach(b=>b.onclick=()=>show(b.textContent));show('HALF TIME');
+</script>
