@@ -1,4 +1,4 @@
-import * as THREE from '/vendor/three/build/three.module.js';
+import * as THREE from '../../vendor/three/build/three.module.js';
 const colors=[65535,16776960,16777215,16777215,255,0,255,255,16742144,255,65280,16742144,16711680,16711680,16711680,255];
 export function teamVehicle(host){
  const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});
@@ -17,7 +17,7 @@ export function teamVehicle(host){
  scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),material));
  let ready=false;
  const draw=()=>{if(ready)renderer.render(scene,camera);};
- new THREE.TextureLoader().load('/webgl/ui/vehicle-hd.webp',texture=>{
+ new THREE.TextureLoader().load('./webgl/ui/vehicle-hd.webp',texture=>{
   // Shader intentionally reproduces the UI sprite's sRGB tint operation.
   uniforms.image.value=texture;ready=true;draw();
  },undefined,error=>console.error('Team vehicle artwork failed',error));

@@ -1,7 +1,7 @@
-const boot=document.createElement('section');boot.id='boot-ui';boot.setAttribute('aria-label','Loading 4x4 Football');boot.innerHTML=`<div class="boot-card"><img class="boot-logo" src="/webgl/ui/boot-logo.webp?v=clean-edge-2" alt="4x4 Football"><div class="boot-track" role="progressbar" aria-label="Loading game" aria-valuemin="0" aria-valuemax="100"><i></i></div><strong class="boot-status">LOADING GAME</strong></div>`;document.querySelector('#game').append(boot);
+const boot=document.querySelector('#boot-ui')||document.createElement('section');boot.id='boot-ui';boot.setAttribute('aria-label','Loading 4x4 Football');if(!boot.firstElementChild)boot.innerHTML=`<div class="boot-card"><img class="boot-logo" src="./webgl/ui/boot-logo.webp?v=clean-edge-2" alt="4x4 Football"><div class="boot-track" role="progressbar" aria-label="Loading game" aria-valuemin="0" aria-valuemax="100"><i></i></div><strong class="boot-status">LOADING GAME</strong></div>`;if(!boot.isConnected)document.querySelector('#game').append(boot);
 const bar=boot.querySelector('.boot-track'),fill=bar.querySelector('i'),status=boot.querySelector('.boot-status');
 let starting=false;
-const intro=new Audio('/webgl/ui/audio/fog-intro.mp3');
+const intro=new Audio('./webgl/ui/audio/fog-intro.mp3');
 intro.preload='auto';intro.loop=false;
 const logo=boot.querySelector('.boot-logo');
 logo.style.opacity='0';

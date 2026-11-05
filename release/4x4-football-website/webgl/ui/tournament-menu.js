@@ -8,11 +8,11 @@ const vehicleTints=[teamVehicle(root),teamVehicle(root)];
 root.querySelectorAll('.team-vehicle').forEach((canvas,i)=>{
  canvas.classList.add(`preview-car-${1-i}`);canvas.hidden=true;canvas.style.display='none';
 });
-const asset=new Image();asset.src='/webgl/ui/match-tunnel.webp';
+const asset=new Image();asset.src='./webgl/ui/match-tunnel.webp';
 let current=null;
 function row(entry,player,winner=false){
  if(!entry)return '<div class="bracket-team undecided"><span class="tbd-mark">—</span><span>TBD</span><b>–</b></div>';
- return `<div class="bracket-team ${entry.team===player?'player-team':''} ${winner?'winner':''}"><img src="/webgl/ui/flags/${entry.code}.svg" alt=""><span>${entry.name}</span><b>${entry.score??'–'}</b></div>`;
+ return `<div class="bracket-team ${entry.team===player?'player-team':''} ${winner?'winner':''}"><img src="./webgl/ui/flags/${entry.code}.svg" alt=""><span>${entry.name}</span><b>${entry.score??'–'}</b></div>`;
 }
 function cup(view){
  let connections='';
@@ -28,7 +28,7 @@ function cup(view){
  return `<header class="tournament-heading"><p>INTERNATIONAL CUP</p><h2>ROAD TO THE FINAL</h2><span class="round-badge">${roundNames[view.round]}</span></header><div class="bracket"><svg class="bracket-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${connections}</svg>${columns}</div><div class="bracket-legend"><span><i></i> YOUR TEAM</span><span class="upcoming-copy">UP NEXT · ${opponents}</span></div>`;
 }
 function match(view){
- return `<header class="tournament-heading match-heading"><p>INTERNATIONAL CUP / ${roundNames[view.round]}</p><h2>NEXT MATCH</h2></header>${view.next.map((entry,index)=>`<section class="match-team match-team-${index}"><p class="match-side">${index===0?'YOUR TEAM':'OPPONENT'}</p><div class="match-identity"><img src="/webgl/ui/flags/${entry.code}.svg" alt=""><h3>${entry.name}</h3></div><span class="match-team-rule"></span></section>`).join('')}<div class="match-vs" aria-label="versus">VS</div><p class="match-stage-label">${roundNames[view.round]}</p>`;
+ return `<header class="tournament-heading match-heading"><p>INTERNATIONAL CUP / ${roundNames[view.round]}</p><h2>NEXT MATCH</h2></header>${view.next.map((entry,index)=>`<section class="match-team match-team-${index}"><p class="match-side">${index===0?'YOUR TEAM':'OPPONENT'}</p><div class="match-identity"><img src="./webgl/ui/flags/${entry.code}.svg" alt=""><h3>${entry.name}</h3></div><span class="match-team-rule"></span></section>`).join('')}<div class="match-vs" aria-label="versus">VS</div><p class="match-stage-label">${roundNames[view.round]}</p>`;
 }
 root.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',async()=>{
  if(!current)return;

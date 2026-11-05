@@ -1,4 +1,4 @@
-import * as THREE from '/vendor/three/build/three.module.js';
+import * as THREE from '../vendor/three/build/three.module.js';
 import {teams} from './ui/teams.js';
 
 const host = document.querySelector('#game');
@@ -15,7 +15,7 @@ const targetFps=30, correction=new THREE.Matrix4().makeScale(1,-1,-1);
 const currentCameraMatrix=new THREE.Matrix4(),previousCameraMatrix=new THREE.Matrix4();
 const cameraPosition=new THREE.Vector3(),cameraQuaternion=new THREE.Quaternion(),cameraScale=new THREE.Vector3();
 const loader=new THREE.TextureLoader();
-const assets=await fetch('/webgl/assets.json').then(r=>r.json());
+const assets=await fetch('./webgl/assets.json').then(r=>r.json());
 const meter=document.createElement('div');meter.id='webgl-fps';meter.hidden=true;meter.textContent='WebGL: waiting for game…';host.append(meter);
 let showFps=false;
 document.addEventListener('keydown',event=>{
@@ -36,7 +36,7 @@ let goalTeams=[0,1];
 const goalFlagTextures=new Map();
 function goalFlagTexture(team){
   if(goalFlagTextures.has(team))return goalFlagTextures.get(team);
-  const promise=Promise.all([loader.loadAsync(`/webgl/ui/flags/${teams[team][1]}.svg`),loader.loadAsync(assets.flag_template)]).then(([flag,cloth])=>{
+  const promise=Promise.all([loader.loadAsync(`./webgl/ui/flags/${teams[team][1]}.svg`),loader.loadAsync(assets.flag_template)]).then(([flag,cloth])=>{
     const canvas=document.createElement('canvas');canvas.width=256;canvas.height=512;
     const ctx=canvas.getContext('2d');
     // One complete flag fills the original tall cloth, without repeating.

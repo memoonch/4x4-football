@@ -1,0 +1,23 @@
+{
+  "ballTexture": "./game-files/decompiled/images/245_ballTexture.jpg",
+  "skyboxFRONT": "./game-files/decompiled/images/234_skyboxFRONT.jpg",
+  "netTexture": "./game-files/decompiled/images/239_netTexture.png",
+  "flag_template": "./game-files/decompiled/images/304_flag_template.png",
+  "Car1Texture": "./game-files/decompiled/images/241_Car1Texture.jpg",
+  "Car1TextureGrey": "./game-files/decompiled/images/240_Car1TextureGrey.png",
+  "skyboxBOTTOM": "./game-files/decompiled/images/235_skyboxBOTTOM.jpg",
+  "senka4Ball": "./game-files/decompiled/images/237_senka4Ball.png",
+  "concrete": "./game-files/decompiled/images/243_concrete.jpg",
+  "senka": "./game-files/decompiled/images/238_senka.png",
+  "flag_green": "./game-files/decompiled/images/321_flag_green.png",
+  "fence1": "./game-files/decompiled/images/242_fence1.jpg",
+  "skyboxLEFT": "./game-files/decompiled/images/233_skyboxLEFT.jpg",
+  "Blok1Texture": "./game-files/decompiled/images/244_Blok1Texture.jpg",
+  "tree": "./game-files/decompiled/images/323_tree.png",
+  "skyboxBACK": "./game-files/decompiled/images/236_skyboxBACK.jpg",
+  "skyboxTOP": "./game-files/decompiled/images/231_skyboxTOP.jpg",
+  "crowd": "./game-files/decompiled/images/322_crowd.png",
+  "skyboxRIGHT": "./game-files/decompiled/images/232_skyboxRIGHT.jpg",
+  "flag_red": "./game-files/decompiled/images/320_flag_red.png",
+  "soccer_fieldTexture": "./game-files/decompiled/images/326_soccer_fieldTexture.jpg"
+}

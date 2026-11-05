@@ -2,7 +2,7 @@ const menu = document.createElement('nav');
 menu.id = 'main-menu-actions';
 menu.hidden = true;
 menu.setAttribute('aria-label', 'Main menu');
-menu.innerHTML = `<button class="menu-primary" data-action="play"><span>NEW GAME</span></button><button class="menu-secondary" data-action="more"><span>PLAY MORE<br>DRIVING GAMES</span></button><footer class="menu-footer"><span>Version 1.0</span><span>Copyright © FreeOnlineGames.com</span></footer>`;
+menu.innerHTML = `<button class="menu-primary" data-action="play"><span>NEW GAME</span></button><button class="menu-secondary" data-action="more"><span>PLAY MORE<br>DRIVING GAMES</span></button><footer class="menu-footer"><span class="menu-version" title="Update to Preloader">Version 1.0.1</span><span>Copyright © FreeOnlineGames.com</span></footer>`;
 document.querySelector('#game').append(menu);
 menu.addEventListener('click', event => {
   const button = event.target.closest('button');

@@ -66,7 +66,64 @@ for path in [output/'index.html', *(output/'webgl').rglob('*.js'), *(output/'web
         if '${' in asset: continue
         if not (output/asset.split('?')[0].lstrip('/')).exists(): missing.add(asset)
 if missing: raise RuntimeError('Missing assets: '+str(sorted(missing)))
+# Make the release relocatable, including when embedded in a website subfolder.
+import posixpath
+for path in [output/'index.html', *(output/'webgl').rglob('*.js'), *(output/'webgl').rglob('*.css')]:
+    source=path.read_text(encoding='utf-8-sig')
+    if path.suffix=='.css':
+        parent=path.relative_to(output).parent.as_posix()
+        source=re.sub(r'/((?:webgl|vendor)/[^\s\)\'"?]+)',lambda m:posixpath.relpath(m[1],parent),source)
+    else:
+        # Static ES imports resolve against the module, while loaders/HTML use the page.
+        parent=path.relative_to(output).parent.as_posix()
+        source=re.sub(r"(from\s+['\"])/((?:webgl|vendor)/[^'\"]+)",lambda m:m[1]+posixpath.relpath(m[2],parent),source)
+        source=re.sub(r"(['\"`])/((?:webgl|vendor|build|decompiled)/)",r'\1./\2',source)
+    if path.name=='index.html':
+        source=source.replace("await player.ruffle().load({", "await player.ruffle().load({urlRewriteRules:[[new RegExp('^https?://[^/]+/(webgl/.*)$'),new URL('.',location.href).href+'$1']],")
+        source=source.replace("status.textContent = 'Player failed to load: ' + error.message;", "const failure=document.createElement('div');failure.setAttribute('role','alert');failure.style.cssText='position:absolute;inset:0;z-index:100;background:#141a18;color:white;padding:32px;font:16px Arial';failure.textContent='Game could not load: '+error.message+'. Check that all game folders were uploaded and JavaScript/WebAssembly files are served correctly.';shell.append(failure);")
+    path.write_text(source,encoding='utf-8')
+assets_file=output/'webgl/assets.json'
+assets_file.write_text(json.dumps({key:'./'+value.lstrip('/') for key,value in json.loads(assets_file.read_text()).items()},indent=2),encoding='utf-8')
+readme=output/'UPLOAD.txt'
+readme.write_text('''4x4 Football — portable HTML build
+
+Extract this ZIP and upload ALL contents together. Open index.html via your
+website URL, e.g. https://example.com/games/4x4-football/index.html .
+Root and subfolder hosting are supported. No Node server is needed online.
+Do not upload the ZIP without extracting unless your host extracts game ZIPs.
+Do not open through file://; browser modules and WebAssembly need HTTP/HTTPS.
+For local testing: python -m http.server 8081 from this folder, then open
+http://localhost:8081/index.html .
+
+Keep build/, webgl/, vendor/ and decompiled/ beside index.html.
+Serve JS as text/javascript and WASM as application/wasm. Allow scripts,
+WebAssembly, WebGL and same-origin assets. An iframe needs allow-scripts and
+allow-same-origin if sandboxed. Autoplay sound depends on browser permissions.
+WebGL is default; the legacy fallback is ?engine=legacy.
+All included third-party licenses remain in their corresponding folders.
+''',encoding='utf-8')
 archive = root/'release/4x4-football-website.zip'
+(output/'start-game.py').write_text('''from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from pathlib import Path
+import functools, threading, webbrowser
+
+folder = str(Path(__file__).resolve().parent)
+handler = functools.partial(SimpleHTTPRequestHandler, directory=folder)
+server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
+url = "http://127.0.0.1:%s/index.html" % server.server_port
+print("4x4 Football: " + url)
+print("Keep this window open while playing. Close it to stop the local server.")
+threading.Timer(0.5, lambda: webbrowser.open(url)).start()
+try:
+    server.serve_forever()
+except KeyboardInterrupt:
+    pass
+finally:
+    server.server_close()
+''',encoding='utf-8')
+(output/'PLAY-LOCAL.cmd').write_text('@echo off\ncd /d "%~dp0"\npython start-game.py\nif errorlevel 1 (\n echo Python 3 is required for local testing. On a website, open the hosted index.html URL instead.\n pause\n)\n',encoding='utf-8')
+with (output/'UPLOAD.txt').open('a',encoding='utf-8') as guide:
+    guide.write('\nWindows local play: double-click PLAY-LOCAL.cmd (requires Python 3).\nThe launcher opens the game using HTTP automatically. Keep its window open.\n')
 with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as package:
     for path in output.rglob('*'):
         if path.is_file(): package.write(path, path.relative_to(output))

@@ -1,7 +1,7 @@
-@font-face{font-family:Montserrat;src:url('/webgl/ui/fonts/Montserrat.ttf') format('truetype');font-weight:100 900;font-display:swap}
+@font-face{font-family:Montserrat;src:url('fonts/Montserrat.ttf') format('truetype');font-weight:100 900;font-display:swap}
 #team-menu{position:absolute;z-index:4;container-type:inline-size;pointer-events:none;color:#fff;font-family:Montserrat,Arial,sans-serif;overflow:hidden}
 #team-menu[hidden]{display:none}
-#team-menu{background:#141414 url('/webgl/ui/team-tunnel.webp') center/100% 100% no-repeat}
+#team-menu{background:#141414 url('team-tunnel.webp') center/100% 100% no-repeat}
 #team-menu *{box-sizing:border-box}
 #team-menu button{font-family:inherit;cursor:pointer;pointer-events:auto;color:#fff}
 .team-heading{position:absolute;left:4%;top:4%;margin:0;font-size:3.6cqw;font-weight:850;letter-spacing:-.1cqw}

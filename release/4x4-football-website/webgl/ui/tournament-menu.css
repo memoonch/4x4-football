@@ -2,7 +2,7 @@
 #tournament-menu[hidden]{display:none}
 #tournament-menu *{box-sizing:border-box}
 #tournament-menu button{font-family:inherit;pointer-events:auto;cursor:pointer;color:#fff}
-#tournament-menu[data-screen=cup]{background:linear-gradient(110deg,#0b1010f5,#101915eb),url('/webgl/ui/match-tunnel.webp') center/cover}
+#tournament-menu[data-screen=cup]{background:linear-gradient(110deg,#0b1010f5,#101915eb),url('match-tunnel.webp') center/cover}
 .tournament-content{position:absolute;inset:0}
 .tournament-heading{position:absolute;top:4%;left:4%;right:4%}
 .tournament-heading p{font-size:1.05cqw;font-weight:700;letter-spacing:.16cqw;color:#acbcb1;margin:0 0 .7cqw}
@@ -54,7 +54,7 @@
 
 #game:has(#tournament-menu:not([hidden])) #webgl-fps,#game:has(#team-menu:not([hidden])) #webgl-fps{display:none}
 
-#tournament-menu[data-screen=match]{background:#141414 url('/webgl/ui/match-tunnel.webp') center/100% 100% no-repeat}
+#tournament-menu[data-screen=match]{background:#141414 url('match-tunnel.webp') center/100% 100% no-repeat}
 #tournament-menu .team-vehicle{display:none;position:absolute;width:22.5%;height:auto;aspect-ratio:1;bottom:37%;transform:translateX(-50%);pointer-events:none}
 #tournament-menu[data-screen=match] .team-vehicle{display:block}
 #tournament-menu .preview-car-0{left:24%}

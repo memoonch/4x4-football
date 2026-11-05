@@ -29,6 +29,12 @@ root.addEventListener('click',e=>{
  finally{button.disabled=false;}
 });
 const mapSvg=$('.pitch-map svg');
+const football=document.createElementNS('http://www.w3.org/2000/svg','g');
+football.classList.add('map-football');
+let previousBallPosition=null,previousBallTime=0;
+football.setAttribute('aria-label','Football');football.style.pointerEvents='none';
+football.innerHTML='<circle r="3.6" fill="#fff" stroke="#101614" stroke-width=".5"/><path d="M0-1.6 1.52-.49 .94 1.29-.94 1.29-1.52-.49Z" fill="#080b0a"/>'+Array.from({length:5},(_,i)=>`<path transform="rotate(${i*72})" d="M-.95-3.35 .95-3.35 .75-2.55 0-2.12-.75-2.55Z" fill="#080b0a"/>`).join('');
+nodes['.pitch-dots'].append(football);
 const goalGroup=document.createElementNS('http://www.w3.org/2000/svg','g');
 goalGroup.innerHTML='<path class="map-goal home-goal" d="M8 39H3V61H8"/><path class="map-goal away-goal" d="M152 39H157V61H152"/><text class="map-goal-label" x="8" y="7">DEFEND</text><text class="map-goal-label" x="152" y="7" text-anchor="end">ATTACK →</text>';
 mapSvg.insertBefore(goalGroup,$('.pitch-dots'));
@@ -42,12 +48,24 @@ function renderMap(points,colors){
  $('.pitch-map').style.setProperty('--map-home',palette[0]);$('.pitch-map').style.setProperty('--map-away',palette[1]);
  while(dots.length<points.length){const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');nodes['.pitch-dots'].append(dot);dots.push(dot);}
  dots.forEach((dot,i)=>{const point=points[i];dot.style.display=point?'':'none';if(!point)return;
+  if(point.side===2){dot.style.display='none';return;}
   dot.setAttribute('cx',8+Math.min(100,Math.max(0,point.x))*1.44);dot.setAttribute('cy',8+Math.min(100,Math.max(0,point.y))*.84);
   const color=point.side===2?'#fff':palette[point.side===0?0:1];
   dot.setAttribute('r',point.side===2?'3.3':'4');dot.setAttribute('fill',color);dot.setAttribute('stroke',point.driver?'#fff':contrast(color));
   dot.setAttribute('stroke-width','1.2');
   dot.classList.toggle('map-driver',!!point.driver);
  });
+ const ball=points.find(point=>point.side===2);
+ football.style.display=ball?'':'none';
+ if(ball){
+  const x=8+Math.min(100,Math.max(0,ball.x))*1.44,y=8+Math.min(100,Math.max(0,ball.y))*.84;
+  const now=performance.now();
+  const snap=!previousBallPosition||now-previousBallTime>500||Math.hypot(x-previousBallPosition.x,y-previousBallPosition.y)>40;
+  football.style.transition=snap?'none':'';
+  football.style.transform=`translate(${x}px, ${y}px)`;
+  previousBallPosition={x,y};previousBallTime=now;
+  if(nodes['.pitch-dots'].lastChild!==football)nodes['.pitch-dots'].append(football);
+ }else previousBallPosition=null;
 }
 window.soccerMatch={ready(){window.soccerBoot?.hide();return true;},update(p){
  window.soccerBridge?.flagTeams(p.home,p.away);

@@ -1,0 +1,16 @@
+4x4 Football — website upload
+
+Upload index.html and the game-files folder together, keeping their structure.
+Open the HTTPS URL to index.html. Subfolder hosting is supported.
+This is a static HTML game build; no Node/Python server is required online.
+For iframe embedding use the hosted index.html URL, width 960 and height 540.
+If the iframe is sandboxed it needs allow-scripts and allow-same-origin.
+JavaScript and WebAssembly must be allowed by the host. Serve .js as
+text/javascript and .wasm as application/wasm.
+
+Do not double-click index.html using file://. For local testing, serve this folder
+over HTTP, for example: python -m http.server 8083
+Then open http://localhost:8083/index.html .
+
+Included: current WebGL game, optimized artwork, UI and third-party licenses.
+Production U-key preview is disabled. F11 toggles fullscreen where supported.

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preload" as="image" href="./game-files/webgl/ui/team-tunnel.webp">
+<link rel="stylesheet" href="./game-files/webgl/ui/team-menu.css">
+<link rel="stylesheet" href="./game-files/webgl/ui/main-menu.css">
+<link rel="stylesheet" href="./game-files/webgl/ui/tournament-menu.css">
+<link rel="stylesheet" href="./game-files/webgl/ui/match-ui.css">
+<link rel="stylesheet" href="./game-files/webgl/ui/button-effects.css">
+<link rel="stylesheet" href="./game-files/webgl/ui/widescreen.css">
+<title>4x4 Football</title>
+<style>
+  html,body{margin:0;min-height:100%;background:#111820;color:#e5edf4;font:16px system-ui}
+  body{min-height:100vh;display:grid;place-items:center}
+  main{width:100%;margin:0;padding:0}
+  #game-shell{position:relative;width:960px;aspect-ratio:16/9;max-width:100%;background:#080c0d;margin:0 auto;overflow:hidden}
+  #game-shell:fullscreen{width:100vw;height:100vh;max-width:none;margin:0;aspect-ratio:auto}
+  #game{position:absolute;inset:0;background:#080c0d;overflow:hidden}
+  ruffle-player{position:absolute;display:block;width:670px;height:450px;transform-origin:top left} #status{text-align:center}
+  #fullscreen{position:absolute;right:12px;bottom:12px;z-index:10;padding:8px 12px;border:1px solid #77836e;border-radius:4px;background:#111a18e8;color:#fff;font:700 12px system-ui;cursor:pointer}
+  #fullscreen:hover{border-color:#ffa117;background:#24302b}
+  #fullscreen:focus-visible{outline:2px solid #ffa117;outline-offset:3px}
+  #world-webgl{position:absolute;top:0;left:0;width:670px;height:450px;transform-origin:top left;pointer-events:none}
+  #webgl-fps{position:absolute;left:0;top:35px;z-index:3;white-space:pre;background:#14202b;color:white;font:11px sans-serif;padding:3px;pointer-events:none;transform-origin:top left}
+  #game-loading{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:#111820;color:#e5edf4;text-align:center}
+  #game-loading[hidden]{display:none}
+  #game-loading strong,#game-loading span{display:block}
+  #game-loading strong{font-size:22px;margin:16px 0 8px}
+  #game-loading span{font-size:14px;color:#aebcca}
+  #game-loading .loading-spinner{width:32px;height:32px;margin:auto;border:3px solid #34414e;border-top-color:#4bd7df;border-radius:50%;animation:loading-spin .8s linear infinite}
+  @keyframes loading-spin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){#game-loading .loading-spinner{animation:none}}
+</style>
+<main>
+  <div id="game-shell"><div id="game"><section id="boot-ui" aria-label="Loading 4x4 Football"><div class="boot-card"><img class="boot-logo" src="./game-files/webgl/ui/boot-logo.webp?v=clean-edge-2" alt="4x4 Football" fetchpriority="high"><div class="boot-track" role="progressbar" aria-label="Loading game" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><strong class="boot-status">LOADING GAME</strong></div></section></div></div>
+  <div hidden aria-hidden="true">
+  <p id="status">Loading player…</p>
+  <p id="memory" style="text-align:center;font-size:13px">Memory: measuring browser JS heap…</p>
+  <details><summary>Graphics diagnostics</summary><pre id="graphics" style="white-space:pre-wrap">Waiting for renderer…</pre></details>
+  </div>
+</main>
+<script src="./game-files/vendor/ruffle-gpu/ruffle.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    const status = document.querySelector('#status');
+    const shell = document.querySelector('#game-shell');
+    document.addEventListener('keydown', async event => {
+      if(event.key !== 'F11' || event.repeat)return;
+      event.preventDefault();
+      try {
+        if(document.fullscreenElement === shell) await document.exitFullscreen();
+        else await shell.requestFullscreen();
+      } catch(error) { status.textContent = 'Fullscreen is unavailable in this browser. ' + error.message; }
+    },true);
+    const memoryLabel = document.querySelector('#memory');
+    const heapSamples = [];
+    const started = performance.now();
+    setInterval(() => {
+      const memory = performance.memory;
+      if (!memory) {
+        memoryLabel.textContent = 'Browser JS heap measurement is unavailable in this browser.';
+        return;
+      }
+      const mb = memory.usedJSHeapSize / 1048576;
+      heapSamples.push(mb);
+      if (heapSamples.length > 120) heapSamples.shift();
+      memoryLabel.textContent = `JS heap: ${mb.toFixed(1)} MB · sample range ${Math.min(...heapSamples).toFixed(1)}–${Math.max(...heapSamples).toFixed(1)} MB · elapsed ${Math.floor((performance.now()-started)/1000)} s (excludes WASM/GPU memory)`;
+    }, 5000);
+    try {
+      const native = new URLSearchParams(location.search).get('engine') !== 'legacy';
+      if(false)document.querySelector('#boot-ui')?.remove();
+      shell.classList.toggle('webgl-widescreen',native);
+      if(native) await import('./game-files/webgl/renderer.js');
+      if(!false) {
+        await import('./game-files/webgl/ui/driving-games-link.js');
+        await import('./game-files/webgl/ui/team-menu.js');
+        await import('./game-files/webgl/ui/main-menu.js');
+        await import('./game-files/webgl/ui/tournament-menu.js'); await import('./game-files/webgl/ui/match-ui.js'); await import('./game-files/webgl/ui/boot-ui.js');
+      }
+      const player = window.RufflePlayer.newest().createPlayer();
+      player.tabIndex = 0;
+      // Space is the handbrake while the player has focus; prevent page scrolling.
+      document.addEventListener('keydown', event => {
+        if(event.code === 'Space' && document.activeElement === player) event.preventDefault();
+      }, true);
+      if(native){player.style.zIndex='2';}
+      document.querySelector('#game').append(player);
+      new MutationObserver(() => {
+        document.querySelector('#graphics').textContent = player.getAttribute('data-renderer-info') || 'Waiting for renderer…';
+      }).observe(player,{attributes:true,attributeFilter:['data-renderer-info']});
+      new ResizeObserver(([entry]) => {
+        const scale = Math.min(entry.contentRect.width / 670,entry.contentRect.height / 450);
+        const left = (entry.contentRect.width - 670 * scale) / 2;
+        const top = (entry.contentRect.height - 450 * scale) / 2;
+        const uiScale=native?Math.min(entry.contentRect.width/960,entry.contentRect.height/540):scale;
+        const uiWidth=native?960*uiScale:670*scale,uiHeight=native?540*uiScale:450*scale;
+        for(const teamMenu of document.querySelectorAll('#team-menu,#tournament-menu,#match-ui,#main-menu-actions')){
+          teamMenu.style.width=`${uiWidth}px`;teamMenu.style.height=`${uiHeight}px`;
+          teamMenu.style.left=`${(entry.contentRect.width-uiWidth)/2}px`;teamMenu.style.top=`${(entry.contentRect.height-uiHeight)/2}px`;
+        }
+        // Let Ruffle rasterize vectors at the displayed resolution, rather than
+        // enlarging a low-resolution Flash canvas with a CSS transform.
+        player.style.transform = 'none';
+        player.style.width = `${670 * scale}px`;player.style.height = `${450 * scale}px`;
+        // Native HUD now contains only the FOG logo; anchor it to the wide view's left.
+        player.style.left = `${native?(entry.contentRect.width-uiWidth)/2:left}px`;player.style.top = `${top}px`;
+        for(const overlay of document.querySelectorAll('#world-webgl,#webgl-fps')) {
+          const worldScale=native?uiWidth/800:scale;
+          const worldLeft=native?(entry.contentRect.width-uiWidth)/2:left;
+          const worldTop=native?(entry.contentRect.height-uiHeight)/2:top;
+          overlay.style.transform=`scale(${worldScale})`;
+          overlay.style.left=`${worldLeft + (overlay.id === 'webgl-fps' ? 10 * worldScale : 0)}px`;
+          overlay.style.top=`${worldTop + (overlay.id === 'webgl-fps' ? 45 * worldScale : 0)}px`;
+        }
+      }).observe(document.querySelector('#game'));
+      await player.ruffle().load({urlRewriteRules:[[new RegExp('^https?://[^/]+/(webgl/.*)$'),new URL('./game-files/',location.href).href+'$1']],url:native ? './game-files/build/4x4-soccer-bridge.swf?v=car-atlas-2' : (false ? '/4x4%20soccer.swf' : './game-files/build/4x4-soccer.swf?v=car-atlas-2'),autoplay:'on',
+        unmuteOverlay:'visible',allowScriptAccess:!false,openUrlMode:'deny',wmode:native?'transparent':'window',
+        preferredRenderer:new URLSearchParams(location.search).get('renderer') || 'wgpu-webgl',
+        quality:'medium',scale:'showAll',forceScale:true,parameters:{type:'1',webglbridge:native?'1':'0'},
+        backgroundColor:native?null:'#000000'});
+      if(native) player.traceObserver = message => {
+        if(message.includes('WebGL bridge error:')) status.textContent=message;
+      };
+      status.textContent = 'Click the game to focus. Use the in-game instructions for controls.';
+    } catch(error) {
+      const failure=document.createElement('div');failure.setAttribute('role','alert');failure.style.cssText='position:absolute;inset:0;z-index:100;background:#141a18;color:white;padding:32px;font:16px Arial';failure.textContent='Game could not load: '+error.message+'. Check that all game folders were uploaded and JavaScript/WebAssembly files are served correctly.';shell.append(failure);
+      console.error(error);
+    }
+  });
+</script>
+</html>

@@ -33,7 +33,7 @@
   @media(prefers-reduced-motion:reduce){#game-loading .loading-spinner{animation:none}}
 </style>
 <main>
-  <div id="game-shell"><div id="game"></div></div>
+  <div id="game-shell"><div id="game"><section id="boot-ui" aria-label="Loading 4x4 Football"><div class="boot-card"><img class="boot-logo" src="/webgl/ui/boot-logo.svg?v=clean-edge-2" alt="4x4 Football" fetchpriority="high"><div class="boot-track" role="progressbar" aria-label="Loading game" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><strong class="boot-status">LOADING GAME</strong></div></section></div></div>
   <div hidden aria-hidden="true">
   <p id="status">Loading player…</p>
   <p id="memory" style="text-align:center;font-size:13px">Memory: measuring browser JS heap…</p>
@@ -69,6 +69,7 @@
     }, 5000);
     try {
       const native = new URLSearchParams(location.search).get('engine') === 'webgl';
+      if(new URLSearchParams(location.search).has('original'))document.querySelector('#boot-ui')?.remove();
       shell.classList.toggle('webgl-widescreen',native);
       if(native) await import('/webgl/renderer.js');
       if(!new URLSearchParams(location.search).has('original')) {

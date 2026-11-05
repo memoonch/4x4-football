@@ -2,13 +2,13 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="preload" as="image" href="/webgl/ui/team-tunnel.webp">
-<link rel="stylesheet" href="/webgl/ui/team-menu.css">
-<link rel="stylesheet" href="/webgl/ui/main-menu.css">
-<link rel="stylesheet" href="/webgl/ui/tournament-menu.css">
-<link rel="stylesheet" href="/webgl/ui/match-ui.css">
-<link rel="stylesheet" href="/webgl/ui/button-effects.css">
-<link rel="stylesheet" href="/webgl/ui/widescreen.css">
+<link rel="preload" as="image" href="./webgl/ui/team-tunnel.webp">
+<link rel="stylesheet" href="./webgl/ui/team-menu.css">
+<link rel="stylesheet" href="./webgl/ui/main-menu.css">
+<link rel="stylesheet" href="./webgl/ui/tournament-menu.css">
+<link rel="stylesheet" href="./webgl/ui/match-ui.css">
+<link rel="stylesheet" href="./webgl/ui/button-effects.css">
+<link rel="stylesheet" href="./webgl/ui/widescreen.css">
 <title>4x4 Football</title>
 <style>
   html,body{margin:0;min-height:100%;background:#111820;color:#e5edf4;font:16px system-ui}
@@ -33,14 +33,14 @@
   @media(prefers-reduced-motion:reduce){#game-loading .loading-spinner{animation:none}}
 </style>
 <main>
-  <div id="game-shell"><div id="game"></div></div>
+  <div id="game-shell"><div id="game"><section id="boot-ui" aria-label="Loading 4x4 Football"><div class="boot-card"><img class="boot-logo" src="./webgl/ui/boot-logo.webp?v=clean-edge-2" alt="4x4 Football" fetchpriority="high"><div class="boot-track" role="progressbar" aria-label="Loading game" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><strong class="boot-status">LOADING GAME</strong></div></section></div></div>
   <div hidden aria-hidden="true">
   <p id="status">Loading player…</p>
   <p id="memory" style="text-align:center;font-size:13px">Memory: measuring browser JS heap…</p>
   <details><summary>Graphics diagnostics</summary><pre id="graphics" style="white-space:pre-wrap">Waiting for renderer…</pre></details>
   </div>
 </main>
-<script src="/vendor/ruffle-gpu/ruffle.js"></script>
+<script src="./vendor/ruffle-gpu/ruffle.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
     const status = document.querySelector('#status');
@@ -69,13 +69,14 @@
     }, 5000);
     try {
       const native = new URLSearchParams(location.search).get('engine') !== 'legacy';
+      if(false)document.querySelector('#boot-ui')?.remove();
       shell.classList.toggle('webgl-widescreen',native);
-      if(native) await import('/webgl/renderer.js');
+      if(native) await import('./webgl/renderer.js');
       if(!false) {
-        await import('/webgl/ui/driving-games-link.js');
-        await import('/webgl/ui/team-menu.js');
-        await import('/webgl/ui/main-menu.js');
-        await import('/webgl/ui/tournament-menu.js'); await import('/webgl/ui/match-ui.js'); await import('/webgl/ui/boot-ui.js');
+        await import('./webgl/ui/driving-games-link.js');
+        await import('./webgl/ui/team-menu.js');
+        await import('./webgl/ui/main-menu.js');
+        await import('./webgl/ui/tournament-menu.js'); await import('./webgl/ui/match-ui.js'); await import('./webgl/ui/boot-ui.js');
       }
       const player = window.RufflePlayer.newest().createPlayer();
       player.tabIndex = 0;
@@ -113,7 +114,7 @@
           overlay.style.top=`${worldTop + (overlay.id === 'webgl-fps' ? 45 * worldScale : 0)}px`;
         }
       }).observe(document.querySelector('#game'));
-      await player.ruffle().load({url:native ? '/build/4x4-soccer-bridge.swf?v=car-atlas-2' : (false ? '/4x4%20soccer.swf' : '/build/4x4-soccer.swf?v=car-atlas-2'),autoplay:'on',
+      await player.ruffle().load({urlRewriteRules:[[new RegExp('^https?://[^/]+/(webgl/.*)$'),new URL('.',location.href).href+'$1']],url:native ? './build/4x4-soccer-bridge.swf?v=car-atlas-2' : (false ? '/4x4%20soccer.swf' : './build/4x4-soccer.swf?v=car-atlas-2'),autoplay:'on',
         unmuteOverlay:'visible',allowScriptAccess:!false,openUrlMode:'deny',wmode:native?'transparent':'window',
         preferredRenderer:new URLSearchParams(location.search).get('renderer') || 'wgpu-webgl',
         quality:'medium',scale:'showAll',forceScale:true,parameters:{type:'1',webglbridge:native?'1':'0'},
@@ -123,7 +124,7 @@
       };
       status.textContent = 'Click the game to focus. Use the in-game instructions for controls.';
     } catch(error) {
-      status.textContent = 'Player failed to load: ' + error.message;
+      const failure=document.createElement('div');failure.setAttribute('role','alert');failure.style.cssText='position:absolute;inset:0;z-index:100;background:#141a18;color:white;padding:32px;font:16px Arial';failure.textContent='Game could not load: '+error.message+'. Check that all game folders were uploaded and JavaScript/WebAssembly files are served correctly.';shell.append(failure);
       console.error(error);
     }
   });

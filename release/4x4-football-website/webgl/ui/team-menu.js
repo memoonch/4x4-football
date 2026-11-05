@@ -16,7 +16,7 @@ function action(name,index=0){
 }
 for(const [index,[name,code]] of teams.entries()){
  const button=document.createElement('button');button.className='flag-card';button.type='button';button.setAttribute('aria-label',name);button.setAttribute('aria-pressed','false');
- button.innerHTML=`<img src="/webgl/ui/flags/${code}.svg" alt="" draggable="false"><span>${name}</span>`;
+ button.innerHTML=`<img src="./webgl/ui/flags/${code}.svg" alt="" draggable="false"><span>${name}</span>`;
  button.addEventListener('click',()=>{if(action('select',index))selected(index);});grid.append(button);
 }
 for(const [selector,name] of [['.team-back','back'],['.team-confirm','confirm']]){

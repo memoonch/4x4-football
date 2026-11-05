@@ -1,20 +1,19 @@
-4x4 Football — website build
+4x4 Football — portable HTML build
 
-Upload the CONTENTS of this folder to your website document root. Open index.html
-over HTTPS. WebGL is the default; ?engine=legacy selects the Ruffle-only fallback.
-This build uses root-relative asset paths, including inside the SWF. It must be
-hosted at the domain root (or a dedicated subdomain), not an arbitrary subfolder.
-No Node server or build tools are required on the website.
+Extract this ZIP and upload ALL contents together. Open index.html via your
+website URL, e.g. https://example.com/games/4x4-football/index.html .
+Root and subfolder hosting are supported. No Node server is needed online.
+Do not upload the ZIP without extracting unless your host extracts game ZIPs.
+Do not open through file://; browser modules and WebAssembly need HTTP/HTTPS.
+For local testing: python -m http.server 8081 from this folder, then open
+http://localhost:8081/index.html .
 
-Serve .js as text/javascript, .wasm as application/wasm, .json as application/json,
-.css as text/css, .svg as image/svg+xml, .webp as image/webp and .ttf as font/ttf.
-Keep all folders intact. UI artwork is optimized; original gameplay textures retained.
-If embedding, point an iframe at the hosted index.html and allow fullscreen and
-autoplay. Suggested iframe size: 960 x 540. Layout shrinks for smaller viewports.
+Keep build/, webgl/, vendor/ and decompiled/ beside index.html.
+Serve JS as text/javascript and WASM as application/wasm. Allow scripts,
+WebAssembly, WebGL and same-origin assets. An iframe needs allow-scripts and
+allow-same-origin if sandboxed. Autoplay sound depends on browser permissions.
+WebGL is default; the legacy fallback is ?engine=legacy.
+All included third-party licenses remain in their corresponding folders.
 
-Includes the current three-stage player handling preset and Space handbrake.
-U-key championship preview is disabled. FPS starts hidden; Tab toggles it.
-Third-party runtime/font licenses are included. Original game ownership is unchanged.
-
-Validation: package files and JavaScript syntax checked. Full match playtesting
-and deployment on your hosting provider are still required before publishing.
+Windows local play: double-click PLAY-LOCAL.cmd (requires Python 3).
+The launcher opens the game using HTTP automatically. Keep its window open.
