@@ -33,13 +33,23 @@
   @media(prefers-reduced-motion:reduce){#game-loading .loading-spinner{animation:none}}
 </style>
 <main>
-  <div id="game-shell"><div id="game"><section id="boot-ui" aria-label="Loading 4x4 Football"><div class="boot-card"><img class="boot-logo" src="/webgl/ui/boot-logo.svg?v=clean-edge-2" alt="4x4 Football" fetchpriority="high"><div class="boot-track" role="progressbar" aria-label="Loading game" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><strong class="boot-status">LOADING GAME</strong></div></section></div></div>
+  <div id="game-shell"><div id="game"><section id="boot-ui" aria-label="Loading 4x4 Football"><div class="boot-card"><img class="boot-logo" src="/webgl/ui/boot-logo.svg?v=clean-edge-2" alt="4x4 Football" fetchpriority="high"><div class="boot-track" role="progressbar" aria-label="Loading game" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i style="width:0%"></i></div><strong class="boot-status">LOADING GAME · 0%</strong></div></section></div></div>
   <div hidden aria-hidden="true">
   <p id="status">Loading player…</p>
   <p id="memory" style="text-align:center;font-size:13px">Memory: measuring browser JS heap…</p>
   <details><summary>Graphics diagnostics</summary><pre id="graphics" style="white-space:pre-wrap">Waiting for renderer…</pre></details>
   </div>
 </main>
+<script>
+  // Paint zero once, then quickly fill the initial startup segment.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const track=document.querySelector('#boot-ui .boot-track');
+    if(!track || Number(track.getAttribute('aria-valuenow'))>0)return;
+    track.setAttribute('aria-valuenow','20');
+    const fill=track.querySelector('i');fill.style.transition='width 150ms ease-out';fill.style.width='20%';
+    document.querySelector('#boot-ui .boot-status').textContent='LOADING GAME · 20%';
+  }));
+</script>
 <script src="/vendor/ruffle-gpu/ruffle.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
